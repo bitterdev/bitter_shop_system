@@ -1,0 +1,8 @@
+{
+  "require": {
+    "sofort/sofortlib-php": "3.*",
+    "paypal/rest-api-sdk-php": "^1.14",
+    "ext-simplexml": "*",
+    "ext-json": "*"
+  }
+}

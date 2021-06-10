@@ -1,0 +1,40 @@
+/**
+ * @project:   Bitter Shop System
+ *
+ * @author     Fabian Bitter (fabian@bitter.de)
+ * @copyright  (C) 2021 Fabian Bitter (www.bitter.de)
+ * @version    X.X.X
+ */
+
+.ccm-page .product-list {
+    display: flex;
+    align-items: stretch;
+    justify-items: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.ccm-page .product-list .product-list-item {
+    margin-bottom: 15px;
+}
+
+.ccm-page .product-list .product-list-item .product-image {
+    min-width: 100%;
+}
+
+.ccm-page .product-list .product-list-item .price {
+    margin-bottom: 15px;
+}
+
+.ccm-page .product-list .product-list-item .price .old {
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration: line-through;
+    color: #ff0000;
+}
+
+.ccm-page .product-list .product-list-item .price .new,
+.ccm-page .product-list .product-list-item .price .regular {
+    display: inline-block;
+    font-weight: bold;
+}
