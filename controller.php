@@ -80,8 +80,12 @@ class Controller extends Package implements ProviderAggregateInterface
 
         $this->installContentFile("data.xml");
 
+        $isStartingPointInstallation = $request->getPath() === "/install/run_routine/professional_shop/install_content";
+
         if ($request->request->has("installSampleContent") ||
-            $this->app->isRunThroughCommandLineInterface()) {
+            $this->app->isRunThroughCommandLineInterface() ||
+            $isStartingPointInstallation) {
+
             if (is_dir($this->getPackagePath() . '/content_files')) {
                 $contentImporter = new ContentImporter();
                 $computeThumbnails = true;
@@ -97,7 +101,8 @@ class Controller extends Package implements ProviderAggregateInterface
         }
 
         if ($request->request->has("enablePublicRegistration") ||
-            $this->app->isRunThroughCommandLineInterface()) {
+            $this->app->isRunThroughCommandLineInterface() |
+            $isStartingPointInstallation) {
             $config->save('concrete.user.registration.enabled', true);
             $config->save('concrete.user.registration.type', 'enabled');
         }
