@@ -51,6 +51,11 @@ class Manager extends CoreManager
         return new Coupon();
     }
 
+    protected function createPdfEditorBlockDriver()
+    {
+        return new PdfEditor\Block();
+    }
+
     public function __construct($app)
     {
         parent::__construct($app);
@@ -62,5 +67,6 @@ class Manager extends CoreManager
         $this->driver('tax_rate');
         $this->driver('coupon');
         $this->driver('category');
+        $this->driver('pdf_editor_block');
     }
 }

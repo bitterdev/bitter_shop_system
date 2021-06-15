@@ -16,6 +16,7 @@ use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportCatego
 use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportCouponsRoutine;
 use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportCustomersRoutine;
 use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportOrdersRoutine;
+use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportPdfEditorRoutine;
 use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportProductsRoutine;
 use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportShippingCostsRoutine;
 use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportTaxRatesRoutine;
@@ -26,6 +27,7 @@ use Bitter\BitterShopSystem\Entity\Customer;
 use Bitter\BitterShopSystem\MigrationTool\Exporter\Item\Type\Manager as ExportManager;
 use Bitter\BitterShopSystem\Routing\RouteList;
 use Concrete\Core\Application\Application;
+use Concrete\Core\Asset\AssetList;
 use Concrete\Core\Attribute\Category\CategoryService;
 use Concrete\Core\Backup\ContentImporter\Importer\Manager as ImporterManager;
 use Concrete\Core\Entity\Package as PackageEntity;
@@ -37,6 +39,7 @@ use Concrete\Core\Package\PackageService;
 use Concrete\Core\Routing\RouterInterface;
 use Concrete\Core\Package\ItemCategory\Manager as CorePackageItemCategoryManager;
 use Bitter\BitterShopSystem\Package\ItemCategory\Manager as PackageItemCategoryManager;
+use Concrete\Package\BitterShopSystem\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ServiceProvider extends Provider
@@ -45,6 +48,8 @@ class ServiceProvider extends Provider
     protected $eventDispatcher;
     protected $cartService;
     protected $packageService;
+    /** @var Controller */
+    protected $pkg;
 
     public function __construct(
         Application $app,
@@ -60,6 +65,7 @@ class ServiceProvider extends Provider
         $this->eventDispatcher = $eventDispatcher;
         $this->cartService = $cartService;
         $this->packageService = $packageService;
+        $this->pkg = $this->packageService->getByHandle("bitter_shop_system")->getController();
     }
 
     public function register()
@@ -73,6 +79,20 @@ class ServiceProvider extends Provider
         $this->registerEventHandlers();
         $this->overrideExporterCategoryManager();
         $this->overrideNotificationManager();
+        $this->registerAssets();
+    }
+
+    private function registerAssets()
+    {
+        $assetList = AssetList::getInstance();
+        $assetList->register("javascript", "bitter_shop_system/pdf_editor", "js/pdf_editor.js", ["minify" => false, "combine" => false], $this->pkg);
+        $assetList->register("javascript-localized", "bitter_shop_system/pdf_editor", "/ccm/assets/localization/bitter_shop_system/js", [], $this->pkg);
+        $assetList->register("css", "bitter_shop_system/pdf_editor", "css/pdf_editor.css", ["minify" => false], $this->pkg);
+        $assetList->registerGroup("bitter_shop_system/pdf_editor", [
+            ["javascript", "bitter_shop_system/pdf_editor"],
+            ["javascript-localized", "bitter_shop_system/pdf_editor"],
+            ["css", "bitter_shop_system/pdf_editor"]
+        ]);
     }
 
     private function overrideNotificationManager()
@@ -194,6 +214,7 @@ class ServiceProvider extends Provider
                 $importer->registerImporterRoutine($app->make(ImportCustomersRoutine::class));
                 $importer->registerImporterRoutine($app->make(ImportOrdersRoutine::class));
                 $importer->registerImporterRoutine($app->make(ImportCouponsRoutine::class));
+                $importer->registerImporterRoutine($app->make(ImportPdfEditorRoutine::class));
 
                 return $importer;
             }

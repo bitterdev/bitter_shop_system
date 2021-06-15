@@ -13,20 +13,24 @@ namespace Concrete\Package\BitterShopSystem\Controller\SinglePage\Account;
 use Bitter\BitterShopSystem\Entity\Customer;
 use Bitter\BitterShopSystem\Entity\Order;
 use Bitter\BitterShopSystem\Order\OrderService;
+use Bitter\BitterShopSystem\OrderConfirmation\OrderConfirmationService;
 use Concrete\Core\Entity\User\User;
 use Concrete\Core\Http\ResponseFactory;
 use Concrete\Core\Page\Controller\AccountPageController;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Support\Facade\Url;
+use Symfony\Component\HttpFoundation\Response;
 
 class Orders extends AccountPageController
 {
-    public function details($orderId = null)
+    public function download($orderId = null)
     {
         /** @var OrderService $orderService */
         $orderService = $this->app->make(OrderService::class);
         /** @var ResponseFactory $responseFactory */
         $responseFactory = $this->app->make(ResponseFactory::class);
+        /** @var OrderConfirmationService $orderConfirmationService */
+        $orderConfirmationService = $this->app->make(OrderConfirmationService::class);
         $order = $orderService->getById((int)$orderId);
         $user = new \Concrete\Core\User\User();
 
@@ -37,9 +41,15 @@ class Orders extends AccountPageController
 
                 if ($userEntity instanceof User) {
                     if ($user->getUserID() == $userEntity->getUserID()) {
-                        $this->set("order", $order);
-                        $this->render("/account/orders/details");
-                        return null;
+                        $pdfData = $orderConfirmationService->createPdfOrderConfirmation($order)->Output("S");
+
+                        $response = new Response();
+                        $response->headers->set('Cache-Control', 'private');
+                        $response->headers->set('Content-type', "application/pdf");
+                        $response->headers->set('Content-length', strlen($pdfData));
+                        $response->sendHeaders();
+                        $response->setContent($pdfData);
+                        return $response;
                     }
                 }
             }

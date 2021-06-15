@@ -10,7 +10,6 @@
 
 namespace Bitter\BitterShopSystem\Transformer;
 
-use Bitter\BitterShopSystem\Enumerations\CurrencySymbolPositions;
 use Concrete\Core\Config\Repository\Repository;
 
 class MoneyTransformer
@@ -36,7 +35,7 @@ class MoneyTransformer
         $currencySymbol = (string)$this->config->get("bitter_shop_system.money_formatting.currency_symbol", "$");
         $space = str_repeat(" ", (int)$this->config->get("bitter_shop_system.money_formatting.currency_symbol_spaces", 1));
 
-        if ((string)$this->config->get("bitter_shop_system.money_formatting.currency_symbol_position", CurrencySymbolPositions::POS_LEFT) === CurrencySymbolPositions::POS_LEFT) {
+        if ((string)$this->config->get("bitter_shop_system.money_formatting.currency_symbol_position", "left")) {
             if ($amount < 0) {
                 $valueFormatted = number_format(
                     $amount * -1,

@@ -131,6 +131,7 @@ class Controller extends Package implements ProviderAggregateInterface
             $db->executeQuery("TRUNCATE TABLE Category");
             $db->executeQuery("TRUNCATE TABLE TaxRateVariant");
             $db->executeQuery("TRUNCATE TABLE ShippingCostVariant");
+            $db->executeQuery("TRUNCATE TABLE PdfEditorBlocks");
             $db->executeQuery("TRUNCATE TABLE SavedCustomerSearchQueries");
             $db->executeQuery("TRUNCATE TABLE SavedOrderSearchQueries");
             $db->executeQuery("TRUNCATE TABLE SavedProductSearchQueries");

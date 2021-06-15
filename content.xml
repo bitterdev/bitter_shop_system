@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <concrete5-cif version="1.0">
+    <pdfeditor>
+        <settings grid-size="5" enable-grid="1" paper-width="210" paper-height="297" paper-orientation="portrait"
+                  margin-top="45" margin-bottom="45" margin-left="25" margin-right="20"
+                  letterhead-first-page="{ccm:export:file:letterhead.pdf}"
+                  letterhead-following-page="{ccm:export:file:letterhead.pdf}"/>
+        <blocks>
+            <block block-type-handle="content" font-color="#000000" font-name="Helvetica" font-size="12" height="37"
+                   width="80" top="50" left="25" package="bitter_shop_system">
+                <content>
+                    <![CDATA[{{customer.getFirstName}} {{customer.getLastName}}
+{{customer.getBillingAddress}}]]>
+                </content>
+            </block>
+            <block block-type-handle="content" font-color="#000000" font-name="Helvetica" font-size="12" height="25"
+                   width="165" top="115" left="25" package="bitter_shop_system">
+                <content>
+                    <![CDATA[Dear Customer,
+
+thank you for your order.]]>
+                </content>
+            </block>
+            <block block-type-handle="order_table" font-color="#000000" font-name="Helvetica" font-size="12"
+                   height="100"
+                   width="165" top="150" left="25" package="bitter_shop_system">
+                <content>
+                    <![CDATA[ ]]>
+                </content>
+            </block>
+        </blocks>
+    </pdfeditor>
     <taxrates>
         <taxrate rate="10" name="Sample Tax" handle="sample_tax" package="bitter_shop_system"/>
     </taxrates>
     <categories>
-        <category name="Consumer Electronics" handle="consumer_electronics" package="bitter_shop_system" />
+        <category name="Consumer Electronics" handle="consumer_electronics" package="bitter_shop_system"/>
     </categories>
     <shippingcosts>
         <shippingcost price="5.99" name="Sample Shipping Cost" handle="sample_shipping_cost" tax-rate="sample_tax"

@@ -8,10 +8,8 @@
  * @version    X.X.X
  */
 
-namespace Bitter\BitterShopSystem\Enumerations;
+defined('C5_EXECUTE') or die("Access Denied.");
 
-abstract class CurrencySymbolPositions
-{
-    const POS_LEFT = "left";
-    const POS_RIGHT = "right";
-}
+use Bitter\BitterShopSystem\Entity\PdfEditor\Block;
+
+/** @var Block $block */

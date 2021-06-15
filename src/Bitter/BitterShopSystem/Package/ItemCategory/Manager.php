@@ -21,6 +21,11 @@ class Manager extends CoreManager
         return $this->app->make(Coupon::class);
     }
 
+    public function createPdfEditorBlockDriver(): Product
+    {
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $this->app->make(PdfEditor\Block::class);
+    }
     public function createProductDriver(): Product
     {
         /** @noinspection PhpUndefinedMethodInspection */
@@ -59,6 +64,6 @@ class Manager extends CoreManager
 
     public function getPackageItemCategories()
     {
-        return parent::getPackageItemCategories() + ["product", "shipping_cost", "tax_rate", "customer", "order", "coupon", "category"];
+        return parent::getPackageItemCategories() + ["product", "shipping_cost", "tax_rate", "customer", "order", "coupon", "category", "pdf_editor_block"];
     }
 }

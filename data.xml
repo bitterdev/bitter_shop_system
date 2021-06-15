@@ -139,6 +139,10 @@
               filename="/dashboard/bitter_shop_system/settings.php" pagetype="" description=""
               package="bitter_shop_system">
         </page>
+        <page name="Order Confirmation" path="/dashboard/bitter_shop_system/settings/order_confirmation"
+              filename="/dashboard/bitter_shop_system/settings/order_confirmation.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
         <page name="Customers" path="/dashboard/bitter_shop_system/customers"
               filename="/dashboard/bitter_shop_system/customers.php" pagetype="" description=""
               package="bitter_shop_system">

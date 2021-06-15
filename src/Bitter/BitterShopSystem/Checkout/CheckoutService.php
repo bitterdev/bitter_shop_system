@@ -30,6 +30,7 @@ use Bitter\BitterShopSystem\Events\CustomerUpdated;
 use Bitter\BitterShopSystem\Events\OrderCreated;
 use Bitter\BitterShopSystem\Notification\Type\OrderCreatedType;
 use Bitter\BitterShopSystem\Order\OrderService;
+use Bitter\BitterShopSystem\OrderConfirmation\OrderConfirmationService;
 use Bitter\BitterShopSystem\PaymentProvider\PaymentProviderInterface;
 use Bitter\BitterShopSystem\PaymentProvider\PaymentProviderService;
 use Bitter\BitterShopSystem\Product\ProductService;
@@ -513,6 +514,8 @@ class CheckoutService implements ObjectInterface
         $registrationService = $this->app->make(RegistrationService::class);
         /** @var OrderService $orderService */
         $orderService = $this->app->make(OrderService::class);
+        /** @var OrderConfirmationService $orderConfirmationService */
+        $orderConfirmationService = $this->app->make(OrderConfirmationService::class);
         $categoryEntity = $service->getByHandle('customer');
         /** @var CustomerCategory $category */
         $category = $categoryEntity->getController();
@@ -679,6 +682,7 @@ class CheckoutService implements ObjectInterface
 
         $mailService->addParameter("order", $order);
         $mailService->load("order_confirmation", "bitter_shop_system");
+        $mailService->addRawAttachment($orderConfirmationService->createPdfOrderConfirmation($order)->Output("S"), t("Order Confirmation") . ".pdf", "application/pdf");
         $mailService->to($this->getCustomerMailAddress());
 
         if (filter_var($config->get("bitter_shop_system.notification_mail_address"), FILTER_VALIDATE_EMAIL)) {

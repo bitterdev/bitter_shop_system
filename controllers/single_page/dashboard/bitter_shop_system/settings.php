@@ -10,7 +10,6 @@
 
 namespace Concrete\Package\BitterShopSystem\Controller\SinglePage\Dashboard\BitterShopSystem;
 
-use Bitter\BitterShopSystem\Enumerations\CurrencySymbolPositions;
 use Bitter\BitterShopSystem\PaymentProvider\PaymentConfigurationInterface;
 use Bitter\BitterShopSystem\PaymentProvider\PaymentProviderService;
 use Bitter\BitterShopSystem\ShippingCost\ShippingCostService as ShippingCostService;
@@ -94,8 +93,8 @@ class Settings extends DashboardPageController
         }
 
         $this->set("currencySymbolPositions", [
-            CurrencySymbolPositions::POS_LEFT => t("Left"),
-            CurrencySymbolPositions::POS_RIGHT => t("Right")
+            "left" => t("Left"),
+            "right" => t("Right")
         ]);
 
         $this->set("displayPricesIncludingTax", (bool)$this->config->get("bitter_shop_system.display_prices_including_tax", false));
@@ -104,7 +103,7 @@ class Settings extends DashboardPageController
         $this->set("privacyPolicyPageId", (int)$this->config->get("bitter_shop_system.privacy_policy_page_id"));
         $this->set("currencySymbol", (string)$this->config->get("bitter_shop_system.money_formatting.currency_symbol", "$"));
         $this->set("currencyCode", (string)$this->config->get("bitter_shop_system.money_formatting.currency_code", "USD"));
-        $this->set("currencySymbolPosition", (string)$this->config->get("bitter_shop_system.money_formatting.currency_symbol_position", CurrencySymbolPositions::POS_LEFT));
+        $this->set("currencySymbolPosition", (string)$this->config->get("bitter_shop_system.money_formatting.currency_symbol_position", "left"));
         $this->set("currencySymbolSpaces", (int)$this->config->get("bitter_shop_system.money_formatting.currency_symbol_spaces", 1));
         $this->set("decimals", (int)$this->config->get("bitter_shop_system.money_formatting.decimals", 2));
         $this->set("decimalPoint", (string)$this->config->get("bitter_shop_system.money_formatting.decimal_point", "."));

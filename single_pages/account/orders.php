@@ -52,7 +52,7 @@ $dateService = $app->make(Date::class);
         <?php foreach ($orders as $order) { ?>
             <tr>
                 <td>
-                    <a href="<?php echo Url::to(Page::getCurrentPage(), "details", $order->getId()) ?>">
+                    <a href="<?php echo Url::to(Page::getCurrentPage(), "download", $order->getId()) ?>">
                         <?php echo t("Order %s", $order->getId()); ?>
                     </a>
                 </td>

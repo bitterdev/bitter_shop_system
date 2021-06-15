@@ -12,6 +12,7 @@ namespace Bitter\BitterShopSystem\Routing;
 
 use Bitter\BitterShopSystem\API\V1\Middleware\FractalNegotiatorMiddleware;
 use Bitter\BitterShopSystem\API\V1\Payments;
+use Bitter\BitterShopSystem\API\V1\PdfEditor;
 use Concrete\Core\Routing\RouteListInterface;
 use Concrete\Core\Routing\Router;
 
@@ -20,7 +21,7 @@ class RouteList implements RouteListInterface
     public function loadRoutes(Router $router)
     {
         /*
-         * API
+         * API (Public)
          */
 
         $router
@@ -31,6 +32,21 @@ class RouteList implements RouteListInterface
                 /** @var $groupRouter Router */
                 /** @noinspection PhpParamsInspection */
                 $groupRouter->all('/payments/process_payment/{paymentProviderHandle}', [Payments::class, 'processPayment']);
+            });
+
+        /*
+         * API (Private)
+         */
+
+        $router
+            ->buildGroup()
+            ->setPrefix('/api/v1')
+            ->addMiddleware(FractalNegotiatorMiddleware::class)
+            ->routes(function ($groupRouter) {
+                /** @var $groupRouter Router */
+                /** @noinspection PhpParamsInspection */
+                $groupRouter->all('/pdf_editor/remove_block', [PdfEditor::class, 'removeBlock']);
+                $groupRouter->all('/pdf_editor/resize_block', [PdfEditor::class, 'resizeBlock']);
             });
 
         /*
@@ -135,5 +151,35 @@ class RouteList implements RouteListInterface
             ->setNamespace('Concrete\Package\BitterShopSystem\Controller\Dialog\Support')
             ->setPrefix('/ccm/system/dialogs/bitter_shop_system')
             ->routes('dialogs/support.php', 'bitter_shop_system');
+
+        /*
+         * Pdf Editor Dialogs
+         */
+
+        $router
+            ->buildGroup()
+            ->setNamespace('Concrete\Package\BitterShopSystem\Controller\Dialog\PdfEditor')
+            ->setPrefix('/ccm/system/dialogs/pdf_editor')
+            ->routes('dialogs/pdf_editor.php', 'bitter_shop_system');
+
+        /*
+         * Panels
+         */
+
+        $router
+            ->buildGroup()
+            ->setNamespace('Concrete\Package\BitterShopSystem\Controller\Panel\PdfEditor')
+            ->setPrefix('/ccm/system/panels/pdf_editor')
+            ->routes('panels.php', 'bitter_shop_system');
+
+        /*
+         * Asset Translations
+         */
+
+        $router
+            ->buildGroup()
+            ->setNamespace('Concrete\Package\BitterShopSystem\Controller\Frontend')
+            ->setPrefix('/ccm/assets/localization/bitter_shop_system')
+            ->routes('assets_localization.php', 'bitter_shop_system');
     }
 }

@@ -1,8 +1,19 @@
 {
+  "name": "bitter/bitter_shop_system",
+  "description": "Powerful Shop System for ConcreteCMS.",
+  "type": "concrete5-package",
+  "autoload": {
+    "psr-4": {
+      "Bitter\\BitterShopSystem\\": "src/Bitter/BitterShopSystem"
+    }
+  },
   "require": {
+    "setasign/fpdi": "^2.3",
+    "setasign/fpdf": "^1.8",
     "sofort/sofortlib-php": "3.*",
     "paypal/rest-api-sdk-php": "^1.14",
     "ext-simplexml": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "symfony/property-access": "^5.3"
   }
 }
