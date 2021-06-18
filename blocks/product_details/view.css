@@ -17,6 +17,7 @@
 
 .ccm-page .product-details .product-header .detail-images {
     display: flex;
+    margin-bottom: 15px;
 }
 
 .ccm-page .product-details .product-header .detail-images .detail-image {

@@ -25,7 +25,7 @@ use Exception;
 class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'bitter_shop_system';
-    protected $appVersionRequired = '8.5.5';
+    protected $appVersionRequired = '8.5.4';
     protected $pkgVersion = '2.0.0';
     protected $pkgAutoloaderRegistries = [
         'src/Bitter/BitterShopSystem' => 'Bitter\BitterShopSystem',
