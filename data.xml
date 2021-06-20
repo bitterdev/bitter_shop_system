@@ -222,6 +222,9 @@
         <page name="Cart" path="/cart" public-date="2020-11-22 14:21:05" filename=""
               pagetype="page"
               template="full" user="admin" description="" package="bitter_shop_system">
+            <attributekey handle="exclude_nav">
+                <value><![CDATA[1]]></value>
+            </attributekey>
             <area name="Main">
                 <blocks>
                     <block type="cart" name="">
