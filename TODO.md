@@ -9,3 +9,4 @@ Bekannte Bugs:
 - Core-Patch für extend/install.php (um bei den Paket-Details eigene Kategorien anzuzeigen)
 - Pagination funktioniert nicht im Frontend
 - Nicht die verknüpften Elemente löschen wenn man eine Doctrine Entity löscht
+- Calculation issue in total when taxes are included
