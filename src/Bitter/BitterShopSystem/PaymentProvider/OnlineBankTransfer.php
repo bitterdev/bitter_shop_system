@@ -76,7 +76,7 @@ class OnlineBankTransfer extends PaymentProvider implements PaymentProviderInter
         $sofortBanking->setReason(t("Order"));
         $sofortBanking->setSuccessUrl((string)Url::to(Page::getCurrentPage(), "complete"), true);
         $sofortBanking->setAbortUrl((string)Url::to(Page::getCurrentPage(), "payment_failed"));
-        $sofortBanking->setNotificationUrl((string)Url::to("/api/v1/bitter_shop_system/payments/process_payment/online_bank_transfer"));
+        $sofortBanking->setNotificationUrl((string)Url::to("/api/v1/payments/process_payment/online_bank_transfer"));
 
         $sofortBanking->sendRequest();
 

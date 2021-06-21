@@ -144,7 +144,7 @@ class Paypal extends PaymentProvider implements PaymentProviderInterface
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls
-            ->setReturnUrl((string)Url::to("/api/v1/bitter_shop_system/payments/process_payment/paypal")->setQuery([
+            ->setReturnUrl((string)Url::to("/api/v1/payments/process_payment/paypal")->setQuery([
                 "orderId" => $order->getId()
             ]))
             ->setCancelUrl((string)Url::to(Page::getCurrentPage(), "payment_failed"));

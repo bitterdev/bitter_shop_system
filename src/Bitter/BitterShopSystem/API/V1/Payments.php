@@ -27,9 +27,7 @@ class Payments
         $this->paymentProviderService = $paymentProviderService;
     }
 
-    public function processPayment(
-        ?string $paymentProviderHandle = null
-    ): JsonResponse
+    public function processPayment($paymentProviderHandle): JsonResponse
     {
         $editResponse = new EditResponse();
         $errorList = new ErrorList();
