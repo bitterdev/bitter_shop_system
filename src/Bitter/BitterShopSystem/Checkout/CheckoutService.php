@@ -193,7 +193,7 @@ class CheckoutService implements ObjectInterface
         foreach ($this->session->get("cartItems", []) as $cartItemRaw) {
             $cartItem = json_decode($cartItemRaw, true);
 
-            if ($this->getCheckoutPage() instanceof Page) {
+            if ($this->getCheckoutPage() instanceof Page && !$this->getCheckoutPage()->isError()) {
                 // if a checkout page is stored in the session use this page to prevent issues with epayment providers.
                 $product = $this->productService->getByHandleWithLocale($cartItem["product"]["handle"], Section::getBySectionOfSite($this->getCheckoutPage())->getLocale());
             } else {
