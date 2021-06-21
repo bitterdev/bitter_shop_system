@@ -388,7 +388,7 @@ class CheckoutService implements ObjectInterface
         $this->session->save();
     }
 
-    public function setCheckoutPage(): ?Page
+    public function getCheckoutPage(): ?Page
     {
         return Page::getByID($this->getCheckoutPageId());
     }
@@ -528,8 +528,6 @@ class CheckoutService implements ObjectInterface
 
             $customer = $customerService->getById((int)$this->session->get("customerId"));
         } else {
-            // temporary save the checkout page
-            $this->setCheckoutPageId(Page::getCurrentPage()->getCollectionID());
 
             if ($this->getSelectedCheckoutMethod() === "register") {
                 $userInfo = $registrationService->create([

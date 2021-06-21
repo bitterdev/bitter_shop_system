@@ -74,13 +74,13 @@ class Paypal extends PaymentProvider implements PaymentProviderInterface
                 }
             }
 
-            $this->responseFactory->redirect((string)Url::to($this->checkoutService->setCheckoutPage(), "complete"), Response::HTTP_TEMPORARY_REDIRECT)->send();
+            $this->responseFactory->redirect((string)Url::to($this->checkoutService->getCheckoutPage(), "complete"), Response::HTTP_TEMPORARY_REDIRECT)->send();
             $this->app->shutdown();
 
         } catch (Exception $ex) {
             $this->logger->error($ex->getMessage());
 
-            $this->responseFactory->redirect((string)Url::to($this->checkoutService->setCheckoutPage(), "payment_failed"), Response::HTTP_TEMPORARY_REDIRECT)->send();
+            $this->responseFactory->redirect((string)Url::to($this->checkoutService->getCheckoutPage(), "payment_failed"), Response::HTTP_TEMPORARY_REDIRECT)->send();
             $this->app->shutdown();
         }
     }
