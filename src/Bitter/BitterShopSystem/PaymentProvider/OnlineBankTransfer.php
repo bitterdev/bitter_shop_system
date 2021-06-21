@@ -74,15 +74,15 @@ class OnlineBankTransfer extends PaymentProvider implements PaymentProviderInter
         $sofortBanking->setAmount($this->checkoutService->getTotal());
         $sofortBanking->setCurrencyCode($this->config->get("bitter_shop_system.money_formatting.currency_code", "USD"));
         $sofortBanking->setReason(t("Order"));
-        $sofortBanking->setSuccessUrl((string)Url::to(Page::getCurrentPage(), "complete"), true);
-        $sofortBanking->setAbortUrl((string)Url::to(Page::getCurrentPage(), "payment_failed"));
+        $sofortBanking->setSuccessUrl((string)Url::to($this->checkoutService->getCheckoutPage(), "complete"), true);
+        $sofortBanking->setAbortUrl((string)Url::to($this->checkoutService->getCheckoutPage(), "payment_failed"));
         $sofortBanking->setNotificationUrl((string)Url::to("/api/v1/payments/process_payment/online_bank_transfer"));
 
         $sofortBanking->sendRequest();
 
         if ($sofortBanking->isError()) {
             $this->logger->error($sofortBanking->getError());
-            $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), "payment_failed"), Response::HTTP_TEMPORARY_REDIRECT)->send();
+            $this->responseFactory->redirect((string)Url::to($this->checkoutService->getCheckoutPage(), "payment_failed"), Response::HTTP_TEMPORARY_REDIRECT)->send();
         } else {
             $order = $this->checkoutService->transformToRealOrder();
             $order->setTransactionId($sofortBanking->getTransactionId());

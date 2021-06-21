@@ -35,7 +35,7 @@ class Payments
         $paymentProvider = $this->paymentProviderService->getByHandle($paymentProviderHandle);
 
         if ($paymentProvider instanceof PaymentProviderInterface) {
-            $paymentProvider->processPayment();
+            $paymentProvider->processPaymentNotification();
 
             $editResponse->setMessage(t("Payment processed successfully."));
         } else {

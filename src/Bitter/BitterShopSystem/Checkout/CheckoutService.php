@@ -531,8 +531,11 @@ class CheckoutService implements ObjectInterface
 
         if ($this->session->has("temporaryOrderId")) {
             $order = $orderService->getById((int)$this->session->get("temporaryOrderId"));
-            $entityManager->remove($order);
-            $entityManager->flush();
+
+            if ($order instanceof Order) {
+                $entityManager->remove($order);
+                $entityManager->flush();
+            }
 
             $customer = $customerService->getById((int)$this->session->get("customerId"));
         } else {
