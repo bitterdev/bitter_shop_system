@@ -41,6 +41,7 @@ use Concrete\Core\Config\Repository\Repository;
 use Concrete\Core\Entity\Attribute\Value\Value\AddressValue;
 use Concrete\Core\Error\ErrorList\ErrorList;
 use Concrete\Core\Mail\Service;
+use Concrete\Core\Multilingual\Page\Section\Section;
 use Concrete\Core\Notification\Type\Manager;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Permission\IpAccessControlService;
@@ -191,7 +192,14 @@ class CheckoutService implements ObjectInterface
 
         foreach ($this->session->get("cartItems", []) as $cartItemRaw) {
             $cartItem = json_decode($cartItemRaw, true);
-            $product = $this->productService->getByHandleWithCurrentLocale($cartItem["product"]["handle"]);
+
+            if ($this->getCheckoutPage() instanceof Page) {
+                // if a checkout page is stored in the session use this page to prevent issues with epayment providers.
+                $product = $this->productService->getByHandleWithLocale($cartItem["product"]["handle"], Section::getBySectionOfSite($this->getCheckoutPage())->getLocale());
+            } else {
+                $product = $this->productService->getByHandleWithCurrentLocale($cartItem["product"]["handle"]);
+            }
+
             $quantity = (int)$cartItem["quantity"];
 
             if ($product instanceof Product) {
