@@ -196,29 +196,16 @@ class ServiceProvider extends Provider
 
     private function addImporterRoutines()
     {
-        /** @noinspection PhpDeprecationInspection */
-        $this->app->bindshared(
-            'import/item/manager',
-            function ($app) {
-                /** @var ImporterManager $importer */
-                $importer = $app->make(ImporterManager::class);
-
-                foreach ($app->make('config')->get('app.importer_routines') as $routine) {
-                    $importer->registerImporterRoutine($app->make($routine));
-                }
-
-                $importer->registerImporterRoutine($app->make(ImportTaxRatesRoutine::class));
-                $importer->registerImporterRoutine($app->make(ImportShippingCostsRoutine::class));
-                $importer->registerImporterRoutine($app->make(ImportCategoriesRoutine::class));
-                $importer->registerImporterRoutine($app->make(ImportProductsRoutine::class));
-                $importer->registerImporterRoutine($app->make(ImportCustomersRoutine::class));
-                $importer->registerImporterRoutine($app->make(ImportOrdersRoutine::class));
-                $importer->registerImporterRoutine($app->make(ImportCouponsRoutine::class));
-                $importer->registerImporterRoutine($app->make(ImportPdfEditorRoutine::class));
-
-                return $importer;
-            }
-        );
+        /** @var ImporterManager $importer */
+        $importer = $this->app->make('import/item/manager');
+        $importer->registerImporterRoutine($this->app->make(ImportTaxRatesRoutine::class));
+        $importer->registerImporterRoutine($this->app->make(ImportShippingCostsRoutine::class));
+        $importer->registerImporterRoutine($this->app->make(ImportCategoriesRoutine::class));
+        $importer->registerImporterRoutine($this->app->make(ImportProductsRoutine::class));
+        $importer->registerImporterRoutine($this->app->make(ImportCustomersRoutine::class));
+        $importer->registerImporterRoutine($this->app->make(ImportOrdersRoutine::class));
+        $importer->registerImporterRoutine($this->app->make(ImportCouponsRoutine::class));
+        $importer->registerImporterRoutine($this->app->make(ImportPdfEditorRoutine::class));
     }
 
     private function initializeAutoloader()
