@@ -12,6 +12,7 @@ namespace Bitter\BitterShopSystem\Provider;
 
 use Bitter\BitterShopSystem\Attribute\Category\CustomerCategory;
 use Bitter\BitterShopSystem\Attribute\Category\Manager;
+use Bitter\BitterShopSystem\Attribute\Key\ProductKey;
 use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportCategoriesRoutine;
 use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportCouponsRoutine;
 use Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine\ImportCustomersRoutine;
@@ -80,6 +81,20 @@ class ServiceProvider extends Provider
         $this->overrideExporterCategoryManager();
         $this->overrideNotificationManager();
         $this->registerAssets();
+        $this->applyCoreFixes();
+    }
+
+    private function applyCoreFixes()
+    {
+        $this->app->bind(
+            '\Concrete\Package\BitterShopSystem\Attribute\Key\ProductKey',
+            ProductKey::class
+        );
+
+        $this->app->bind(
+            '\Concrete\Package\BitterShopSystem\Attribute\Key\CustomerKey',
+            \Bitter\BitterShopSystem\Attribute\Key\CustomerKey::class
+        );
     }
 
     private function registerAssets()
@@ -134,7 +149,6 @@ class ServiceProvider extends Provider
 
     private function registerEventHandlers()
     {
-
         $this->eventDispatcher->addListener("on_user_login", function ($event) {
             /** @var \Concrete\Core\User\Event\User $event */
 

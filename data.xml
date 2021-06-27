@@ -42,10 +42,6 @@
                       indexed="0" type="multiple_files" category="product">
             <type maxfiles="4"/>
         </attributekey>
-        <attributekey handle="ean" name="EAN" package="bitter_shop_system" searchable="1"
-                      indexed="0" type="text" category="product"/>
-        <attributekey handle="sku" name="SKU" package="bitter_shop_system" searchable="1"
-                      indexed="0" type="text" category="product"/>
         <attributekey handle="first_name" name="First Name" package="bitter_shop_system" searchable="1"
                       indexed="0" type="text" category="customer"/>
         <attributekey handle="last_name" name="Last Name" package="bitter_shop_system" searchable="1"
@@ -184,77 +180,4 @@
               package="bitter_shop_system">
         </page>
     </singlepages>
-    <pages>
-        <page name="Shop" path="/shop" public-date="2020-11-22 14:21:05" filename="" pagetype="page"
-              template="full" user="admin" description="" package="bitter_shop_system">
-            <area name="Main">
-                <blocks>
-                    <block type="product_list" name="">
-                        <data table="btProductList">
-                            <record>
-                                <detailsPageId>{ccm:export:page:/shop/details}</detailsPageId>
-                                <itemsPerPage>25</itemsPerPage>
-                            </record>
-                        </data>
-                    </block>
-                </blocks>
-            </area>
-        </page>
-        <page name="Details" path="/shop/details" public-date="2020-11-22 14:21:05" filename="" pagetype="page"
-              template="full" user="admin" description="" package="bitter_shop_system">
-            <attributes>
-                <attributekey handle="exclude_nav">
-                    <value><![CDATA[1]]></value>
-                </attributekey>
-            </attributes>
-            <area name="Main">
-                <blocks>
-                    <block type="product_details" name="">
-                        <data table="btProductDetails">
-                            <record>
-                                <cartPageId>{ccm:export:page:/cart}</cartPageId>
-                            </record>
-                        </data>
-                    </block>
-                </blocks>
-            </area>
-        </page>
-        <page name="Cart" path="/cart" public-date="2020-11-22 14:21:05" filename=""
-              pagetype="page"
-              template="full" user="admin" description="" package="bitter_shop_system">
-            <attributekey handle="exclude_nav">
-                <value><![CDATA[1]]></value>
-            </attributekey>
-            <area name="Main">
-                <blocks>
-                    <block type="cart" name="">
-                        <data table="btCart">
-                            <record>
-                                <checkoutPageId>{ccm:export:page:/shop/checkout}</checkoutPageId>
-                            </record>
-                        </data>
-                    </block>
-                </blocks>
-            </area>
-        </page>
-        <page name="Checkout" path="/shop/checkout" public-date="2020-11-22 14:21:05" filename="" pagetype="page"
-              template="full" user="admin" description="" package="bitter_shop_system">
-            <attributes>
-                <attributekey handle="exclude_nav">
-                    <value><![CDATA[1]]></value>
-                </attributekey>
-            </attributes>
-            <area name="Main">
-                <blocks>
-                    <block type="checkout" name="">
-                        <data table="btCheckout">
-                            <record>
-                                <displayCaptcha>0</displayCaptcha>
-                            </record>
-                        </data>
-                    </block>
-                </blocks>
-            </area>
-        </page>
-    </pages>
 </concrete5-cif>
