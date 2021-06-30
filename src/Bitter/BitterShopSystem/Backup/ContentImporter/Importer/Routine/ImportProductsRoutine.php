@@ -81,7 +81,7 @@ class ImportProductsRoutine extends AbstractRoutine
                 $productEntry->setTaxRate($taxRateService->getByHandle((string)$item["tax-rate"]));
                 $productEntry->setCategory($categoryService->getByHandle((string)$item["category"]));
                 $productEntry->setShortDescription(trim((string)$item->shortdescription));
-                $productEntry->setDescription(trim((string)$item->description));
+                $productEntry->setDescription(trim((string)$valueInspector->inspect((string)$item->description)->getReplacedContent()));
                 $productEntry->setImage(File::getByID($valueInspector->inspect((string)$item->image)->getReplacedValue()));
 
                 $entityManager->persist($productEntry);
