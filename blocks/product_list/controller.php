@@ -19,6 +19,11 @@ use Concrete\Core\Block\BlockController;
 class Controller extends BlockController
 {
     protected $btTable = "btProductList";
+    protected $btCacheBlockRecord = true;
+    protected $btCacheBlockOutput = false;
+    protected $btCacheBlockOutputLifetime = 0;
+    protected $btCacheBlockOutputOnPost = false;
+    protected $btCacheBlockOutputForRegisteredUsers = false;
 
     public function getBlockTypeDescription(): string
     {
