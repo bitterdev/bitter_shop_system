@@ -53,7 +53,7 @@ class OrderPosition
 
     /**
      * @var Product
-     * @ORM\OneToOne(targetEntity="\Bitter\BitterShopSystem\Entity\Product")
+     * @ORM\ManyToOne(targetEntity="\Bitter\BitterShopSystem\Entity\Product")
      * @ORM\JoinColumn(name="productId", referencedColumnName="id")
      */
     protected $product;
