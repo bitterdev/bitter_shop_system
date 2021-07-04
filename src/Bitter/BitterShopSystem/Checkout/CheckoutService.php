@@ -670,19 +670,21 @@ class CheckoutService implements ObjectInterface
         $notification = $notificationType->createNotification($order);
         $notifier->notify($notified, $notification);
 
-        foreach ($this->getAllItems() as $cartItem) {
-            if ($cartItem->getProduct() instanceof Product) {
-                $product = $cartItem->getProduct();
-                $product->setQuantity($product->getQuantity() - $cartItem->getQuantity());
-                $entityManager->persist($product);
+        if ($config->get("bitter_shop_system.update_quantity", true)) {
+            foreach ($this->getAllItems() as $cartItem) {
+                if ($cartItem->getProduct() instanceof Product) {
+                    $product = $cartItem->getProduct();
+                    $product->setQuantity($product->getQuantity() - $cartItem->getQuantity());
+                    $entityManager->persist($product);
+                }
             }
-        }
 
-        if ($this->getCoupon() instanceof Coupon) {
-            $coupon = $this->getCoupon();
-            if ($coupon->isLimitQuantity()) {
-                $coupon->setQuantity($coupon->getQuantity() - 1);
-                $entityManager->persist($coupon);
+            if ($this->getCoupon() instanceof Coupon) {
+                $coupon = $this->getCoupon();
+                if ($coupon->isLimitQuantity()) {
+                    $coupon->setQuantity($coupon->getQuantity() - 1);
+                    $entityManager->persist($coupon);
+                }
             }
         }
 

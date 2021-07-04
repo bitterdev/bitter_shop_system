@@ -17,6 +17,7 @@ use Bitter\BitterShopSystem\Entity\Product;
 use Bitter\BitterShopSystem\Transformer\PriceTransformer;
 use Concrete\Core\Application\Service\UserInterface;
 use Concrete\Core\Attribute\Category\CategoryService;
+use Concrete\Core\Config\Repository\Repository;
 use Concrete\Core\Entity\File\File;
 use Concrete\Core\Entity\File\Version;
 use Concrete\Core\Form\Service\Form;
@@ -31,6 +32,8 @@ use Concrete\Package\BitterShopSystem\Controller;
 
 $c = Page::getCurrentPage();
 $app = Application::getFacadeApplication();
+/** @var Repository $config */
+$config = $app->make(Repository::class);
 /** @var UserInterface $userInterface */
 $userInterface = $app->make(UserInterface::class);
 /** @var Form $form */
@@ -55,8 +58,8 @@ $pkg = $pkgEntity->getController();
 $detailImages = $product->getAttribute("detail_images");
 
 $quantityValues = [];
-
-for ($i = 1; $i <= $product->getQuantity(); $i++) {
+$maxQuantity = (int)$config->get("bitter_shop_system.max_quantity", $product->getQuantity());
+for ($i = 1; $i <= $maxQuantity; $i++) {
     $quantityValues[$i] = $i;
 }
 ?>
