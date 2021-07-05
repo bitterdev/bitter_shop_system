@@ -41,6 +41,7 @@ use Concrete\Core\Config\Repository\Repository;
 use Concrete\Core\Entity\Attribute\Value\Value\AddressValue;
 use Concrete\Core\Error\ErrorList\ErrorList;
 use Concrete\Core\Mail\Service;
+use Concrete\Core\Multilingual\Page\Section\Section;
 use Concrete\Core\Notification\Type\Manager;
 use Concrete\Core\Page\Page;
 use Concrete\Core\Permission\IpAccessControlService;
@@ -191,7 +192,14 @@ class CheckoutService implements ObjectInterface
 
         foreach ($this->session->get("cartItems", []) as $cartItemRaw) {
             $cartItem = json_decode($cartItemRaw, true);
-            $product = $this->productService->getByHandleWithCurrentLocale($cartItem["product"]["handle"]);
+
+            if ($this->getCheckoutPage() instanceof Page && !$this->getCheckoutPage()->isError()) {
+                // if a checkout page is stored in the session use this page to prevent issues with epayment providers.
+                $product = $this->productService->getByHandleWithLocale($cartItem["product"]["handle"], Section::getBySectionOfSite($this->getCheckoutPage())->getLocale());
+            } else {
+                $product = $this->productService->getByHandleWithCurrentLocale($cartItem["product"]["handle"]);
+            }
+
             $quantity = (int)$cartItem["quantity"];
 
             if ($product instanceof Product) {
@@ -388,7 +396,7 @@ class CheckoutService implements ObjectInterface
         $this->session->save();
     }
 
-    public function setCheckoutPage(): ?Page
+    public function getCheckoutPage(): ?Page
     {
         return Page::getByID($this->getCheckoutPageId());
     }
@@ -523,13 +531,14 @@ class CheckoutService implements ObjectInterface
 
         if ($this->session->has("temporaryOrderId")) {
             $order = $orderService->getById((int)$this->session->get("temporaryOrderId"));
-            $entityManager->remove($order);
-            $entityManager->flush();
+
+            if ($order instanceof Order) {
+                $entityManager->remove($order);
+                $entityManager->flush();
+            }
 
             $customer = $customerService->getById((int)$this->session->get("customerId"));
         } else {
-            // temporary save the checkout page
-            $this->setCheckoutPageId(Page::getCurrentPage()->getCollectionID());
 
             if ($this->getSelectedCheckoutMethod() === "register") {
                 $userInfo = $registrationService->create([
@@ -661,19 +670,21 @@ class CheckoutService implements ObjectInterface
         $notification = $notificationType->createNotification($order);
         $notifier->notify($notified, $notification);
 
-        foreach ($this->getAllItems() as $cartItem) {
-            if ($cartItem->getProduct() instanceof Product) {
-                $product = $cartItem->getProduct();
-                $product->setQuantity($product->getQuantity() - $cartItem->getQuantity());
-                $entityManager->persist($product);
+        if ($config->get("bitter_shop_system.update_quantity", true)) {
+            foreach ($this->getAllItems() as $cartItem) {
+                if ($cartItem->getProduct() instanceof Product) {
+                    $product = $cartItem->getProduct();
+                    $product->setQuantity($product->getQuantity() - $cartItem->getQuantity());
+                    $entityManager->persist($product);
+                }
             }
-        }
 
-        if ($this->getCoupon() instanceof Coupon) {
-            $coupon = $this->getCoupon();
-            if ($coupon->isLimitQuantity()) {
-                $coupon->setQuantity($coupon->getQuantity() - 1);
-                $entityManager->persist($coupon);
+            if ($this->getCoupon() instanceof Coupon) {
+                $coupon = $this->getCoupon();
+                if ($coupon->isLimitQuantity()) {
+                    $coupon->setQuantity($coupon->getQuantity() - 1);
+                    $entityManager->persist($coupon);
+                }
             }
         }
 

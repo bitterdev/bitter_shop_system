@@ -46,6 +46,6 @@ class OnlineBankTransfer extends ElementController implements PaymentConfigurati
     {
         /** @var Repository $config */
         $config = $this->app->make(Repository::class);
-        return $config->has("bitter_shop_system.payment_providers.online_bank_transfer.config_key");
+        return strlen($config->get("bitter_shop_system.payment_providers.online_bank_transfer.config_key")) > 0;
     }
 }

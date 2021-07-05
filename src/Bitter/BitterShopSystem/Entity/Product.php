@@ -334,7 +334,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     /**
      * @return File|null
      */
-    public function getImage(): File
+    public function getImage(): ?File
     {
         return $this->image;
     }

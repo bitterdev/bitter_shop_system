@@ -94,8 +94,9 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
 
                             <?php
                             $quantityValues = [];
-
-                            for ($i = 1; $i <= $cartItem->getProduct()->getQuantity(); $i++) {
+                            $quantityValues = [];
+                            $maxQuantity = (int)$config->get("bitter_shop_system.max_quantity", $cartItem->getProduct()->getQuantity());
+                            for ($i = 1; $i <= $maxQuantity; $i++) {
                                 $quantityValues[$i] = $i;
                             }
                             ?>

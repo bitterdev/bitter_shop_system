@@ -130,6 +130,8 @@ class Review extends ElementController
                 }
 
                 if (!$errorList->has()) {
+                    // temporary save the checkout page
+                    $cartService->setCheckoutPageId(Page::getCurrentPage()->getCollectionID());
                     $cartService->getSelectedPaymentProvider()->processPayment();
 
                     $responseFactory->redirect((string)Url::to(Page::getCurrentPage(), "complete"), Response::HTTP_TEMPORARY_REDIRECT)->send();

@@ -66,6 +66,9 @@ class Controller extends BlockController
         $this->productService = $this->app->make(ProductService::class);
         $this->responseFactory = $this->app->make(ResponseFactory::class);
         $this->cartService = $this->app->make(CheckoutService::class);
+
+        // reset the cached checkout page the prevent issues
+        $this->cartService->setCheckoutPageId(0);
     }
 
     public function on_before_render()

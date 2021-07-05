@@ -35,7 +35,7 @@ class MoneyTransformer
         $currencySymbol = (string)$this->config->get("bitter_shop_system.money_formatting.currency_symbol", "$");
         $space = str_repeat(" ", (int)$this->config->get("bitter_shop_system.money_formatting.currency_symbol_spaces", 1));
 
-        if ((string)$this->config->get("bitter_shop_system.money_formatting.currency_symbol_position", "left")) {
+        if ((string)$this->config->get("bitter_shop_system.money_formatting.currency_symbol_position", "left") === "left") {
             if ($amount < 0) {
                 $valueFormatted = number_format(
                     $amount * -1,

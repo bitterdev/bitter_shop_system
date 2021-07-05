@@ -10,6 +10,7 @@
 
 namespace Concrete\Package\BitterShopSystem;
 
+use Bitter\BitterShopSystem\Doctrine\DiscriminatorListener;
 use Bitter\BitterShopSystem\Provider\ServiceProvider;
 use Concrete\Core\Backup\ContentImporter;
 use Concrete\Core\Config\Repository\Repository;
@@ -29,6 +30,7 @@ class Controller extends Package implements ProviderAggregateInterface
     protected $pkgVersion = '2.0.0';
     protected $pkgAutoloaderRegistries = [
         'src/Bitter/BitterShopSystem' => 'Bitter\BitterShopSystem',
+        'src/Bitter/BitterShopSystem/Attribute/Key' => 'Concrete\Package\BitterShopSystem\Attribute\Key'
     ];
 
     public function getPackageDescription(): string
@@ -69,6 +71,8 @@ class Controller extends Package implements ProviderAggregateInterface
      */
     public function install(): \Concrete\Core\Entity\Package
     {
+        $this->getEntityManager()->getEventManager()->addEventSubscriber(new DiscriminatorListener($this->getEntityManager()));
+
         $pkg = parent::install();
         /** @var Request $request */
         $request = $this->app->make(Request::class);
@@ -80,29 +84,16 @@ class Controller extends Package implements ProviderAggregateInterface
 
         $this->installContentFile("data.xml");
 
-        $isStartingPointInstallation = $request->getPath() === "/install/run_routine/professional_shop/finish";
-
-        if ($request->request->has("installSampleContent") ||
-            $this->app->isRunThroughCommandLineInterface() ||
-            $isStartingPointInstallation) {
-
+        if ($request->request->has("installSampleContent")) {
             if (is_dir($this->getPackagePath() . '/content_files')) {
                 $contentImporter = new ContentImporter();
-                $computeThumbnails = true;
-
-                if ($this->contentProvidesFileThumbnails()) {
-                    $computeThumbnails = false;
-                }
-
-                $contentImporter->importFiles($this->getPackagePath() . '/content_files', $computeThumbnails);
+                $contentImporter->importFiles($this->getPackagePath() . '/content_files', true);
             }
 
             $this->installContentFile("content.xml");
         }
 
-        if ($request->request->has("enablePublicRegistration") ||
-            $this->app->isRunThroughCommandLineInterface() |
-            $isStartingPointInstallation) {
+        if ($request->request->has("enablePublicRegistration")) {
             $config->save('concrete.user.registration.enabled', true);
             $config->save('concrete.user.registration.type', 'enabled');
         }
@@ -158,7 +149,7 @@ class Controller extends Package implements ProviderAggregateInterface
             $db->executeQuery("TRUNCATE TABLE btProductList");
             $db->executeQuery("TRUNCATE TABLE btCart");
             $db->executeQuery("SET FOREIGN_KEY_CHECKS = 1;");
-        } catch (DBALException $e) {
+        } /** @noinspection PhpUnusedLocalVariableInspection */ catch (DBALException $e) {
             throw new Exception(t("There was an error while truncating the data."));
         }
 

@@ -12,8 +12,6 @@ namespace Bitter\BitterShopSystem\PaymentProvider;
 
 use Bitter\BitterShopSystem\Entity\Order;
 use Bitter\BitterShopSystem\Events\PaymentFailed;
-use Bitter\BitterShopSystem\Events\PaymentReceived;
-use Concrete\Core\Page\Page;
 use Concrete\Package\BitterShopSystem\Controller\Element\Dashboard\PaymentProviders\Paypal as Configuration;
 use Concrete\Core\Http\Response;
 use Concrete\Core\Support\Facade\Url;
@@ -74,13 +72,13 @@ class Paypal extends PaymentProvider implements PaymentProviderInterface
                 }
             }
 
-            $this->responseFactory->redirect((string)Url::to($this->checkoutService->setCheckoutPage(), "complete"), Response::HTTP_TEMPORARY_REDIRECT)->send();
+            $this->responseFactory->redirect((string)Url::to($this->checkoutService->getCheckoutPage(), "complete"), Response::HTTP_TEMPORARY_REDIRECT)->send();
             $this->app->shutdown();
 
         } catch (Exception $ex) {
             $this->logger->error($ex->getMessage());
 
-            $this->responseFactory->redirect((string)Url::to($this->checkoutService->setCheckoutPage(), "payment_failed"), Response::HTTP_TEMPORARY_REDIRECT)->send();
+            $this->responseFactory->redirect((string)Url::to($this->checkoutService->getCheckoutPage(), "payment_failed"), Response::HTTP_TEMPORARY_REDIRECT)->send();
             $this->app->shutdown();
         }
     }
@@ -144,10 +142,10 @@ class Paypal extends PaymentProvider implements PaymentProviderInterface
 
         $redirectUrls = new RedirectUrls();
         $redirectUrls
-            ->setReturnUrl((string)Url::to("/api/v1/bitter_shop_system/payments/process_payment/paypal")->setQuery([
+            ->setReturnUrl((string)Url::to("/api/v1/payments/process_payment/paypal")->setQuery([
                 "orderId" => $order->getId()
             ]))
-            ->setCancelUrl((string)Url::to(Page::getCurrentPage(), "payment_failed"));
+            ->setCancelUrl((string)Url::to($this->checkoutService->getCheckoutPage(), "payment_failed"));
 
         $payment = new Payment();
 

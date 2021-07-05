@@ -47,9 +47,8 @@ class ImportProductsRoutine extends AbstractRoutine
         /** @var \Concrete\Core\Entity\Site\Site $site */
         $site = $app->make('site')->getActiveSiteForEditing();
         $defaultLocale = "";
-        $locales = [];
+
         foreach ($site->getLocales() as $localeEntity) {
-            $locales[] = $localeEntity->getLocale();
             if ($localeEntity->getIsDefault()) {
                 $defaultLocale = $localeEntity->getLocale();
             }
@@ -61,7 +60,7 @@ class ImportProductsRoutine extends AbstractRoutine
 
                 $locale = (string)$item["locale"];
 
-                if (!in_array($locale, $locales)) {
+                if (strlen($locale) === 0) {
                     $locale = $defaultLocale;
                 }
 
@@ -82,7 +81,7 @@ class ImportProductsRoutine extends AbstractRoutine
                 $productEntry->setTaxRate($taxRateService->getByHandle((string)$item["tax-rate"]));
                 $productEntry->setCategory($categoryService->getByHandle((string)$item["category"]));
                 $productEntry->setShortDescription(trim((string)$item->shortdescription));
-                $productEntry->setDescription(trim((string)$item->description));
+                $productEntry->setDescription(trim((string)$valueInspector->inspect((string)$item->description)->getReplacedContent()));
                 $productEntry->setImage(File::getByID($valueInspector->inspect((string)$item->image)->getReplacedValue()));
 
                 $entityManager->persist($productEntry);

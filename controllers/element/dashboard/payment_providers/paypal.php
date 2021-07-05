@@ -60,8 +60,8 @@ class Paypal extends ElementController implements PaymentConfigurationInterface
         $config = $this->app->make(Repository::class);
 
         return
-            $config->has("bitter_shop_system.payment_providers.paypal.selected_mode") &&
-            $config->has("bitter_shop_system.payment_providers.paypal.client_id") &&
-            $config->has("bitter_shop_system.payment_providers.paypal.client_secret");
+            strlen($config->get("bitter_shop_system.payment_providers.paypal.selected_mode")) > 0 &&
+            strlen($config->get("bitter_shop_system.payment_providers.paypal.client_id")) > 0 &&
+            strlen($config->get("bitter_shop_system.payment_providers.paypal.client_secret")) > 0;
     }
 }

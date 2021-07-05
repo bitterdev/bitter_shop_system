@@ -66,23 +66,23 @@ class OrderTable extends BlockType implements BlockTypeInterface
             $document->SetX($block->getLeft());
             $document->Cell($block->getWidth() / 3, 9, utf8_decode($orderPosition->getDescription()), 1, 0, 'L');
             $document->Cell($block->getWidth() / 3, 9, utf8_decode($orderPosition->getQuantity()), 1, 0, 'L');
-            $document->Cell($block->getWidth() / 3, 9, utf8_decode($moneyTransformer->transform($orderPosition->getPrice($includeTax))), 1, 0, 'R');
+            $document->Cell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($orderPosition->getPrice($includeTax))), 1, 0, 'R');
             $document->Ln();
         }
 
         $document->SetX($block->getLeft());
         $document->Cell($block->getWidth() / 3 * 2, 9, utf8_decode(t("Subtotal")), 1, 0, 'R');
-        $document->Cell($block->getWidth() / 3, 9, utf8_decode($moneyTransformer->transform($includeTax ? $order->getTotal() : $order->getSubtotal())), 1, 0, 'R');
+        $document->Cell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($includeTax ? $order->getTotal() : $order->getSubtotal())), 1, 0, 'R');
         $document->Ln();
 
         $document->SetX($block->getLeft());
         $document->Cell($block->getWidth() / 3 * 2, 9, utf8_decode($includeTax ? t("Include Tax") : t("Exclude Tax")), 1, 0, 'R');
-        $document->Cell($block->getWidth() / 3, 9, utf8_decode($moneyTransformer->transform($order->getTax())), 1, 0, 'R');
+        $document->Cell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($order->getTax())), 1, 0, 'R');
         $document->Ln();
 
         $document->SetX($block->getLeft());
         $document->Cell($block->getWidth() / 3 * 2, 9, utf8_decode(t("Total")), 1, 0, 'R');
-        $document->Cell($block->getWidth() / 3, 9, utf8_decode($moneyTransformer->transform($order->getTotal())), 1, 0, 'R');
+        $document->Cell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($order->getTotal())), 1, 0, 'R');
 
         return $document;
     }

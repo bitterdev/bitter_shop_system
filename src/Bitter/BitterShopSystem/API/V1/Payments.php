@@ -27,9 +27,7 @@ class Payments
         $this->paymentProviderService = $paymentProviderService;
     }
 
-    public function processPayment(
-        ?string $paymentProviderHandle = null
-    ): JsonResponse
+    public function processPayment($paymentProviderHandle): JsonResponse
     {
         $editResponse = new EditResponse();
         $errorList = new ErrorList();
@@ -37,7 +35,7 @@ class Payments
         $paymentProvider = $this->paymentProviderService->getByHandle($paymentProviderHandle);
 
         if ($paymentProvider instanceof PaymentProviderInterface) {
-            $paymentProvider->processPayment();
+            $paymentProvider->processPaymentNotification();
 
             $editResponse->setMessage(t("Payment processed successfully."));
         } else {
