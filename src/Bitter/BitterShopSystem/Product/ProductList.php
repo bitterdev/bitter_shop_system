@@ -114,7 +114,9 @@ class ProductList extends AttributedItemList implements PagerProviderInterface, 
 
     public function filterByCurrentLocale()
     {
-        $this->filterByLocale(Section::getCurrentSection()->getLocale());
+        if (is_object(Section::getCurrentSection())) {
+            $this->filterByLocale(Section::getCurrentSection()->getLocale());
+        }
     }
 
     /**

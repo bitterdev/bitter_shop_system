@@ -80,7 +80,7 @@ class Controller extends Package implements ProviderAggregateInterface
 
         $this->installContentFile("data.xml");
 
-        $isStartingPointInstallation = $request->getPath() === "/install/run_routine/professional_shop/install_content";
+        $isStartingPointInstallation = $request->getPath() === "/install/run_routine/professional_shop/finish";
 
         if ($request->request->has("installSampleContent") ||
             $this->app->isRunThroughCommandLineInterface() ||
