@@ -67,12 +67,6 @@ class Copy extends DashboardPageController
                         $this->entityManager->persist($targetProductEntry);
                         $this->entityManager->flush();
 
-                        // copy attributes
-                        foreach ($setManager->getUnassignedAttributeKeys() as $attributeKey) {
-                            $attributeValue = $sourceProductEntry->getAttributeValue($attributeKey);
-                            $targetProductEntry->setAttribute($attributeKey, $attributeValue);
-                        }
-
                         $copiedProductsCounter++;
                     }
                 }
