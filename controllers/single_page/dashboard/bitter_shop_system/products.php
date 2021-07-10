@@ -58,6 +58,7 @@ class Products extends DashboardPageController
             $entry->setHandle($data["handle"]);
             $entry->setShortDescription($data["shortDescription"]);
             $entry->setDescription($data["description"]);
+            $entry->setLocale($data["locale"]);
             $entry->setPriceRegular((float)$data["priceRegular"]);
             $entry->setPriceDiscounted((float)$data["priceDiscounted"]);
             $entry->setTaxRate($this->entityManager->getRepository(TaxRate::class)->findOneBy(["id" => $data["taxRate"]]));
