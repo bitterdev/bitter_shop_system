@@ -378,7 +378,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     /**
      * @return string
      */
-    public function getLocale(): string
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
