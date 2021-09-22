@@ -29,6 +29,7 @@ use JsonSerializable;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="`ShopSystemProduct`")
  */
 class Product implements ObjectInterface, JsonSerializable, ExportableInterface
 {
