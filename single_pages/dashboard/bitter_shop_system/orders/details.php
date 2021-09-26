@@ -145,7 +145,7 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
                 </td>
 
                 <td>
-                    <?php echo $entry->getCustomer()->getAttribute($attributeKey); ?>
+                    <?php echo $entry->getCustomer()->getAttributeValue($attributeKey); ?>
                 </td>
             </tr>
         <?php } ?>
