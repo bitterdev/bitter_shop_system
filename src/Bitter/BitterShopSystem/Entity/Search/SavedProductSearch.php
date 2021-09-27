@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="`ShopSystemSavedProductSearchQueries`")
+ * @ORM\Table(name="`SavedProductSearchQueries`")
  */
 class SavedProductSearch extends SavedSearch
 {

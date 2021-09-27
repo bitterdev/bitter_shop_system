@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="`ShopSystemProduct`")
+ * @ORM\Table(name="`Product`")
  */
 class Product extends AbstractStandardExportItem
 {
