@@ -56,33 +56,55 @@ class OrderTable extends BlockType implements BlockTypeInterface
 
         $document->SetTextColor($colors["r"], $colors["g"], $colors["b"]);
 
-        $document->Cell($block->getWidth() / 3, 9, utf8_decode(t("Description")), 1, 0, 'L');
-        $document->Cell($block->getWidth() / 3, 9, utf8_decode(t("Quantity")), 1, 0, 'L');
-        $document->Cell($block->getWidth() / 3, 9, utf8_decode(t("Price")), 1, 0, 'R');
+        $document->SetAutoPageBreak(false);
+
+        $document->MultiCell($block->getWidth() / 3, 9, utf8_decode(t("Description")), 1, 'L');
+        $document->SetXY((($block->getWidth() / 3 * 1) + $block->getLeft()), $block->getTop());
+        $document->MultiCell($block->getWidth() / 3, 9, utf8_decode(t("Quantity")), 1, 'L');
+        $document->SetXY((($block->getWidth() / 3 * 2) + $block->getLeft()), $block->getTop());
+        $document->MultiCell($block->getWidth() / 3, 9, utf8_decode(t("Price")), 1, 'R');
 
         $document->Ln();
+
+        $height = 9;
 
         foreach ($order->getOrderPositions() as $orderPosition) {
-            $document->SetX($block->getLeft());
-            $document->Cell($block->getWidth() / 3, 9, utf8_decode($orderPosition->getDescription()), 1, 0, 'L');
-            $document->Cell($block->getWidth() / 3, 9, utf8_decode($orderPosition->getQuantity()), 1, 0, 'L');
-            $document->Cell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($orderPosition->getPrice($includeTax))), 1, 0, 'R');
+            $document->SetXY($block->getLeft(), $block->getTop() + $height);
+            $document->MultiCell($block->getWidth() / 3, 9, utf8_decode($orderPosition->getDescription()), 1, 'L');
+
+            $descriptionHeight = $document->GetMultiCellHeight($block->getWidth() / 3, 9, utf8_decode($orderPosition->getDescription()), 1, 'L');
+
+            $document->SetXY((($block->getWidth() / 3 * 1) + $block->getLeft()), $block->getTop() + $height);
+            $document->MultiCell($block->getWidth() / 3, $descriptionHeight, utf8_decode($orderPosition->getQuantity()), 1, 'L');
+            $document->SetXY((($block->getWidth() / 3 * 2) + $block->getLeft()), $block->getTop() + $height);
+            $document->MultiCell($block->getWidth() / 3, $descriptionHeight, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($orderPosition->getPrice($includeTax))), 1,  'R');
             $document->Ln();
+
+            $height += $descriptionHeight;
         }
 
-        $document->SetX($block->getLeft());
-        $document->Cell($block->getWidth() / 3 * 2, 9, utf8_decode(t("Subtotal")), 1, 0, 'R');
-        $document->Cell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($includeTax ? $order->getTotal() : $order->getSubtotal())), 1, 0, 'R');
+        $document->SetXY($block->getLeft(), $block->getTop() + $height);
+        $document->MultiCell($block->getWidth() / 3 * 2, 9, utf8_decode(t("Subtotal")), 1, 'R');
+        $document->SetXY((($block->getWidth() / 3 * 2) + $block->getLeft()), $block->getTop() + $height);
+        $document->MultiCell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($includeTax ? $order->getTotal() : $order->getSubtotal())), 1, 'R');
         $document->Ln();
 
-        $document->SetX($block->getLeft());
-        $document->Cell($block->getWidth() / 3 * 2, 9, utf8_decode($includeTax ? t("Include Tax") : t("Exclude Tax")), 1, 0, 'R');
-        $document->Cell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($order->getTax())), 1, 0, 'R');
+        $height += 9;
+
+        $document->SetXY($block->getLeft(), $block->getTop() + $height);
+        $document->MultiCell($block->getWidth() / 3 * 2, 9, utf8_decode($includeTax ? t("Include Tax") : t("Exclude Tax")), 1,  'R');
+        $document->SetXY((($block->getWidth() / 3 * 2) + $block->getLeft()), $block->getTop() + $height);
+        $document->MultiCell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($order->getTax())), 1, 'R');
         $document->Ln();
 
-        $document->SetX($block->getLeft());
-        $document->Cell($block->getWidth() / 3 * 2, 9, utf8_decode(t("Total")), 1, 0, 'R');
-        $document->Cell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($order->getTotal())), 1, 0, 'R');
+        $height += 9;
+
+        $document->SetXY($block->getLeft(), $block->getTop() + $height);
+        $document->MultiCell($block->getWidth() / 3 * 2, 9, utf8_decode(t("Total")), 1, 'R');
+        $document->SetXY((($block->getWidth() / 3 * 2) + $block->getLeft()), $block->getTop() + $height);
+        $document->MultiCell($block->getWidth() / 3, 9, iconv('UTF-8', 'windows-1252', $moneyTransformer->transform($order->getTotal())), 1, 'R');
+
+        $document->SetAutoPageBreak(true);
 
         return $document;
     }
