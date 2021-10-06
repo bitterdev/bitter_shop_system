@@ -35,34 +35,33 @@ class OnlineBankTransfer extends PaymentProvider implements PaymentProviderInter
 
     public function processPaymentNotification(): void
     {
-        $orderNotification = new Notification();
+        $sofortLibNotification = new Notification();
 
-        $transactionId = $orderNotification->getNotification(file_get_contents('php://input'));
+        $orderNotification = $sofortLibNotification->getNotification(file_get_contents('php://input'));
 
-        if ($transactionId !== false) {
-            $transactionData = new TransactionData($this->config->get("bitter_shop_system.payment_providers.online_bank_transfer.config_key"));
+        $transactionData = new TransactionData($this->config->get("bitter_shop_system.payment_providers.online_bank_transfer.config_key"));
 
-            $transactionData->addTransaction($transactionId);
-            $transactionData->setApiVersion('2.0');
-            $transactionData->sendRequest();
+        $transactionData->addTransaction($sofortLibNotification->getTransactionId());
+        $transactionData->setApiVersion('2.0');
+        $transactionData->sendRequest();
 
-            $paymentStatus = $transactionData->getStatus();
+        $paymentStatus = $transactionData->getStatus();
 
-            $order = $this->orderService->getByTransactionId($this->checkoutService->getTransactionId());
+        $order = $this->orderService->getByTransactionId($sofortLibNotification->getTransactionId());
 
-            if ($order instanceof Order) {
-                switch ($paymentStatus) {
-                    case "received":
-                    case "approved":
-                        $this->orderService->markOrderAsPaid($order);
-                        break;
+        if ($order instanceof Order) {
+            switch ($paymentStatus) {
+                case "untraceable":
+                case "received":
+                case "approved":
+                    $this->orderService->markOrderAsPaid($order);
+                    break;
 
-                    default:
-                        $event = new PaymentFailed();
-                        $event->setOrder($order);
-                        $this->eventDispatcher->dispatch("on_payment_failed", $event);
-                        break;
-                }
+                default:
+                    $event = new PaymentFailed();
+                    $event->setOrder($order);
+                    $this->eventDispatcher->dispatch("on_payment_failed", $event);
+                    break;
             }
         }
     }
