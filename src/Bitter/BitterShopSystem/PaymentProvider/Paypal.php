@@ -113,7 +113,7 @@ class Paypal extends PaymentProvider implements PaymentProviderInterface
                 ->setName($orderPosition->getDescription())
                 ->setCurrency($this->config->get("bitter_shop_system.money_formatting.currency_code", "USD"))
                 ->setQuantity($orderPosition->getQuantity())
-                ->setPrice($orderPosition->getPrice());
+                ->setPrice($orderPosition->getPrice() / $orderPosition->getQuantity());
 
             $items[] = $item;
         }
