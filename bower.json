@@ -1,0 +1,8 @@
+{
+  "name": "bitter_shop_system",
+  "dependencies": {
+    "colorpicker": "*",
+    "gasparesganga-jquery-loading-overlay": "*",
+    "jsonmate": "*"
+  }
+}

@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @project:   Bitter Shop System
+ *
+ * @author     Fabian Bitter (fabian@bitter.de)
+ * @copyright  (C) 2021 Fabian Bitter (www.bitter.de)
+ * @version    X.X.X
+ */
+
+namespace Bitter\BitterShopSystem\Coupon\Search\ColumnSet\Column;
+
+use Bitter\BitterShopSystem\Coupon\Search\Field\Manager;
+use Concrete\Core\Search\Column\Column;
+use Concrete\Core\Search\Column\PagerColumnInterface;
+use Concrete\Core\Search\ItemList\Pager\PagerProviderInterface;
+use Bitter\BitterShopSystem\Entity\Coupon;
+use Bitter\BitterShopSystem\Coupon\CouponList;
+
+class ExcludeDiscountedProductsColumn extends Column implements PagerColumnInterface
+{
+    public function getColumnKey()
+    {
+        return 't5.excludeDiscountedProducts';
+    }
+
+    public function getColumnName()
+    {
+        return t('Exclude Discounted Products');
+    }
+
+    public function getColumnCallback()
+    {
+        return [Manager::class, 'getExcludeDiscountedProducts'];
+    }
+
+    /**
+     * @param CouponList $itemList
+     * @param $mixed Coupon
+     * @noinspection PhpDocSignatureInspection
+     */
+    public function filterListAtOffset(PagerProviderInterface $itemList, $mixed)
+    {
+        $query = $itemList->getQueryObject();
+        $sort = $this->getColumnSortDirection() == 'desc' ? '<' : '>';
+        $where = sprintf('t5.excludeDiscountedProducts %s :excludeDiscountedProducts', $sort);
+        $query->setParameter('excludeDiscountedProducts', $mixed->isExcludeDiscountedProducts());
+        $query->andWhere($where);
+    }
+}

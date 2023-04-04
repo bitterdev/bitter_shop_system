@@ -1,0 +1,13 @@
+{
+  "name": "jsonmate",
+  "homepage": "https://github.com/DavidDurman/FlexiJsonEditor",
+  "_release": "8985cbb599",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "8985cbb59975b1a7d78b297cee103e9350601c69"
+  },
+  "_source": "https://github.com/DavidDurman/FlexiJsonEditor.git",
+  "_target": "*",
+  "_originalSource": "jsonmate"
+}

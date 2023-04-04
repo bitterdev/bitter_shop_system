@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<concrete5-cif version="1.0">
+    <stacks>
+        <stack name="Order Complete" path="/order-complete">
+            <area name="Main">
+                <blocks>
+                    <block type="content" name="">
+                        <data table="btContentLocal">
+                            <record>
+                                <content>
+                                    <![CDATA[<h1>Thank You</h1><p>We have successfully received your order.</p>]]>
+                                </content>
+                            </record>
+                        </data>
+                    </block>
+                </blocks>
+            </area>
+        </stack>
+    </stacks>
+    <pdfeditor>
+        <settings grid-size="5" enable-grid="1" paper-width="210" paper-height="297" paper-orientation="portrait"
+                  margin-top="45" margin-bottom="45" margin-left="25" margin-right="20"
+                  letterhead-first-page="{ccm:export:file:letterhead.pdf}"
+                  letterhead-following-page="{ccm:export:file:letterhead.pdf}"/>
+        <blocks>
+            <block block-type-handle="content" font-color="#000000" font-name="Helvetica" font-size="12" height="37"
+                   width="80" top="50" left="25" package="bitter_shop_system">
+                <content>
+                    <![CDATA[{{customer.getFirstName}} {{customer.getLastName}}
+{{customer.getBillingAddress}}]]>
+                </content>
+            </block>
+            <block block-type-handle="content" font-color="#000000" font-name="Helvetica" font-size="12" height="25"
+                   width="165" top="115" left="25" package="bitter_shop_system">
+                <content>
+                    <![CDATA[Dear Customer,
+
+thank you for your order.]]>
+                </content>
+            </block>
+            <block block-type-handle="order_table" font-color="#000000" font-name="Helvetica" font-size="12"
+                   height="100"
+                   width="165" top="150" left="25" package="bitter_shop_system">
+                <content>
+                    <![CDATA[ ]]>
+                </content>
+            </block>
+        </blocks>
+    </pdfeditor>
+    <taxrates>
+        <taxrate rate="10" name="Sample Tax" handle="sample_tax" package="bitter_shop_system"/>
+    </taxrates>
+    <categories>
+        <category name="Consumer Electronics" handle="consumer_electronics" package="bitter_shop_system"/>
+    </categories>
+    <shippingcosts>
+        <shippingcost price="5.99" name="Sample Shipping Cost" handle="sample_shipping_cost" tax-rate="sample_tax"
+                      package="bitter_shop_system"/>
+    </shippingcosts>
+    <products>
+        <product name="Apple iPad"
+                 handle="apple_ipad"
+                 price-regular="399"
+                 tax-rate="sample_tax"
+                 quantity="10"
+                 shipping-cost="sample_shipping_cost"
+                 category="consumer_electronics"
+                 package="bitter_shop_system">
+            <image><![CDATA[{ccm:export:file:tablet1.jpg}]]></image>
+            <attributes>
+                <attribute handle="sku">
+                    <value><![CDATA[APPLE-IPAD]]></value>
+                </attribute>
+                <attribute handle="ean">
+                    <value><![CDATA[9850700179879]]></value>
+                </attribute>
+                <attribute handle="detail_images">
+                    <file><![CDATA[{ccm:export:file:tablet1.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:tablet2.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:tablet3.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:tablet4.jpg}]]></file>
+                </attribute>
+            </attributes>
+            <shortdescription>
+                <![CDATA[Watch, play, and create at full speed.]]>
+            </shortdescription>
+            <description>
+                <![CDATA[iOS 11 brings iPad to life like never before. New features and capabilities let you get more done, more quickly and easily, making it a phenomenally powerful and personal experience.
+
+The 64-bit A9 chip delivers performance that makes every app feel fast and fluid. Explore rich learning apps, play graphics-intensive games, or even use two apps at once. All while enjoying up to 10 hours of battery life.
+
+The stunning retina display makes the viewing of photos, shopping online or building presentations a true experience. The vivid 9.7inch Retina display has the detail and size to really bring them tolife.
+
+iPad is designed to stay connected wherever you go. Fast 802.11ac Wi-Fi delivers up to 866-Mbps throughput. The Wi-Fi + Cellular model supports LTE networks worldwide for convenient connectivity.2 And Apple SIM lets you easily connect to wireless networks in over 180 countries and regions, right from your device.]]>
+            </description>
+        </product>
+        <product name="Apple MacBook"
+                 handle="apple_macbook"
+                 price-regular="1299"
+                 price-discounted="999"
+                 tax-rate="sample_tax"
+                 quantity="10"
+                 shipping-cost="sample_shipping_cost"
+                 category="consumer_electronics"
+                 package="bitter_shop_system">
+            <image><![CDATA[{ccm:export:file:laptop1.jpg}]]></image>
+            <attributes>
+                <attribute handle="sku">
+                    <value><![CDATA[APPLE-MACBOOK]]></value>
+                </attribute>
+                <attribute handle="ean">
+                    <value><![CDATA[3881744734812]]></value>
+                </attribute>
+                <attribute handle="detail_images">
+                    <file><![CDATA[{ccm:export:file:laptop1.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:laptop2.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:laptop3.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:laptop4.jpg}]]></file>
+                </attribute>
+            </attributes>
+            <shortdescription>
+                <![CDATA[A masterpiece of modern engineering.]]>
+            </shortdescription>
+            <description>
+                <![CDATA[<p>Ultra-light and yet more powerful than ever - the Apple MacBook is the product of world-class work.</p>
+
+<p>Connect to everything you love. Anywhere you go.</p>
+
+<p>13.1mm thin and 2lb. light the MacBook does not only convince by its appearance. Equipped with the with new seventh‑generation Intel Core m3, i5, and i7 processors it delivers up to 20 percent faster storage. The seventh-generation Intel Core processors enables MacBook to be snappier than ever. From daily tasks like launching apps and opening files to more advanced computing, you can power through your day thanks to faster SSDs and Turbo Boost processing up to 3.6GHz.</p>
+
+<p>With the innovative terraced battery cell you can enjoy watching vibrant images displayed to you with over 3 million pixels on edge-to-edge Retina display glass in 2304×1440 resolution for up to 10 hours of battery life.</p>
+
+<p>With powerful technologies in an incredibly compact enclosure, MacBook is designed to fit perfectly into a world where just about anything you do with a notebook can be done over the air.</p>]]>
+            </description>
+        </product>
+        <product name="MOTO Radio"
+                 handle="moto_radio"
+                 price-regular="149"
+                 tax-rate="sample_tax"
+                 quantity="10"
+                 shipping-cost="sample_shipping_cost"
+                 category="consumer_electronics"
+                 package="bitter_shop_system">
+            <image><![CDATA[{ccm:export:file:radio1.jpg}]]></image>
+            <attributes>
+                <attribute handle="sku">
+                    <value><![CDATA[MOTO-RADIO]]></value>
+                </attribute>
+                <attribute handle="ean">
+                    <value><![CDATA[2443946420514]]></value>
+                </attribute>
+                <attribute handle="detail_images">
+                    <file><![CDATA[{ccm:export:file:radio1.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:radio2.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:radio3.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:radio4.jpg}]]></file>
+                </attribute>
+            </attributes>
+            <shortdescription>
+                <![CDATA[Stylishly designed radio with high sound quality.]]>
+            </shortdescription>
+            <description>
+                <![CDATA[<p>Perfect for indoor or outdoor use, the MOTO radio comes in a stylish wooden casing with smart white front - the MOTO radio looks great in any room. Its compact design measures 19.2cm in height, 11.2cm in width and 8.7cm in depth making the MOTO radio easy to transport.</p>
+
+<p>Access to digital radio channels with the radio’s strong signal that reduces interruption. Alternatively, tune the MOTO radio and find a range of popular radio stations.</p>
+
+<p>Improved sound quality: The upgraded portable bluetooth speakers deliver crystal clear center, high sound and amazing bass Great sound quality matched by professional.</p>
+
+<p>Radio Designed Minimalist Speaker: Minimalist wood texture design, combined with vintage modern, this wireless bluetooth speaker is suitable for all generation and ideal for home or night decoration.</p>
+
+<p>Compatible Bluetooth3.0 based devices or devices without Bluetooth with AUX cable (included). Charged by micro USB port, universally available through everywhere.</p>
+
+<p>Portable size, light weight (1.8 lb) and enough power: Portable size, but the sound is really powerful, the 520mAh battery is able to play 4-6 hours with a full charge.</p>]]>
+            </description>
+        </product>
+        <product name="Apple iPhone"
+                 handle="apple_iphone"
+                 price-regular="799"
+                 tax-rate="sample_tax"
+                 quantity="10"
+                 shipping-cost="sample_shipping_cost"
+                 category="consumer_electronics"
+                 package="bitter_shop_system">
+            <image><![CDATA[{ccm:export:file:smartphone1.jpg}]]></image>
+            <attributes>
+                <attribute handle="sku">
+                    <value><![CDATA[APPLE-IPHONE]]></value>
+                </attribute>
+                <attribute handle="ean">
+                    <value><![CDATA[9136496949347]]></value>
+                </attribute>
+                <attribute handle="detail_images">
+                    <file><![CDATA[{ccm:export:file:smartphone1.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:smartphone2.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:smartphone3.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:smartphone4.jpg}]]></file>
+                </attribute>
+            </attributes>
+            <shortdescription>
+                <![CDATA[A new generation of iPhone.]]>
+            </shortdescription>
+            <description>
+                <![CDATA[<p>Precision‑engineered iPhone formed from glass, equipped with the most powerful and smartest chip ever.</p>
+
+<p>Equipped with iOS it is the most advanced, intuitive, and secure mobile operating system in the world. It’s designed to help you get the most out of iPhone.</p>
+
+<p>iPhone 8 introduces an all‑new glass design. The world’s most popular camera, wireless charging that’s truly effortless - and augmented reality experiences never possible before.</p>
+
+<p>It features a more advanced 12MP camera. With a larger, faster sensor. A new color filter. Deeper pixels. And optical image stabilization for photos and videos. Also using the most durable glass ever in a smartphone, front and back. A color‑matched, aerospace‑grade aluminum band. With a wide color gamut and the best color accuracy in the industry, everything on the screen looks more brilliant and vibrant.</p>
+
+<p>With four efficiency cores that are up to 70 percent faster than A10 Fusion. And two performance cores that are up to 25 percent faster.</p>
+
+<p>Wireless charging for a wireless world:	With no charging cable required, iPhone 8 is truly designed for the future of wireless. Enables charging with wireless charging stations and mats in hotels, cafes, and airports around the world.</p>]]>
+            </description>
+        </product>
+        <product name="SAMSUNG Smartwatch"
+                 handle="samsung_smartwatch"
+                 price-regular="249"
+                 tax-rate="sample_tax"
+                 quantity="10"
+                 shipping-cost="sample_shipping_cost"
+                 category="consumer_electronics"
+                 package="bitter_shop_system">
+            <image><![CDATA[{ccm:export:file:smartwatch1.jpg}]]></image>
+            <attributes>
+                <attribute handle="sku">
+                    <value><![CDATA[SAMSUNG-SMARTWATCH]]></value>
+                </attribute>
+                <attribute handle="ean">
+                    <value><![CDATA[7789587806009]]></value>
+                </attribute>
+                <attribute handle="detail_images">
+                    <file><![CDATA[{ccm:export:file:smartwatch1.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:smartwatch2.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:smartwatch3.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:smartwatch4.jpg}]]></file>
+                </attribute>
+            </attributes>
+            <shortdescription>
+                <![CDATA[A new generation of Watches.]]>
+            </shortdescription>
+            <description>
+                <![CDATA[<p>The Gear S3 has the aesthetics of a truly premium watch with advanced features built right into the watch design. That's why it's so easy and effortless to use the Gear S3. It's also built for you to go days without needing your phone or to recharge. You get to feel free with the Gear S3.</p>
+
+<p>The Gear S3 looks and feels natural on your wrist and when you use it. Like a traditional watch.</p>
+
+<p>The Gear S3 sets you free from your phone in the most natural way. You only have to turn the bezel to respond to calls, to read messages, to go to that app you need.</p>
+
+<p>Make calls freely: You don't need your phone with you. The Gear S3 has a built-in speaker that lets you make or take calls right away on the device.</p>
+
+<p>Go for a run, a round of golf, go exploring on your bike. Gear S3 has a built-in GPS that gives you the freedom to explore and to stay on track even without your phone. And with its long-lasting battery, you only need to set it down for a charge every few days.</p>
+
+<p>Go days without charging: It's truly liberating to have a battery that lasts long enough for you to go on a trip without a charger.</p>]]>
+            </description>
+        </product>
+        <product name="SAMSUNG Smart TV"
+                 handle="samsung_smart_tv"
+                 price-regular="799"
+                 price-discounted="749"
+                 tax-rate="sample_tax"
+                 quantity="10"
+                 shipping-cost="sample_shipping_cost"
+                 category="consumer_electronics"
+                 package="bitter_shop_system">
+            <image><![CDATA[{ccm:export:file:tv1.jpg}]]></image>
+            <attributes>
+                <attribute handle="sku">
+                    <value><![CDATA[SAMSUNG-SMART-TV]]></value>
+                </attribute>
+                <attribute handle="ean">
+                    <value><![CDATA[6670394013500]]></value>
+                </attribute>
+                <attribute handle="detail_images">
+                    <file><![CDATA[{ccm:export:file:tv1.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:tv2.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:tv3.jpg}]]></file>
+                    <file><![CDATA[{ccm:export:file:tv4.jpg}]]></file>
+                </attribute>
+            </attributes>
+            <shortdescription>
+                <![CDATA[Full HD Smart TV]]>
+            </shortdescription>
+            <description>
+                <![CDATA[<p>Enjoy crisp and clear Full HD picture quality with the Samsung Full HD TV.</p>
+
+<p>See images with more depth. Applying various levels of depth to different areas of the screen, Contrast Enhancer bring flat images to life.</p>
+
+<p>Micro Dimming technology divides the TV screen into hundreds of small zones, analysing each one independently to adjust colour, brightness and sharpness.</p>
+
+<p>Plug your favourite entertainment and media into your TV – watch videos, play music, or view photos through a USB connection.</p>]]>
+            </description>
+        </product>
+    </products>
+    <pages>
+        <page name="Shop" path="/shop" public-date="2020-11-22 14:21:05" filename="" pagetype="page"
+              template="full" user="admin" description="" package="bitter_shop_system">
+            <area name="Main">
+                <blocks>
+                    <block type="product_list" name="">
+                        <data table="btProductList">
+                            <record>
+                                <detailsPageId>{ccm:export:page:/shop/details}</detailsPageId>
+                                <itemsPerPage>25</itemsPerPage>
+                            </record>
+                        </data>
+                    </block>
+                </blocks>
+            </area>
+        </page>
+        <page name="Details" path="/shop/details" public-date="2020-11-22 14:21:05" filename="" pagetype="page"
+              template="full" user="admin" description="" package="bitter_shop_system">
+            <attributes>
+                <attributekey handle="exclude_nav">
+                    <value><![CDATA[1]]></value>
+                </attributekey>
+            </attributes>
+            <area name="Main">
+                <blocks>
+                    <block type="product_details" name="">
+                        <data table="btProductDetails">
+                            <record>
+                                <cartPageId>{ccm:export:page:/cart}</cartPageId>
+                            </record>
+                        </data>
+                    </block>
+                </blocks>
+            </area>
+        </page>
+        <page name="Cart" path="/cart" public-date="2020-11-22 14:21:05" filename=""
+              pagetype="page"
+              template="full" user="admin" description="" package="bitter_shop_system">
+            <attributekey handle="exclude_nav">
+                <value><![CDATA[1]]></value>
+            </attributekey>
+            <area name="Main">
+                <blocks>
+                    <block type="cart" name="">
+                        <data table="btCart">
+                            <record>
+                                <checkoutPageId>{ccm:export:page:/shop/checkout}</checkoutPageId>
+                            </record>
+                        </data>
+                    </block>
+                </blocks>
+            </area>
+        </page>
+        <page name="Checkout" path="/shop/checkout" public-date="2020-11-22 14:21:05" filename="" pagetype="page"
+              template="full" user="admin" description="" package="bitter_shop_system">
+            <attributes>
+                <attributekey handle="exclude_nav">
+                    <value><![CDATA[1]]></value>
+                </attributekey>
+            </attributes>
+            <area name="Main">
+                <blocks>
+                    <block type="checkout" name="">
+                        <data table="btCheckout">
+                            <record>
+                                <displayCaptcha>0</displayCaptcha>
+                            </record>
+                        </data>
+                    </block>
+                </blocks>
+            </area>
+        </page>
+    </pages>
+    <attributekeys>
+        <attributekey handle="ean" name="EAN" package="bitter_shop_system" searchable="1"
+                      indexed="0" type="text" category="product"/>
+        <attributekey handle="sku" name="SKU" package="bitter_shop_system" searchable="1"
+                      indexed="0" type="text" category="product"/>
+    </attributekeys>
+</concrete5-cif>

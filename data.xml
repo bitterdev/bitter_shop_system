@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<concrete5-cif version="1.0">
+    <stacks>
+        <stack name="Order Complete" path="/order-complete">
+            <area name="Main">
+            </area>
+        </stack>
+    </stacks>
+    <blocktypes>
+        <blocktype handle="product_category_list" package="bitter_shop_system"/>
+        <blocktype handle="product_list" package="bitter_shop_system"/>
+        <blocktype handle="product_details" package="bitter_shop_system"/>
+        <blocktype handle="cart" package="bitter_shop_system"/>
+        <blocktype handle="checkout" package="bitter_shop_system"/>
+    </blocktypes>
+    <thumbnailtypes>
+        <thumbnailtype name="Product Image" handle="product_image" sizingMode="exact" width="500" height="500"/>
+        <thumbnailtype name="Product Thumbnail" handle="product_thumbnail" sizingMode="exact" width="75" height="75"/>
+    </thumbnailtypes>
+    <blocktypesets>
+        <blocktypeset handle="bitter_shop_system" name="Bitter Shop System" package="bitter_shop_system">
+            <blocktype handle="product_category_list"/>
+            <blocktype handle="product_list"/>
+            <blocktype handle="product_details"/>
+            <blocktype handle="cart"/>
+            <blocktype handle="checkout"/>
+        </blocktypeset>
+    </blocktypesets>
+    <attributekeys>
+        <attributekey handle="detail_images" name="Detail Images" package="bitter_shop_system" searchable="1"
+                      indexed="0" type="multiple_files" category="product">
+            <type maxfiles="4"/>
+        </attributekey>
+        <attributekey handle="first_name" name="First Name" package="bitter_shop_system" searchable="1"
+                      indexed="0" type="text" category="customer"/>
+        <attributekey handle="last_name" name="Last Name" package="bitter_shop_system" searchable="1"
+                      indexed="0" type="text" category="customer"/>
+        <attributekey handle="billing_address" name="Billing Address" package="bitter_shop_system" searchable="1"
+                      indexed="0" type="address" category="customer"/>
+        <attributekey handle="shipping_address" name="Shipping Address" package="bitter_shop_system" searchable="1"
+                      indexed="0" type="address" category="customer"/>
+    </attributekeys>
+    <attributecategories>
+        <category handle="customer" allow-sets="0" package="bitter_shop_system"/>
+        <category handle="product" allow-sets="0" package="bitter_shop_system"/>
+    </attributecategories>
+    <attributetypes>
+        <attributetype handle="multiple_files" name="Multiple Files" package="bitter_shop_system">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+                <category handle="collection"/>
+                <category handle="site"/>
+                <category handle="site_type"/>
+            </categories>
+        </attributetype>
+        <attributetype handle="text" name="Text" package="">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+            </categories>
+        </attributetype>
+        <attributetype handle="textarea" name="Text Area" package="">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+            </categories>
+        </attributetype>
+        <attributetype handle="boolean" name="Checkbox" package="">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+            </categories>
+        </attributetype>
+        <attributetype handle="date_time" name="Date/Time" package="">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+            </categories>
+        </attributetype>
+        <attributetype handle="number" name="Number" package="">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+            </categories>
+        </attributetype>
+        <attributetype handle="select" name="Option List" package="">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+            </categories>
+        </attributetype>
+        <attributetype handle="address" name="Address" package="">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+            </categories>
+        </attributetype>
+        <attributetype handle="telephone" name="Phone Number" package="">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+            </categories>
+        </attributetype>
+        <attributetype handle="url" name="URL" package="">
+            <categories>
+                <category handle="customer"/>
+                <category handle="product"/>
+            </categories>
+        </attributetype>
+    </attributetypes>
+    <singlepages>
+        <page name="My Orders" path="/account/orders"
+              filename="/account/orders.php"
+              pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Bitter Shop System" path="/dashboard/bitter_shop_system"
+              filename="/dashboard/bitter_shop_system.php"
+              pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Settings" path="/dashboard/bitter_shop_system/settings"
+              filename="/dashboard/bitter_shop_system/settings.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Order Confirmation" path="/dashboard/bitter_shop_system/settings/order_confirmation"
+              filename="/dashboard/bitter_shop_system/settings/order_confirmation.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Customers" path="/dashboard/bitter_shop_system/customers"
+              filename="/dashboard/bitter_shop_system/customers.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Attributes" path="/dashboard/bitter_shop_system/customers/attributes"
+              filename="/dashboard/bitter_shop_system/customers/attributes.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Products" path="/dashboard/bitter_shop_system/products"
+              filename="/dashboard/bitter_shop_system/products.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Categories" path="/dashboard/bitter_shop_system/products/categories"
+              filename="/dashboard/bitter_shop_system/products/categories.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Copy Languages" path="/dashboard/bitter_shop_system/products/copy"
+              filename="/dashboard/bitter_shop_system/products/copy.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Attributes" path="/dashboard/bitter_shop_system/products/attributes"
+              filename="/dashboard/bitter_shop_system/products/attributes.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Coupons" path="/dashboard/bitter_shop_system/coupons"
+              filename="/dashboard/bitter_shop_system/coupons.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Tax Rates" path="/dashboard/bitter_shop_system/tax_rates"
+              filename="/dashboard/bitter_shop_system/tax_rates.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Shipping Costs" path="/dashboard/bitter_shop_system/shipping_costs"
+              filename="/dashboard/bitter_shop_system/shipping_costs.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+        <page name="Orders" path="/dashboard/bitter_shop_system/orders"
+              filename="/dashboard/bitter_shop_system/orders.php" pagetype="" description=""
+              package="bitter_shop_system">
+        </page>
+    </singlepages>
+</concrete5-cif>

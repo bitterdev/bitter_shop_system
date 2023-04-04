@@ -1,0 +1,100 @@
+/**
+ * @project:   Bitter Shop System
+ *
+ * @author     Fabian Bitter (fabian@bitter.de)
+ * @copyright  (C) 2021 Fabian Bitter (www.bitter.de)
+ * @version    X.X.X
+ *
+ */
+
+div#ccm-panel-document {
+    background-color: #2a2c30;
+}
+
+div#ccm-panel-document header {
+    color: #3baaf7;
+    background-color: #202226;
+}
+
+div#ccm-panel-document menu li a {
+    color: #737c8e;
+}
+
+div#ccm-panel-document menu li a.ccm-panel-menu-item-active {
+    background-color: #151619;
+    color: #3baaf7;
+}
+
+div#ccm-panel-detail-pdf-document-general,
+div#ccm-panel-detail-pdf-document-paper-size,
+div#ccm-panel-detail-pdf-document-margins,
+div#ccm-panel-detail-pdf-document-letterhead {
+    background-color: #f3fbff;
+}
+
+div#ccm-panel-detail-pdf-document-general div.ccm-panel-detail-content,
+div#ccm-panel-detail-pdf-document-paper-size div.ccm-panel-detail-content,
+div#ccm-panel-detail-pdf-document-margins div.ccm-panel-detail-content,
+div#ccm-panel-detail-pdf-document-letterhead div.ccm-panel-detail-content {
+    background-color: #f3fbff;
+}
+
+div#ccm-panel-detail-pdf-document-general header,
+div#ccm-panel-detail-pdf-document-paper-size header,
+div#ccm-panel-detail-pdf-document-margins header,
+div#ccm-panel-detail-pdf-document-letterhead header {
+    background-color: #fff;
+    color: #084f94;
+}
+
+div.ccm-panel-detail {
+    display: block !important; /* Fix because the fade effect isn't working within the dashboard page */
+}
+
+div#ccm-toolbar > ul > li > a[data-launch-panel="document"],
+div#ccm-toolbar > ul > li > a[data-launch-panel="add-block"] {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.ccm-pdf-editor {
+    background-color: #979b9c;
+    margin: auto;
+    position: relative;
+}
+
+.ccm-pdf-editor .ccm-pdf-block {
+    position: absolute !important;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.4);
+    outline: solid 1px #fff !important;
+}
+
+.ccm-pdf-editor .ccm-pdf-block::before {
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    content: "\f047";
+    font-weight: lighter;
+    color: #666 !important;
+    cursor: move;
+}
+
+.ccm-pdf-editor canvas {
+    position: absolute;
+}
+
+.ccm-pdf-editor .ccm-pdf-block:hover {
+    outline: solid 1px #afa !important;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.ccm-pdf-editor .ccm-pdf-block.active {
+    background-color: rgba(89, 236, 89, 0.4);
+}
+
+#ccm-dashboard-content {
+    margin-bottom: 30px !important;
+    padding-bottom: 0 !important;
+}
