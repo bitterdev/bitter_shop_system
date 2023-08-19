@@ -22,12 +22,8 @@ use Concrete\Core\View\View;
 /** @var $form Form */
 /** @var $token Token */
 
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/help', null, 'bitter_shop_system');
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/reminder', ["packageHandle" => "bitter_shop_system", "rateUrl" => "https://www.concrete5.org/marketplace/addons/bitter-shop-system/reviews"], 'bitter_shop_system');
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_system"], 'bitter_shop_system');
+
+
 $isEdit = is_numeric($entry->getId());
 ?>
 
@@ -84,11 +80,11 @@ $isEdit = is_numeric($entry->getId());
 
         <div class="ccm-dashboard-form-actions-wrapper">
             <div class="ccm-dashboard-form-actions">
-                <a href="<?php echo Url::to("/dashboard/bitter_shop_system/products/categories"); ?>" class="btn btn-default">
+                <a href="<?php echo Url::to("/dashboard/bitter_shop_system/products/categories"); ?>" class="btn btn-secondary">
                     <i class="fa fa-chevron-left"></i> <?php echo t('Back'); ?>
                 </a>
 
-                <div class="pull-right">
+                <div class="float-end">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-save" aria-hidden="true"></i> <?php echo t('Save'); ?>
                     </button>
@@ -97,5 +93,3 @@ $isEdit = is_numeric($entry->getId());
     </form>
 
 <?php
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/did_you_know', ["packageHandle" => "bitter_shop_system"], 'bitter_shop_system');

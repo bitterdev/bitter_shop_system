@@ -69,4 +69,9 @@ class Controller extends BlockController
             $this->app->shutdown();
         }
     }
+
+    public function add()
+    {
+        $this->set("cartPageId", null);
+    }
 }

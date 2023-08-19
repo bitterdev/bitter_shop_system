@@ -18,7 +18,7 @@ use Concrete\Core\Support\Facade\Url;
 ?>
 
 <div class="ccm-dashboard-header-buttons">
-    <a href="<?php echo Url::to(Page::getCurrentPage(), "preview"); ?>" class="btn btn-default" target="_blank">
+    <a href="<?php echo Url::to(Page::getCurrentPage(), "preview"); ?>" class="btn btn-secondary" target="_blank">
         <i class="fa fa-file-pdf-o" aria-hidden="true"></i> <?php echo t("Preview"); ?>
     </a>
 </div>

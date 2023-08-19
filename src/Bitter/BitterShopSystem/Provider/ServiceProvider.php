@@ -112,7 +112,7 @@ class ServiceProvider extends Provider
 
     private function overrideNotificationManager()
     {
-        $this->app['Concrete\Core\Notification\Type\Manager'] = $this->app->share(function ($app) {
+        $this->app['Concrete\Core\Notification\Type\Manager'] = $this->app->wrap(function ($app) {
             $manager = new \Bitter\BitterShopSystem\Notification\Type\Manager($app);
             $manager->driver('core_update');
             $manager->driver('new_conversation_message');
@@ -125,11 +125,11 @@ class ServiceProvider extends Provider
             return $manager;
         });
 
-        $this->app['manager/notification/types'] = $this->app->share(function ($app) {
+        $this->app['manager/notification/types'] = $this->app->wrap(function ($app) {
             return $app->make('Bitter\BitterShopSystem\Notification\Type\Manager');
         });
 
-        $this->app['manager/notification/subscriptions'] = $this->app->share(function ($app) {
+        $this->app['manager/notification/subscriptions'] = $this->app->wrap(function ($app) {
             return $app->make('Bitter\BitterShopSystem\Notification\Type\Manager');
         });
     }
@@ -179,31 +179,31 @@ class ServiceProvider extends Provider
 
     private function initializeSearchProviders()
     {
-        $this->app['manager/search_field/tax_rate'] = $this->app->share(function ($app) {
+        $this->app['manager/search_field/tax_rate'] = $this->app->wrap(function ($app) {
             return $app->make('Bitter\BitterShopSystem\TaxRate\Search\Field\Manager');
         });
 
-        $this->app['manager/search_field/shipping_cost'] = $this->app->share(function ($app) {
+        $this->app['manager/search_field/shipping_cost'] = $this->app->wrap(function ($app) {
             return $app->make('Bitter\BitterShopSystem\ShippingCost\Search\Field\Manager');
         });
 
-        $this->app['manager/search_field/product'] = $this->app->share(function ($app) {
+        $this->app['manager/search_field/product'] = $this->app->wrap(function ($app) {
             return $app->make('Bitter\BitterShopSystem\Product\Search\Field\Manager');
         });
 
-        $this->app['manager/search_field/order'] = $this->app->share(function ($app) {
+        $this->app['manager/search_field/order'] = $this->app->wrap(function ($app) {
             return $app->make('Bitter\BitterShopSystem\Order\Search\Field\Manager');
         });
 
-        $this->app['manager/search_field/customer'] = $this->app->share(function ($app) {
+        $this->app['manager/search_field/customer'] = $this->app->wrap(function ($app) {
             return $app->make('Bitter\BitterShopSystem\Customer\Search\Field\Manager');
         });
 
-        $this->app['manager/search_field/coupon'] = $this->app->share(function ($app) {
+        $this->app['manager/search_field/coupon'] = $this->app->wrap(function ($app) {
             return $app->make('Bitter\BitterShopSystem\Coupon\Search\Field\Manager');
         });
 
-        $this->app['manager/search_field/category'] = $this->app->share(function ($app) {
+        $this->app['manager/search_field/category'] = $this->app->wrap(function ($app) {
             return $app->make('Bitter\BitterShopSystem\Category\Search\Field\Manager');
         });
     }
@@ -244,7 +244,7 @@ class ServiceProvider extends Provider
 
     private function overrideAttributeCategoryManager()
     {
-        $this->app['manager/attribute/category'] = $this->app->share(function ($app) {
+        $this->app['manager/attribute/category'] = $this->app->wrap(function ($app) {
             return new Manager($app);
         });
     }

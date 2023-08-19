@@ -123,4 +123,9 @@ class Controller extends BlockController
             return $this->responseFactory->notFound(t("Product not found."));
         }
     }
+
+    public function add()
+    {
+        $this->set("checkoutPageId", null);
+    }
 }

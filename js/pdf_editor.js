@@ -27,7 +27,7 @@
         $("#ccm-toolbar ul")
             .append(
                 $("<li/>")
-                    .addClass("pull-left hidden-xs")
+                    .addClass("float-start hidden-xs")
                     .append(
                         $("<a/>")
                             .attr("data-launch-panel", "document")
@@ -47,7 +47,7 @@
             )
             .append(
                 $("<li/>")
-                    .addClass("pull-left hidden-xs")
+                    .addClass("float-start hidden-xs")
                     .append(
                         $("<a/>")
                             .attr("data-launch-panel", "add-block")
@@ -345,7 +345,7 @@
                 },
 
                 getAvailableHeight: function () {
-                    return $(window).height() - ($(".ccm-dashboard-page-header").position().top + $(".ccm-dashboard-page-header").height() + 138);
+                    return $(window).height() - ($("#ccm-dashboard-content header").position().top + $("#ccm-dashboard-content header").height() + 138);
                 },
 
                 getRequiredHeight: function () {

@@ -44,7 +44,7 @@ $token = $app->make(Token::class);
         <div class="input-group">
             <?php echo $form->number("left", $block->getLeft(), ["min" => 1]); ?>
 
-            <div class="input-group-addon">
+            <div class="input-group-text">
                 <?php echo t("mm"); ?>
             </div>
         </div>
@@ -56,7 +56,7 @@ $token = $app->make(Token::class);
         <div class="input-group">
             <?php echo $form->number("top", $block->getTop(), ["min" => 1]); ?>
 
-            <div class="input-group-addon">
+            <div class="input-group-text">
                 <?php echo t("mm"); ?>
             </div>
         </div>
@@ -68,7 +68,7 @@ $token = $app->make(Token::class);
         <div class="input-group">
             <?php echo $form->number("width", $block->getWidth(), ["min" => 1]); ?>
 
-            <div class="input-group-addon">
+            <div class="input-group-text">
                 <?php echo t("mm"); ?>
             </div>
         </div>
@@ -80,7 +80,7 @@ $token = $app->make(Token::class);
         <div class="input-group">
             <?php echo $form->number("height", $block->getHeight(), ["min" => 1]); ?>
 
-            <div class="input-group-addon">
+            <div class="input-group-text">
                 <?php echo t("mm"); ?>
             </div>
         </div>
@@ -97,7 +97,7 @@ $token = $app->make(Token::class);
         <div class="input-group">
             <?php echo $form->number("fontSize", $block->getFontSize(), ["min" => 1]); ?>
 
-            <div class="input-group-addon">
+            <div class="input-group-text">
                 <?php echo t("px"); ?>
             </div>
         </div>
@@ -118,11 +118,11 @@ $token = $app->make(Token::class);
     ?>
 
     <div class="dialog-buttons">
-        <button class="btn btn-default pull-left" data-dialog-action="cancel">
+        <button class="btn btn-secondary float-start" data-dialog-action="cancel">
             <?php echo t('Cancel') ?>
         </button>
 
-        <button type="button" data-dialog-action="submit" class="btn btn-primary pull-right">
+        <button type="button" data-dialog-action="submit" class="btn btn-primary float-end">
             <?php echo t('Save') ?>
         </button>
     </div>

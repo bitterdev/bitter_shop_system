@@ -39,12 +39,8 @@ $categoryEntity = $service->getByHandle('customer');
 $category = $categoryEntity->getController();
 $setManager = $category->getSetManager();
 
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/help', null, 'bitter_shop_system');
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/reminder', ["packageHandle" => "bitter_shop_system", "rateUrl" => "https://www.concrete5.org/marketplace/addons/bitter-shop-system/reviews"], 'bitter_shop_system');
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_system"], 'bitter_shop_system');
+
+
 
 ?>
     <h2>
@@ -192,7 +188,7 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
 
         <tr>
             <th colspan="2">
-                <div class="pull-right">
+                <div class="float-end">
                     <?php echo t("Subtotal"); ?>
                 </div>
             </th>
@@ -205,7 +201,7 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
         <?php if ($entry->getTax() > 0) { ?>
             <tr>
                 <th colspan="2">
-                    <div class="pull-right">
+                    <div class="float-end">
                         <?php echo t("Taxes"); ?>
                     </div>
                 </th>
@@ -218,7 +214,7 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
 
         <tr>
             <th colspan="2">
-                <div class="pull-right">
+                <div class="float-end">
                     <?php echo t("Total"); ?>
                 </div>
             </th>
@@ -232,13 +228,12 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
 
     <div class="ccm-dashboard-form-actions-wrapper">
         <div class="ccm-dashboard-form-actions">
-            <a href="<?php echo Url::to("/dashboard/bitter_shop_system/orders"); ?>" class="btn btn-default">
+            <a href="<?php echo Url::to("/dashboard/bitter_shop_system/orders"); ?>" class="btn btn-secondary">
                 <i class="fa fa-chevron-left"></i> <?php echo t('Back'); ?>
             </a>
         </div>
     </div>
 
 <?php
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/did_you_know', ["packageHandle" => "bitter_shop_system"], 'bitter_shop_system');
+
 

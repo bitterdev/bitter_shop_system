@@ -96,10 +96,10 @@ $user = new User();
             }
         } ?>
 
-        <div class="pull-right">
+        <div class="float-end">
             <?php if ($config->get("concrete.user.registration.enabled") && !$user->isRegistered()) { ?>
                 <a href="<?php echo Url::to(Page::getCurrentPage()); ?>"
-                   class="btn btn-default"
+                   class="btn btn-secondary"
                    rel="nofollow">
                     <i class="fa fa-angle-left" aria-hidden="true"></i> <?php echo t("Back"); ?>
                 </a>

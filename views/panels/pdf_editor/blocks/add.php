@@ -25,21 +25,25 @@ defined('C5_EXECUTE') or die('Access denied');
 
     <div class="ccm-panel-content-inner" id="ccm-panel-add-blocktypes-list">
         <div class="ccm-panel-add-block-set">
-            <ul>
-                <?php foreach ($blockTypes as $blockType) { ?>
-                    <li>
-                        <a data-block-type="<?php echo h($blockType->getHandle()); ?>"
-                           class="ccm-panel-add-block-draggable-block-type" href="javascript:void(0)">
-                            <p>
-                                <img src="<?php echo $blockType->getImagePath(); ?>"
-                                     alt="<?php echo h($blockType->getName()); ?>">
+            <div class="ccm-block-set show">
+                <ul class="d-flex flex-row flex-wrap justify-content-between ccm-flex-align-last-row">
+                    <?php foreach ($blockTypes as $blockType) { ?>
+                        <li>
+                            <a data-block-type="<?php echo h($blockType->getHandle()); ?>"
+                               class="ccm-panel-add-block-draggable-block-type" href="javascript:void(0)">
+                                <div class="ccm-block-icon-wrapper d-flex align-items-center justify-content-center">
+                                    <img src="<?php echo $blockType->getImagePath(); ?>"
+                                         alt="<?php echo h($blockType->getName()); ?>">
+                                </div>
 
-                                <span><?php echo $blockType->getName(); ?></span>
-                            </p>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
+                                <p>
+                                    <span><?php echo $blockType->getName(); ?></span>
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
         </div>
     </div>
 </section>

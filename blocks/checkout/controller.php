@@ -116,6 +116,12 @@ class Controller extends BlockController
         parent::save($args);
     }
 
+    public function add() {
+        $this->set("displayCaptcha", false);
+        $this->set("termsOfUsePageId", null);
+        $this->set("privacyPolicyPageId", null);
+    }
+
     public function view()
     {
         /** @var Seo $seo */

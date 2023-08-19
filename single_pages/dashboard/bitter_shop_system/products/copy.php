@@ -23,12 +23,8 @@ $token = $app->make(Token::class);
 /** @var Form $form */
 $form = $app->make(Form::class);
 
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/help', null, 'bitter_shop_system');
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/reminder', ["packageHandle" => "bitter_shop_system", "rateUrl" => "https://www.concrete5.org/marketplace/addons/bitter-shop-system/reviews"], 'bitter_shop_system');
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_system"], 'bitter_shop_system');
+
+
 
 ?>
 
@@ -56,7 +52,7 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
 
         <div class="ccm-dashboard-form-actions-wrapper">
             <div class="ccm-dashboard-form-actions">
-                <div class="pull-right">
+                <div class="float-end">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-save" aria-hidden="true"></i> <?php echo t('Save'); ?>
                     </button>
@@ -68,5 +64,3 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
 <?php } ?>
 
 <?php
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/did_you_know', ["packageHandle" => "bitter_shop_system"], 'bitter_shop_system');

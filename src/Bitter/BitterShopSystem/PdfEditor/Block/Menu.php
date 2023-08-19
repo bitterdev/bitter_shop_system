@@ -11,7 +11,7 @@
 namespace Bitter\BitterShopSystem\PdfEditor\Block;
 
 use Concrete\Core\Application\UserInterface\ContextMenu\Item\LinkItem;
-use Concrete\Core\Application\UserInterface\ContextMenu\Menu as CoreMenu;
+use Concrete\Core\Application\UserInterface\ContextMenu\PopoverMenu as CoreMenu;
 
 class Menu extends CoreMenu
 {

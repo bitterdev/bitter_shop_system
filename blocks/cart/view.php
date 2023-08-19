@@ -137,7 +137,7 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
 
             <tr>
                 <th colspan="3">
-                    <div class="pull-right">
+                    <div class="float-end">
                         <?php echo t("Subtotal"); ?>
                     </div>
                 </th>
@@ -150,7 +150,7 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
             <?php if ($cartService->getTax() > 0) { ?>
                 <tr>
                     <th colspan="3">
-                        <div class="pull-right">
+                        <div class="float-end">
                             <?php echo $includeTax ? t("Including Taxes") : t("Excluding Taxes"); ?>
                         </div>
                     </th>
@@ -163,7 +163,7 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
 
             <tr>
                 <th colspan="3">
-                    <div class="pull-right">
+                    <div class="float-end">
                         <?php echo t("Total"); ?>
                     </div>
                 </th>
@@ -180,7 +180,7 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
         </p>
 
         <?php if (!$checkoutPage->isError()) { ?>
-            <div class="pull-right">
+            <div class="float-end">
                 <a href="<?php echo Url::to($checkoutPage); ?>" class="btn btn-primary">
                     <?php echo t("Checkout"); ?>
 

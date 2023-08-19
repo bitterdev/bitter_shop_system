@@ -38,6 +38,7 @@ class Controller extends BlockController
     public function add()
     {
         $this->set('itemsPerPage', 25);
+        $this->set('detailsPageId', null);
     }
 
     public function action_filter_by_category($categoryHandle = null)

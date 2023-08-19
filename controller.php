@@ -150,7 +150,7 @@ class Controller extends Package implements ProviderAggregateInterface
             $db->executeQuery("TRUNCATE TABLE btCart");
             $db->executeQuery("SET FOREIGN_KEY_CHECKS = 1;");
         } /** @noinspection PhpUnusedLocalVariableInspection */ catch (DBALException $e) {
-            throw new Exception(t("There was an error while truncating the data."));
+            //throw new Exception(t("There was an error while truncating the data."));
         }
 
         parent::uninstall();

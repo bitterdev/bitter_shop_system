@@ -81,11 +81,11 @@ $captcha = $app->make(CaptchaInterface::class);
     </div>
 
     <div class="dialog-buttons">
-        <button class="btn btn-default pull-left" data-dialog-action="cancel">
+        <button class="btn btn-secondary float-start" data-dialog-action="cancel">
             <?php echo t('Cancel') ?>
         </button>
 
-        <button type="button" data-dialog-action="submit" class="btn btn-primary pull-right">
+        <button type="button" data-dialog-action="submit" class="btn btn-primary float-end">
             <?php echo t('Create Ticket') ?>
         </button>
     </div>

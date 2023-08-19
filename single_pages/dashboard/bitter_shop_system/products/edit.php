@@ -47,12 +47,8 @@ $editor = $app->make(EditorInterface::class);
 /** @var Repository $config */
 $config = $app->make(Repository::class);
 
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/help', null, 'bitter_shop_system');
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/reminder', ["packageHandle" => "bitter_shop_system", "rateUrl" => "https://www.concrete5.org/marketplace/addons/bitter-shop-system/reviews"], 'bitter_shop_system');
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_system"], 'bitter_shop_system');
+
+
 
 ?>
     <form action="#" method="post">
@@ -197,7 +193,7 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
                     ]
                 ); ?>
 
-                <span class="input-group-addon">
+                <span class="input-group-text">
                 <?php echo $config->get("bitter_shop_system.money_formatting.currency_symbol", "$"); ?>
             </span>
             </div>
@@ -222,7 +218,7 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
                     ]
                 ); ?>
 
-                <span class="input-group-addon">
+                <span class="input-group-text">
                 <?php echo $config->get("bitter_shop_system.money_formatting.currency_symbol", "$"); ?>
             </span>
             </div>
@@ -353,11 +349,11 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
 
         <div class="ccm-dashboard-form-actions-wrapper">
             <div class="ccm-dashboard-form-actions">
-                <a href="<?php echo Url::to("/dashboard/bitter_shop_system/products"); ?>" class="btn btn-default">
+                <a href="<?php echo Url::to("/dashboard/bitter_shop_system/products"); ?>" class="btn btn-secondary">
                     <i class="fa fa-chevron-left"></i> <?php echo t('Back'); ?>
                 </a>
 
-                <div class="pull-right">
+                <div class="float-end">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-save" aria-hidden="true"></i> <?php echo t('Save'); ?>
                     </button>
@@ -367,5 +363,3 @@ View::element('/dashboard/license_check', ["packageHandle" => "bitter_shop_syste
     </form>
 
 <?php
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/did_you_know', ["packageHandle" => "bitter_shop_system"], 'bitter_shop_system');

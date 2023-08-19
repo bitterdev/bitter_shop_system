@@ -28,7 +28,9 @@ $form = $app->make(Form::class);
 
 <section class="ccm-ui">
     <header>
-        <?php echo t('Paper Size') ?>
+        <h3>
+            <?php echo t('Paper Size') ?>
+        </h3>
     </header>
 
     <form action="<?php echo Url::to("/ccm/system/panels/pdf_editor/document/paper_size/submit"); ?>" method="post"
@@ -40,7 +42,7 @@ $form = $app->make(Form::class);
             <div class="input-group">
                 <?php echo $form->number("width", $width, ["min" => 0]); ?>
 
-                <div class="input-group-addon">
+                <div class="input-group-text">
                     <?php echo t("mm"); ?>
                 </div>
             </div>
@@ -52,7 +54,7 @@ $form = $app->make(Form::class);
             <div class="input-group">
                 <?php echo $form->number("height", $height, ["min" => 0]); ?>
 
-                <div class="input-group-addon">
+                <div class="input-group-text">
                     <?php echo t("mm"); ?>
                 </div>
             </div>
@@ -64,12 +66,12 @@ $form = $app->make(Form::class);
         </div>
 
         <div class="ccm-panel-detail-form-actions dialog-buttons">
-            <button class="pull-left btn btn-default" type="button" data-dialog-action="cancel"
+            <button class="float-start btn btn-secondary" type="button" data-dialog-action="cancel"
                     data-panel-detail-action="cancel">
                 <?php echo t('Cancel') ?>
             </button>
 
-            <button class="pull-right btn btn-success" type="button" data-dialog-action="submit"
+            <button class="float-end btn btn-success" type="button" data-dialog-action="submit"
                     data-panel-detail-action="submit">
                 <?php echo t('Save Changes') ?>
             </button>

@@ -61,7 +61,7 @@ $paymentProviderService = $app->make(PaymentProviderService::class);
             </label>
         </div>
 
-        <div class="pull-right">
+        <div class="float-end">
             <button type="submit" class="btn btn-primary">
                 <?php echo t("Next"); ?>
 

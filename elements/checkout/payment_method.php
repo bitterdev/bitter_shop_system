@@ -70,8 +70,8 @@ $paymentProviderService = $app->make(PaymentProviderService::class);
             </div>
         <?php } ?>
 
-        <div class="pull-right">
-            <a href="<?php echo Url::to(Page::getCurrentPage(), "contact_information"); ?>" class="btn btn-default"
+        <div class="float-end">
+            <a href="<?php echo Url::to(Page::getCurrentPage(), "contact_information"); ?>" class="btn btn-secondary"
                rel="nofollow">
                 <i class="fa fa-angle-left" aria-hidden="true"></i> <?php echo t("Back"); ?>
             </a>

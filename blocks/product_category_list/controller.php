@@ -36,4 +36,9 @@ class Controller extends BlockController
         $categoryList = new CategoryList();
         $this->set('productCategories', $categoryList->getResults());
     }
+
+    public function add()
+    {
+        $this->set("productListPageId", null);
+    }
 }

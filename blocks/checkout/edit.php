@@ -25,8 +25,7 @@ $form = $app->make(Form::class);
 /** @var PageSelector $pageSelector */
 $pageSelector = $app->make(PageSelector::class);
 
-/** @noinspection PhpUnhandledExceptionInspection */
-View::element('/dashboard/help', null, 'bitter_shop_system');
+
 ?>
 
 <div class="form-group">
