@@ -105,13 +105,17 @@ class CheckoutService implements ObjectInterface
             $cartItem = json_decode($cartItemRaw, true);
 
             if ($cartItem["product"]["handle"] === $product->getHandle()) {
+                if (!isset($cartItem["product"]["quantity"])) {
+                    $cartItem["product"]["quantity"] = 0;
+                }
+
                 $cartItem["product"]["quantity"] += $quantity;
                 $cartItems[$index] = json_encode($cartItem);
                 $itemUpdated = true;
                 $event = new CartItemUpdated();
                 $event->setProduct($product);
                 $event->setQuantity((int)$cartItem["product"]["quantity"]);
-                $this->eventDispatcher->dispatch("cart_item_updated", $event);
+                $this->eventDispatcher->dispatch($event, "cart_item_updated");
                 break;
             }
         }
@@ -121,7 +125,7 @@ class CheckoutService implements ObjectInterface
             $event = new CartItemAdded();
             $event->setProduct($product);
             $event->setQuantity($quantity);
-            $this->eventDispatcher->dispatch("cart_item_added", $event);
+            $this->eventDispatcher->dispatch($event, "cart_item_added");
 
         }
 
@@ -142,7 +146,7 @@ class CheckoutService implements ObjectInterface
                 $this->session->save();
                 $event = new CartItemRemoved();
                 $event->setProduct($product);
-                $this->eventDispatcher->dispatch("cart_item_removed", $event);
+                $this->eventDispatcher->dispatch($event, "cart_item_removed");
                 return true;
             }
         }
@@ -175,7 +179,7 @@ class CheckoutService implements ObjectInterface
                 $event = new CartItemUpdated();
                 $event->setProduct($product);
                 $event->setQuantity($newQuantity);
-                $this->eventDispatcher->dispatch("cart_item_updated", $event);
+                $this->eventDispatcher->dispatch($event, "cart_item_updated");
                 return true;
             }
         }
@@ -584,11 +588,11 @@ class CheckoutService implements ObjectInterface
             if ($customer->getId() === null) {
                 $customerCreatedEvent = new CustomerCreated();
                 $customerCreatedEvent->setCustomer($customer);
-                $eventDispatcher->dispatch("on_customer_created", $customerCreatedEvent);
+                $eventDispatcher->dispatch($customerCreatedEvent, "on_customer_created");
             } else {
                 $customerUpdatedEvent = new CustomerUpdated();
                 $customerUpdatedEvent->setCustomer($customer);
-                $eventDispatcher->dispatch("on_customer_updated", $customerUpdatedEvent);
+                $eventDispatcher->dispatch($customerUpdatedEvent, "on_customer_updated");
             }
 
             if ($userEntity instanceof \Concrete\Core\Entity\User\User) {
@@ -658,7 +662,7 @@ class CheckoutService implements ObjectInterface
 
         $orderCompleteEvent = new OrderCreated();
         $orderCompleteEvent->setOrder($order);
-        $eventDispatcher->dispatch("on_order_created", $orderCompleteEvent);
+        $eventDispatcher->dispatch($orderCompleteEvent, "on_order_created");
 
         /** @var Manager $notificationManager */
         $notificationManager = $this->app->make(Manager::class);

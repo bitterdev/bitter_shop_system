@@ -12,11 +12,15 @@
 
 .ccm-page .product-details .product-header #ccm-large-image {
     margin-bottom: 15px;
-    min-width: 100%;
+    width: 100%;
 }
 
 .ccm-page .product-details .product-header .detail-images {
     display: flex;
+    margin-bottom: 15px;
+}
+
+.ccm-page .product-details #quantity {
     margin-bottom: 15px;
 }
 

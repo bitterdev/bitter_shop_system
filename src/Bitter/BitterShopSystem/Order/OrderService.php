@@ -104,7 +104,7 @@ class OrderService
 
         $event = new PaymentReceived();
         $event->setOrder($order);
-        $this->eventDispatcher->dispatch("on_payment_received", $event);
+        $this->eventDispatcher->dispatch($event, "on_payment_received");
     }
 
     /**

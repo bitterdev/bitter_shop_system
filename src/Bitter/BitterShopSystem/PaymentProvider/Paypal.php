@@ -68,7 +68,7 @@ class Paypal extends PaymentProvider implements PaymentProviderInterface
                 } else {
                     $event = new PaymentFailed();
                     $event->setOrder($orderEntry);
-                    $this->eventDispatcher->dispatch("on_payment_failed", $event);
+                    $this->eventDispatcher->dispatch($event, "on_payment_failed");
                 }
             }
 

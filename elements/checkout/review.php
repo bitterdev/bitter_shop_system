@@ -48,7 +48,7 @@ $config = $app->make(Repository::class);
 $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", false);
 ?>
 
-<?php if ($error instanceof ErrorList && $error->has()) {
+<?php if (isset($error) && $error instanceof ErrorList && $error->has()) {
     $formatter = new BootstrapFormatter($error);
     echo $formatter->render();
 } ?>

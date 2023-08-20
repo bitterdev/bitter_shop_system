@@ -20,6 +20,7 @@ use Concrete\Core\Block\BlockController;
 class Controller extends BlockController
 {
     protected $btTable = "btProductCategoryList";
+    protected $btExportPageColumns = ['productListPageId'];
 
     public function getBlockTypeDescription(): string
     {

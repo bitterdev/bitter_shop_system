@@ -78,7 +78,7 @@ $detailsPage = Page::getByID($detailsPageId);
         </div>
     <?php } ?>
 
-    <?php if ($pagination) { ?>
+    <?php if (isset($pagination) && $pagination) { ?>
         <div class="pagination">
             <?php echo $pagination; ?>
         </div>

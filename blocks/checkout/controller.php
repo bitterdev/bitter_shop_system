@@ -26,6 +26,7 @@ use Concrete\Package\BitterShopSystem\Controller\Element\Checkout\PaymentMethod;
 class Controller extends BlockController
 {
     protected $btTable = "btCheckout";
+    protected $btExportPageColumns = ['termsOfUsePageId', 'privacyPolicyPageId'];
 
     public function getBlockTypeDescription(): string
     {

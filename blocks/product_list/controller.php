@@ -24,6 +24,7 @@ class Controller extends BlockController
     protected $btCacheBlockOutputLifetime = 0;
     protected $btCacheBlockOutputOnPost = false;
     protected $btCacheBlockOutputForRegisteredUsers = false;
+    protected $btExportPageColumns = ['detailsPageId'];
 
     public function getBlockTypeDescription(): string
     {

@@ -65,7 +65,7 @@ for ($i = 1; $i <= $maxQuantity; $i++) {
 ?>
 <div class="product-details">
     <div class="row">
-        <div class="product-header">
+        <div class="product-header row">
             <div class="col-md-6">
                 <?php
                 $imageUrl = $pkg->getRelativePath() . "/images/product_image_default.jpg";
@@ -131,14 +131,14 @@ for ($i = 1; $i <= $maxQuantity; $i++) {
                         </button>
                     </form>
                 <?php } else { ?>
-                        <div class="form-group">
-                            <?php echo $form->label("quantity", t("Quantity")); ?>
-                            <?php echo $form->select("quantity", [0 => t("Out of stock")], 0, ["disabled" => "disabled"]); ?>
-                        </div>
+                    <div class="form-group">
+                        <?php echo $form->label("quantity", t("Quantity")); ?>
+                        <?php echo $form->select("quantity", [0 => t("Out of stock")], 0, ["disabled" => "disabled"]); ?>
+                    </div>
 
-                        <a href="javascript:void(0);" class="btn btn-primary disabled">
-                            <?php echo t("Add to Cart"); ?>
-                        </a>
+                    <a href="javascript:void(0);" class="btn btn-primary disabled">
+                        <?php echo t("Add to Cart"); ?>
+                    </a>
                 <?php } ?>
             </div>
         </div>
@@ -151,46 +151,49 @@ for ($i = 1; $i <= $maxQuantity; $i++) {
             ['details', t("Details")]
         ]); ?>
 
-        <div id="ccm-tab-content-general" class="ccm-tab-content">
-            <?php echo strlen($product->getDescription()) > 0 ? $product->getDescription() : t("No description available."); ?>
-        </div>
+        <div class="tab-content">
 
-        <div id="ccm-tab-content-details" class="ccm-tab-content">
-            <?php
-            $additionalDetails = [];
+            <div class="tab-pane active" id="general" role="tabpanel">
+                <?php echo strlen($product->getDescription()) > 0 ? $product->getDescription() : t("No description available."); ?>
+            </div>
 
-            foreach ($setManager->getUnassignedAttributeKeys() as $ak) {
-                /** @var ProductKey $ak */
-                $attributeValue = (string)$product->getAttributeValue($ak);
-                if ($ak->getAttributeKeyHandle() !== "detail_images" && strlen($attributeValue) > 0) {
-                    $additionalDetails[$ak->getAttributeKeyName()] = $attributeValue;
+            <div class="tab-pane" id="details" role="tabpanel">
+                <?php
+                $additionalDetails = [];
+
+                foreach ($setManager->getUnassignedAttributeKeys() as $ak) {
+                    /** @var ProductKey $ak */
+                    $attributeValue = (string)$product->getAttributeValue($ak);
+                    if ($ak->getAttributeKeyHandle() !== "detail_images" && strlen($attributeValue) > 0) {
+                        $additionalDetails[$ak->getAttributeKeyName()] = $attributeValue;
+                    }
                 }
-            }
-            ?>
+                ?>
 
-            <?php if (count($additionalDetails) === 0) { ?>
-                <p>
-                    <?php echo t("No details available."); ?>
-                </p>
-            <?php } else { ?>
-                <table class="table table-striped">
-                    <tbody>
-                    <?php foreach ($additionalDetails as $attributeName => $attributeValue) { ?>
-                        <tr>
-                            <td>
-                                <strong>
-                                    <?php echo $attributeName; ?>
-                                </strong>
-                            </td>
+                <?php if (count($additionalDetails) === 0) { ?>
+                    <p>
+                        <?php echo t("No details available."); ?>
+                    </p>
+                <?php } else { ?>
+                    <table class="table table-striped">
+                        <tbody>
+                        <?php foreach ($additionalDetails as $attributeName => $attributeValue) { ?>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <?php echo $attributeName; ?>
+                                    </strong>
+                                </td>
 
-                            <td>
-                                <?php echo $attributeValue; ?>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
-            <?php } ?>
+                                <td>
+                                    <?php echo $attributeValue; ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                <?php } ?>
+            </div>
         </div>
     </div>
 </div>

@@ -77,7 +77,7 @@ use Bitter\BitterShopSystem\Order\Menu;
             /** @var Order $order */
             $order = $item->getItem();
             ?>
-            <tr data-details-url="<?php echo Url::to('/dashboard/bitter_shop_system/orders', 'update', $order->getId()) ?>">
+            <tr data-details-url="<?php echo Url::to('/dashboard/bitter_shop_system/orders', 'details', $order->getId()) ?>">
                 <td class="ccm-search-results-checkbox">
                     <?php if ($order instanceof Order) { ?>
                         <!--suppress HtmlFormInputWithoutLabel -->

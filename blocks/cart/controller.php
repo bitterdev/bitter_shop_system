@@ -33,6 +33,7 @@ class Controller extends BlockController
     protected $responseFactory;
     /** @var CheckoutService */
     protected $cartService;
+    protected $btExportPageColumns = ['checkoutPageId'];
 
     public function getBlockTypeDescription(): string
     {

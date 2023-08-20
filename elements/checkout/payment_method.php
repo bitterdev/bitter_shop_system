@@ -35,7 +35,7 @@ $paymentProviderService = $app->make(PaymentProviderService::class);
 
 ?>
 
-<?php if ($error instanceof ErrorList && $error->has()) {
+<?php if (isset($error) && $error instanceof ErrorList && $error->has()) {
     $formatter = new BootstrapFormatter($error);
     echo $formatter->render();
 } ?>

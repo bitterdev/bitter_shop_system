@@ -42,7 +42,7 @@ $config = $app->make(Repository::class);
 $user = new User();
 ?>
 
-<?php if ($error instanceof ErrorList && $error->has()) {
+<?php if (isset($error) && $error instanceof ErrorList && $error->has()) {
     $formatter = new BootstrapFormatter($error);
     echo $formatter->render();
 } ?>

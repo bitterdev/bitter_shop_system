@@ -19,7 +19,7 @@
 }
 
 .ccm-page .product-list .product-list-item .product-image {
-    min-width: 100%;
+    width: 100%;
 }
 
 .ccm-page .product-list .product-list-item .price {

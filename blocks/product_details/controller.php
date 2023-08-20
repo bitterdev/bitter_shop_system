@@ -21,6 +21,7 @@ use Concrete\Core\User\User;
 class Controller extends BlockController
 {
     protected $btTable = "btProductDetails";
+    protected $btExportPageColumns = ['cartPageId'];
 
     public function getBlockTypeDescription(): string
     {
