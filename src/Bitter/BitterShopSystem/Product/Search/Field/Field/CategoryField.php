@@ -42,7 +42,7 @@ class CategoryField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByCategory($this->data['category']);
+        $list->filterByCategory(@$this->data['category']);
     }
     
     public function renderSearchField()
@@ -60,6 +60,6 @@ class CategoryField extends AbstractField
             $entries[$entry->getId()] = $entry->getName();
         }
         
-        return $form->select('category', $entries, $this->data['category']);
+        return $form->select('category', $entries, @$this->data['category']);
     }
 }

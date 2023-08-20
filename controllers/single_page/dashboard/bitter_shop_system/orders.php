@@ -20,6 +20,21 @@ use Concrete\Core\Support\Facade\Url;
 use Concrete\Package\BitterShopSystem\Controller\Element\Dashboard\Orders\OrderDetailHeader;
 use Symfony\Component\HttpFoundation\Response;
 use Bitter\BitterShopSystem\Entity\Order as OrderEntity;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Concrete\Core\Search\Field\Field\KeywordsField;
+use Concrete\Core\Search\Query\Modifier\AutoSortColumnRequestModifier;
+use Concrete\Core\Search\Query\Modifier\ItemsPerPageRequestModifier;
+use Concrete\Core\Search\Query\QueryFactory;
+use Concrete\Core\Search\Query\QueryModifier;
+use Concrete\Core\Search\Result\Result;
+use Concrete\Core\Search\Result\ResultFactory;
+use Bitter\BitterShopSystem\Entity\Search\SavedOrderSearch;
+use Bitter\BitterShopSystem\Navigation\Breadcrumb\Dashboard\DashboardOrdersBreadcrumbFactory;
+use Bitter\BitterShopSystem\Order\Search\Menu\MenuFactory;
+use Bitter\BitterShopSystem\Order\Search\SearchProvider;
+use Concrete\Core\Entity\Search\Query;
+use Concrete\Core\Filesystem\Element;
+use Concrete\Core\Filesystem\ElementManager;
 
 class Orders extends DashboardPageController
 {
@@ -27,6 +42,160 @@ class Orders extends DashboardPageController
     protected $responseFactory;
     /** @var Request */
     protected $request;
+
+    /** @var Element */
+    protected $headerMenu;
+    /** @var Element */
+    protected $headerSearch;
+
+    /**
+     * @return SearchProvider
+     * @throws BindingResolutionException
+     */
+    protected function getSearchProvider(): SearchProvider
+    {
+        /** @noinspection PhpUnhandledExceptionInspection */
+        return $this->app->make(SearchProvider::class);
+    }
+
+    /**
+     * @return QueryFactory
+     * @throws BindingResolutionException
+     */
+    protected function getQueryFactory(): QueryFactory
+    {
+        /** @noinspection PhpUnhandledExceptionInspection */
+        return $this->app->make(QueryFactory::class);
+    }
+
+    protected function getHeaderMenu(): Element
+    {
+        if (!isset($this->headerMenu)) {
+            /** @noinspection PhpUnhandledExceptionInspection */
+            $this->headerMenu = $this->app->make(ElementManager::class)->get('orders/search/menu', 'bitter_shop_system');
+        }
+
+        return $this->headerMenu;
+    }
+
+    protected function getHeaderSearch(): Element
+    {
+        if (!isset($this->headerSearch)) {
+            /** @noinspection PhpUnhandledExceptionInspection */
+            $this->headerSearch = $this->app->make(ElementManager::class)->get('orders/search/search', 'bitter_shop_system');
+        }
+
+        return $this->headerSearch;
+    }
+
+    /**
+     * @param Result $result
+     * @throws BindingResolutionException
+     */
+    protected function renderSearchResult(Result $result)
+    {
+        $headerMenu = $this->getHeaderMenu();
+        $headerSearch = $this->getHeaderSearch();
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+        $headerMenu->getElementController()->setQuery($result->getQuery());
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+        $headerSearch->getElementController()->setQuery($result->getQuery());
+
+        $this->set('resultsBulkMenu', $this->app->make(MenuFactory::class)->createBulkMenu());
+        $this->set('result', $result);
+        $this->set('headerMenu', $headerMenu);
+        $this->set('headerSearch', $headerSearch);
+
+        $this->setThemeViewTemplate('full.php');
+    }
+
+    /**
+     * @param Query $query
+     * @return Result
+     * @throws BindingResolutionException
+     */
+    protected function createSearchResult(Query $query): Result
+    {
+        $provider = $this->app->make(SearchProvider::class);
+        $resultFactory = $this->app->make(ResultFactory::class);
+        $queryModifier = $this->app->make(QueryModifier::class);
+
+        $queryModifier->addModifier(new AutoSortColumnRequestModifier($provider, $this->request, Request::METHOD_GET));
+        $queryModifier->addModifier(new ItemsPerPageRequestModifier($provider, $this->request, Request::METHOD_GET));
+
+        $query = $queryModifier->process($query);
+
+        return $resultFactory->createFromQuery($provider, $query);
+    }
+
+    /** @noinspection PhpMissingReturnTypeInspection */
+    protected function getSearchKeywordsField()
+    {
+        $keywords = null;
+
+        if ($this->request->query->has('keywords')) {
+            $keywords = $this->request->query->get('keywords');
+        }
+
+        return new KeywordsField($keywords);
+    }
+
+    /**
+     * @throws BindingResolutionException
+     */
+    public function advanced_search()
+    {
+        $query = $this->getQueryFactory()->createFromAdvancedSearchRequest(
+            $this->getSearchProvider(), $this->request, Request::METHOD_GET
+        );
+
+        $result = $this->createSearchResult($query);
+
+        $this->renderSearchResult($result);
+    }
+
+    /**
+     * @throws BindingResolutionException
+     */
+    public function preset($presetID = null)
+    {
+        if ($presetID) {
+            $preset = $this->entityManager->find(SavedOrderSearch::class, $presetID);
+
+            if ($preset) {
+                $query = $this->getQueryFactory()->createFromSavedSearch($preset);
+                $result = $this->createSearchResult($query);
+                $this->renderSearchResult($result);
+
+                return;
+            }
+        }
+
+        $this->view();
+    }
+
+    /**
+     * @return DashboardOrdersBreadcrumbFactory
+     * @throws BindingResolutionException
+     */
+    protected function createBreadcrumbFactory(): DashboardOrdersBreadcrumbFactory
+    {
+        /** @noinspection PhpUnhandledExceptionInspection */
+        return $this->app->make(DashboardOrdersBreadcrumbFactory::class);
+    }
+
+    public function view()
+    {
+        $query = $this->getQueryFactory()->createQuery($this->getSearchProvider(), [
+            $this->getSearchKeywordsField()
+        ]);
+
+        $result = $this->createSearchResult($query);
+
+        $this->renderSearchResult($result);
+
+        $this->headerSearch->getElementController()->setQuery(null);
+    }
 
     public function on_start()
     {
@@ -106,18 +275,6 @@ class Orders extends DashboardPageController
         } else {
             $this->responseFactory->notFound(null)->send();
             $this->app->shutdown();
-        }
-    }
-
-    public function view()
-    {
-        $headerMenu = new \Concrete\Package\BitterShopSystem\Controller\Element\Dashboard\Orders\SearchHeader();
-        $this->set('headerMenu', $headerMenu);
-        /** @var \Concrete\Package\BitterShopSystem\Controller\Search\Orders $searchProvider */
-        $searchProvider = $this->app->make(\Concrete\Package\BitterShopSystem\Controller\Search\Orders::class);
-        $result = $searchProvider->getCurrentSearchObject();
-        if (is_object($result)) {
-            $this->set('result', $result);
         }
     }
 }

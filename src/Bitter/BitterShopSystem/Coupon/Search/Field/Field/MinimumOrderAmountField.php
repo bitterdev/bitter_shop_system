@@ -38,7 +38,7 @@ class MinimumOrderAmountField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByMinimumOrderAmount($this->data['minimumOrderAmount']);
+        $list->filterByMinimumOrderAmount(@$this->data['minimumOrderAmount']);
     }
 
     public function renderSearchField()
@@ -46,6 +46,6 @@ class MinimumOrderAmountField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->text('minimumOrderAmount', $this->data['minimumOrderAmount']);
+        return $form->text('minimumOrderAmount', @$this->data['minimumOrderAmount']);
     }
 }

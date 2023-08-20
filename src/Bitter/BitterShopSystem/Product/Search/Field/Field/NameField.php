@@ -40,7 +40,7 @@ class NameField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByName($this->data['name']);
+        $list->filterByName(@$this->data['name']);
     }
     
     public function renderSearchField()
@@ -48,6 +48,6 @@ class NameField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->text('name', $this->data['name']);
+        return $form->text('name', @$this->data['name']);
     }
 }

@@ -41,7 +41,7 @@ class SubtotalField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterBySubtotal((int)$this->data['subtotalTo'], (int)$this->data['subtotalTo']);
+        $list->filterBySubtotal((int)@$this->data['subtotalTo'], (int)@$this->data['subtotalTo']);
     }
 
     public function renderSearchField()
@@ -49,6 +49,6 @@ class SubtotalField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->number('subtotalFrom', $this->data['subtotalFrom']) . t("to") . $form->number('subtotalTo', $this->data['subtotalTo']);
+        return $form->number('subtotalFrom', @$this->data['subtotalFrom']) . t("to") . $form->number('subtotalTo', @$this->data['subtotalTo']);
     }
 }

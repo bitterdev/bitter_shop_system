@@ -40,7 +40,7 @@ class HandleField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByHandle($this->data['handle']);
+        $list->filterByHandle(@$this->data['handle']);
     }
     
     public function renderSearchField()
@@ -48,6 +48,6 @@ class HandleField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->text('handle', $this->data['handle']);
+        return $form->text('handle', @$this->data['handle']);
     }
 }

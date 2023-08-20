@@ -82,7 +82,7 @@ class ShippingCost implements ExportableInterface
      * @param TaxRate|null|object $taxRate
      * @return ShippingCost
      */
-    public function setTaxRate(TaxRate $taxRate): ShippingCost
+    public function setTaxRate(?TaxRate $taxRate): ShippingCost
     {
         $this->taxRate = $taxRate;
         return $this;

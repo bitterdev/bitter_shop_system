@@ -13,9 +13,7 @@
 namespace Bitter\BitterShopSystem\Customer\Search\Field;
 
 use Bitter\BitterShopSystem\Attribute\Category\CustomerCategory;
-use Bitter\BitterShopSystem\Entity\Customer;
 use Bitter\BitterShopSystem\Customer\Search\Field\Field\EmailField;
-use Concrete\Core\Entity\User\User;
 use Concrete\Core\Search\Field\AttributeKeyField;
 use Concrete\Core\Search\Field\Manager as FieldManager;
 use Bitter\BitterShopSystem\Customer\Search\Field\Field\UserField;
@@ -25,18 +23,6 @@ class Manager extends FieldManager
     /** @var CustomerCategory */
     protected $category;
 
-    /**
-     * @param Customer $mixed
-     * @return string
-     */
-    public function getUser(Customer $mixed): string
-    {
-        if ($mixed->getUser() instanceof User) {
-            return $mixed->getUser()->getUserName();
-        } else {
-            return '';
-        }
-    }
     public function __construct(
         CustomerCategory $category
     )

@@ -12,6 +12,7 @@
 
 namespace Bitter\BitterShopSystem\Product\Search\ColumnSet\Column;
 
+use Bitter\BitterShopSystem\Product\Search\ColumnSet\Available;
 use Concrete\Core\Search\Column\Column;
 use Concrete\Core\Search\Column\PagerColumnInterface;
 use Concrete\Core\Search\ItemList\Pager\PagerProviderInterface;
@@ -38,7 +39,7 @@ class TaxRateColumn extends Column implements PagerColumnInterface
     
     public function getColumnCallback()
     {
-        return [Manager::class, 'getTaxRate'];
+        return [Available::class, 'getTaxRate'];
     }
     
     /**

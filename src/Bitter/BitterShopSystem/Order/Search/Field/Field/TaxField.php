@@ -41,7 +41,7 @@ class TaxField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByTax((int)$this->data['taxFrom'], (int)$this->data['taxTo']);
+        $list->filterByTax((int)@$this->data['taxFrom'], (int)@$this->data['taxTo']);
     }
 
     public function renderSearchField()
@@ -49,6 +49,6 @@ class TaxField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->number('taxFrom', $this->data['taxFrom']) . t("to") . $form->number('taxTo', $this->data['taxTo']);
+        return $form->number('taxFrom', @$this->data['taxFrom']) . t("to") . $form->number('taxTo', @$this->data['taxTo']);
     }
 }

@@ -40,7 +40,7 @@ class QuantityField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByQuantity((int)$this->data['quantity']);
+        $list->filterByQuantity((int)@$this->data['quantity']);
     }
 
     public function renderSearchField()
@@ -48,6 +48,6 @@ class QuantityField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->text('quantity', $this->data['quantity']);
+        return $form->text('quantity', @$this->data['quantity']);
     }
 }

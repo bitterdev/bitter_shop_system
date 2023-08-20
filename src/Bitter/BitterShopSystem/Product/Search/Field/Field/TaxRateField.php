@@ -42,7 +42,7 @@ class TaxRateField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByTaxRate($this->data['taxRate']);
+        $list->filterByTaxRate(@$this->data['taxRate']);
     }
     
     public function renderSearchField()
@@ -60,6 +60,6 @@ class TaxRateField extends AbstractField
             $entries[$entry->getId()] = $entry->getName();
         }
         
-        return $form->select('taxRate', $entries, $this->data['taxRate']);
+        return $form->select('taxRate', $entries, @$this->data['taxRate']);
     }
 }

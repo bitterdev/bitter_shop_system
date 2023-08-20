@@ -12,6 +12,7 @@
 
 namespace Bitter\BitterShopSystem\Product\Search\ColumnSet\Column;
 
+use Bitter\BitterShopSystem\Product\Search\ColumnSet\Available;
 use Bitter\BitterShopSystem\Product\Search\Field\Manager;
 use Concrete\Core\Search\Column\Column;
 use Concrete\Core\Search\Column\PagerColumnInterface;
@@ -33,7 +34,7 @@ class PriceRegularColumn extends Column implements PagerColumnInterface
 
     public function getColumnCallback()
     {
-        return [Manager::class, 'getPriceRegular'];
+        return [Available::class, 'getPriceRegular'];
     }
 
     /**

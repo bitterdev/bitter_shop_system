@@ -40,7 +40,7 @@ class ShortDescriptionField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByShortDescription($this->data['shortDescription']);
+        $list->filterByShortDescription(@$this->data['shortDescription']);
     }
     
     public function renderSearchField()
@@ -48,6 +48,6 @@ class ShortDescriptionField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->textarea('shortDescription', $this->data['shortDescription']);
+        return $form->textarea('shortDescription', @$this->data['shortDescription']);
     }
 }

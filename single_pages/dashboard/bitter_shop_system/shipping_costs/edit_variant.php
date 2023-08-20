@@ -67,7 +67,7 @@ $config = $app->make(Repository::class);
 
         <div class="ccm-dashboard-form-actions-wrapper">
             <div class="ccm-dashboard-form-actions">
-                <a href="<?php echo Url::to("/dashboard/bitter_shop_system/shipping_costs/edit", $variant->getShippingCost()->getId()); ?>" class="btn btn-secondary">
+                <a href="<?php echo Url::to("/dashboard/bitter_shop_system/shipping_costs/update", $variant->getShippingCost()->getId()); ?>" class="btn btn-secondary">
                     <i class="fa fa-chevron-left"></i> <?php echo t('Back'); ?>
                 </a>
 

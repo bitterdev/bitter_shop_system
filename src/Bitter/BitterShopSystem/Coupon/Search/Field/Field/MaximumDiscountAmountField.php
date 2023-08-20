@@ -38,7 +38,7 @@ class MaximumDiscountAmountField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByMaximumDiscountAmount($this->data['maximumDiscountAmount']);
+        $list->filterByMaximumDiscountAmount(@$this->data['maximumDiscountAmount']);
     }
 
     public function renderSearchField()
@@ -46,6 +46,6 @@ class MaximumDiscountAmountField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->text('maximumDiscountAmount', $this->data['maximumDiscountAmount']);
+        return $form->text('maximumDiscountAmount', @$this->data['maximumDiscountAmount']);
     }
 }

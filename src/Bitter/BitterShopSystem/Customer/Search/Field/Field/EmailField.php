@@ -40,7 +40,7 @@ class EmailField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByKeywords((int)$this->data['email']);
+        $list->filterByKeywords((int)@$this->data['email']);
     }
 
     public function renderSearchField()
@@ -48,6 +48,6 @@ class EmailField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->email('email', $this->data['email']);
+        return $form->email('email', @$this->data['email']);
     }
 }

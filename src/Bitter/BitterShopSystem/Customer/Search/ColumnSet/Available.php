@@ -13,7 +13,22 @@
 namespace Bitter\BitterShopSystem\Customer\Search\ColumnSet;
 
 
+use Bitter\BitterShopSystem\Entity\Customer;
+use Concrete\Core\Entity\User\User;
+
 class Available extends DefaultSet
 {
 
+    /**
+     * @param Customer $mixed
+     * @return string
+     */
+    public function getUser(Customer $mixed): string
+    {
+        if ($mixed->getUser() instanceof User) {
+            return $mixed->getUser()->getUserName();
+        } else {
+            return '';
+        }
+    }
 }

@@ -40,7 +40,7 @@ class PriceDiscountedField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByPriceDiscounted($this->data['priceDiscounted']);
+        $list->filterByPriceDiscounted(@$this->data['priceDiscounted']);
     }
     
     public function renderSearchField()
@@ -48,6 +48,6 @@ class PriceDiscountedField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->number('priceDiscounted', $this->data['priceDiscounted']);
+        return $form->number('priceDiscounted', @$this->data['priceDiscounted']);
     }
 }

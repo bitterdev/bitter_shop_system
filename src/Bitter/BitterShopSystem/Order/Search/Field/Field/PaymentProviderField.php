@@ -44,7 +44,7 @@ class PaymentProviderField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var PaymentProviderService $paymentProviderService */
         $paymentProviderService = $app->make(PaymentProviderService::class);
-        $list->filterByPaymentProvider($paymentProviderService->getByHandle($this->data['paymentProviderHandle']));
+        $list->filterByPaymentProvider($paymentProviderService->getByHandle(@$this->data['paymentProviderHandle']));
     }
 
     public function renderSearchField()
@@ -54,6 +54,6 @@ class PaymentProviderField extends AbstractField
         $form = $app->make(Form::class);
         /** @var PaymentProviderService $paymentProviderService */
         $paymentProviderService = $app->make(PaymentProviderService::class);
-        return $form->select('paymentProviderHandle', $paymentProviderService->getList(), $this->data['paymentProviderHandle']);
+        return $form->select('paymentProviderHandle', $paymentProviderService->getList(), @$this->data['paymentProviderHandle']);
     }
 }

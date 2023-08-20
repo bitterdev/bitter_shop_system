@@ -14,6 +14,9 @@ use Concrete\Core\Support\Facade\Application;
 use Concrete\Core\Form\Service\Form;
 
 /** @var int $akMaxFilesCount */
+if (!isset($akMaxFilesCount)) {
+    $akMaxFilesCount = 1;
+}
 
 $app = Application::getFacadeApplication();
 /** @var Form $form */

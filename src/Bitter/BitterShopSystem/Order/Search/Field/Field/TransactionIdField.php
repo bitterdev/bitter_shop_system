@@ -40,7 +40,7 @@ class TransactionIdField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByTransactionId((int)$this->data['transactionId']);
+        $list->filterByTransactionId((int)@$this->data['transactionId']);
     }
 
     public function renderSearchField()
@@ -48,6 +48,6 @@ class TransactionIdField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->text('transactionId', $this->data['transactionId']);
+        return $form->text('transactionId', @$this->data['transactionId']);
     }
 }

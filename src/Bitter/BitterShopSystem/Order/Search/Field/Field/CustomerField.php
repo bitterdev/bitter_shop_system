@@ -45,7 +45,7 @@ class CustomerField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var CustomerService $customerService */
         $customerService = $app->make(CustomerService::class);
-        $list->filterByCustomer($customerService->getById((int)$this->data['customerId']));
+        $list->filterByCustomer($customerService->getById((int)@$this->data['customerId']));
     }
 
     public function renderSearchField()
@@ -55,6 +55,6 @@ class CustomerField extends AbstractField
         $form = $app->make(Form::class);
         /** @var CustomerService $customerService */
         $customerService = $app->make(CustomerService::class);
-        return $form->select('customerId', $customerService->getList(), $this->data['customerId']);
+        return $form->select('customerId', $customerService->getList(), @$this->data['customerId']);
     }
 }

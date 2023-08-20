@@ -85,9 +85,13 @@ class ShippingCostList extends ItemList implements PagerProviderInterface, Pagin
      * @param TaxRate $taxRate
      */
     public function filterByTaxRate($taxRate)
-    {
-        $this->query->andWhere('t1.`taxRate` = :taxRate');
+    {if ($taxRate instanceof TaxRate) {
+        $this->query->andWhere('t1.`taxRateId` = :taxRate');
         $this->query->setParameter('taxRate', $taxRate->getId());
+    } else {
+        $this->query->andWhere('t1.`taxRateId` = :taxRate');
+        $this->query->setParameter('taxRate', $taxRate);
+    }
     }
 
 

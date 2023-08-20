@@ -38,7 +38,7 @@ class CodeField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByCode($this->data['code']);
+        $list->filterByCode(@$this->data['code']);
     }
     
     public function renderSearchField()
@@ -46,6 +46,6 @@ class CodeField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->text('code', $this->data['code']);
+        return $form->text('code', @$this->data['code']);
     }
 }

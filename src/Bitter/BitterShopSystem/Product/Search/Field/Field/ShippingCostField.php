@@ -42,7 +42,7 @@ class ShippingCostField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByShippingCost($this->data['shippingCost']);
+        $list->filterByShippingCost(@$this->data['shippingCost']);
     }
     
     public function renderSearchField()
@@ -60,6 +60,6 @@ class ShippingCostField extends AbstractField
             $entries[$entry->getId()] = $entry->getName();
         }
         
-        return $form->select('shippingCost', $entries, $this->data['shippingCost']);
+        return $form->select('shippingCost', $entries, @$this->data['shippingCost']);
     }
 }

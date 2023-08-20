@@ -41,7 +41,7 @@ class TotalField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByTotal((int)$this->data['totalFrom'], (int)$this->data['totalTo']);
+        $list->filterByTotal((int)@$this->data['totalFrom'], (int)@$this->data['totalTo']);
     }
 
     public function renderSearchField()
@@ -49,6 +49,6 @@ class TotalField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->number('totalFrom', $this->data['totalFrom']) . t("to") . $form->number('totalTo', $this->data['totalTo']);
+        return $form->number('totalFrom', @$this->data['totalFrom']) . t("to") . $form->number('totalTo', @$this->data['totalTo']);
     }
 }

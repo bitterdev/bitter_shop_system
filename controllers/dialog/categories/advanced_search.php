@@ -4,7 +4,7 @@
  * @project:   Bitter Shop System
  *
  * @author     Fabian Bitter (fabian@bitter.de)
- * @copyright  (C) 2021 Fabian Bitter (www.bitter.de)
+ * @copyright  (C) 2023 Fabian Bitter (www.bitter.de)
  * @version    X.X.X
  */
 
@@ -13,79 +13,73 @@
 
 namespace Concrete\Package\BitterShopSystem\Controller\Dialog\Categories;
 
+use Bitter\BitterShopSystem\Entity\Search\SavedCategorySearch;
+use Bitter\BitterShopSystem\Category\Search\SearchProvider;
 use Concrete\Controller\Dialog\Search\AdvancedSearch as AdvancedSearchController;
 use Concrete\Core\Support\Facade\Url;
 use Concrete\Core\Search\Field\ManagerFactory;
-use Concrete\Core\Permission\Key\Key;
 use Concrete\Core\Entity\Search\SavedSearch;
 use Concrete\Core\User\User;
 use Doctrine\ORM\EntityManager;
-use Bitter\BitterShopSystem\Entity\Search\SavedCategorySearch;
-use Bitter\BitterShopSystem\Category\Search\SearchProvider;
 
 class AdvancedSearch extends AdvancedSearchController
 {
-    protected $supportsSavedSearch = true;
-    
     protected function canAccess()
     {
         $user = new User();
         return $user->isSuperUser();
     }
-    
-    public function on_before_render()
-    {
-        parent::on_before_render();
-        
-        // use core views (remove package handle)
-        $viewObject = $this->getViewObject();
-        $viewObject->setInnerContentFile(null);
-        $viewObject->setPackageHandle(null);
-        $viewObject->setupRender();
-    }
-    
+
     public function getSearchProvider()
     {
         return $this->app->make(SearchProvider::class);
     }
-    
-    public function getSavedSearchEntity()
+
+    public function getSearchPresets()
     {
         $em = $this->app->make(EntityManager::class);
         if (is_object($em)) {
-            return $em->getRepository(SavedCategorySearch::class);
+            return $em->getRepository(SavedCategorySearch::class)->findAll();
         }
-        
-        return null;
     }
-    
+
+    public function getSubmitMethod()
+    {
+        return 'get';
+    }
+
+    public function getSubmitAction()
+    {
+        return $this->app->make('url')->to('/dashboard/bitter_shop_system/products/categories', 'advanced_search');
+    }
+
     public function getFieldManager()
     {
         return ManagerFactory::get('category');
     }
-    
+
     public function getSavedSearchBaseURL(SavedSearch $search)
     {
-        return (string) Url::to('/ccm/system/search/categories/preset', $search->getID());
+        return $this->app->make('url')->to('/dashboard/bitter_shop_system/products/categories', 'preset', $search->getID());
     }
-    
-    public function getCurrentSearchBaseURL()
-    {
-        return Url::to('/ccm/system/search/categories/current');
-    }
-    
-    public function getBasicSearchBaseURL()
-    {
-        return Url::to('/ccm/system/search/categories/basic');
-    }
-    
+
     public function getSavedSearchDeleteURL(SavedSearch $search)
     {
-        return (string) Url::to('/ccm/system/dialogs/categories/advanced_search/preset/delete?presetID=' . $search->getID());
+        return (string)Url::to('/ccm/system/dialogs/categories/bitter_shop_system/preset/delete?presetID=' . $search->getID());
     }
-    
+
     public function getSavedSearchEditURL(SavedSearch $search)
     {
-        return (string) Url::to('/ccm/system/dialogs/categories/advanced_search/preset/edit?presetID=' . $search->getID());
+        return (string)Url::to('/ccm/system/dialogs/categories/advanced_search/preset/edit?presetID=' . $search->getID());
+    }
+
+    public function getCurrentSearchBaseURL()
+    {
+        return (string)Url::to('/ccm/system/search/categories/current');
+    }
+
+    public function getBasicSearchBaseURL()
+    {
+        return (string)Url::to('/ccm/system/search/users/basic');
     }
 }

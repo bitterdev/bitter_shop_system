@@ -40,7 +40,7 @@ class DescriptionField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByDescription($this->data['description']);
+        $list->filterByDescription(@$this->data['description']);
     }
     
     public function renderSearchField()
@@ -48,6 +48,6 @@ class DescriptionField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->textarea('description', $this->data['description']);
+        return $form->textarea('description', @$this->data['description']);
     }
 }

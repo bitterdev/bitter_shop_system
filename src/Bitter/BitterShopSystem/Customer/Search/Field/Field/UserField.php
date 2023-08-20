@@ -40,7 +40,7 @@ class UserField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByUser(User::getByUserID($this->data['user'])->getUserInfoObject()->getEntityObject());
+        $list->filterByUser(User::getByUserID(@$this->data['user'])->getUserInfoObject()->getEntityObject());
     }
     
     public function renderSearchField()
@@ -48,6 +48,6 @@ class UserField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var UserSelector $userSelector */
         $userSelector = $app->make(UserSelector::class);
-        return $userSelector->selectUser('user', $this->data['user']);
+        return $userSelector->selectUser('user', @$this->data['user']);
     }
 }

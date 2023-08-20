@@ -151,8 +151,13 @@ class ProductList extends AttributedItemList implements PagerProviderInterface, 
      */
     public function filterByTaxRate($taxRate)
     {
-        $this->query->andWhere('t2.`taxRateId` = :taxRate');
-        $this->query->setParameter('taxRate', $taxRate->getId());
+        if ($taxRate instanceof TaxRate) {
+            $this->query->andWhere('t2.`taxRate` = :taxRate');
+            $this->query->setParameter('taxRate', $taxRate->getId());
+        } else {
+            $this->query->andWhere('t2.`taxRate` = :taxRate');
+            $this->query->setParameter('taxRate', $taxRate);
+        }
     }
 
     /**

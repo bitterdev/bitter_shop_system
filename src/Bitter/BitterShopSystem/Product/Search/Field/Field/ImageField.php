@@ -40,7 +40,7 @@ class ImageField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByImage(File::getByID($this->data['fID']));
+        $list->filterByImage(File::getByID(@$this->data['fID']));
     }
 
     public function renderSearchField()
@@ -48,6 +48,6 @@ class ImageField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var FileManager $fileSelector */
         $fileSelector = $app->make(FileManager::class);
-        return $fileSelector->image('fID', 'fID', t("Please select"), $this->data['fID']);
+        return $fileSelector->image('fID', 'fID', t("Please select"), @$this->data['fID']);
     }
 }

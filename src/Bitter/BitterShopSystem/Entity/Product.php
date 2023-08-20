@@ -94,7 +94,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     protected $priceDiscounted = 0;
 
     /**
-     * @var TaxRate
+     * @var TaxRate|null
      * @ORM\ManyToOne(targetEntity="Bitter\BitterShopSystem\Entity\TaxRate", inversedBy="product")
      * @ORM\JoinColumn(name="taxRateId", referencedColumnName="id", onDelete="SET NULL")
      */
@@ -290,7 +290,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
      * @param TaxRate|null|object $taxRate
      * @return Product
      */
-    public function setTaxRate(TaxRate $taxRate): Product
+    public function setTaxRate(?TaxRate $taxRate): Product
     {
         $this->taxRate = $taxRate;
         return $this;
@@ -308,7 +308,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
      * @param ShippingCost|null|object $shippingCost
      * @return Product
      */
-    public function setShippingCost(ShippingCost $shippingCost): Product
+    public function setShippingCost(?ShippingCost $shippingCost): Product
     {
         $this->shippingCost = $shippingCost;
         return $this;
@@ -344,7 +344,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
      * @param File|null $image
      * @return Product
      */
-    public function setImage(File $image): Product
+    public function setImage(?File $image): Product
     {
         $this->image = $image;
         return $this;

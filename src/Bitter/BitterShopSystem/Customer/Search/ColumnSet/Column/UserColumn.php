@@ -12,6 +12,7 @@
 
 namespace Bitter\BitterShopSystem\Customer\Search\ColumnSet\Column;
 
+use Bitter\BitterShopSystem\Customer\Search\ColumnSet\Available;
 use Bitter\BitterShopSystem\Customer\Search\Field\Manager;
 use Concrete\Core\Search\Column\Column;
 use Concrete\Core\Search\Column\PagerColumnInterface;
@@ -33,7 +34,7 @@ class UserColumn extends Column implements PagerColumnInterface
     
     public function getColumnCallback()
     {
-        return [Manager::class, 'getUser'];
+        return [Available::class, 'getUser'];
     }
     
     /**

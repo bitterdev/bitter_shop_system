@@ -113,8 +113,13 @@ class CouponList extends ItemList implements PagerProviderInterface, PaginationP
      */
     public function filterByTaxRate($taxRate)
     {
-        $this->query->andWhere('t5.`taxRate` = :taxRate');
-        $this->query->setParameter('taxRate', $taxRate->getId());
+        if ($taxRate instanceof TaxRate) {
+            $this->query->andWhere('t5.`taxRateId` = :taxRate');
+            $this->query->setParameter('taxRate', $taxRate->getId());
+        } else {
+            $this->query->andWhere('t5.`taxRateId` = :taxRate');
+            $this->query->setParameter('taxRate', $taxRate);
+        }
     }
 
     public function filterByExcludeDiscountedProducts(bool $excludeDiscountedProducts)

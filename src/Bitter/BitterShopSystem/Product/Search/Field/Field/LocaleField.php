@@ -40,7 +40,7 @@ class LocaleField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByLocale($this->data['locale']);
+        $list->filterByLocale(@$this->data['locale']);
     }
 
     public function renderSearchField()
@@ -54,6 +54,6 @@ class LocaleField extends AbstractField
         }
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->select('locale', $locales, $this->data['locale']);
+        return $form->select('locale', $locales, @$this->data['locale']);
     }
 }

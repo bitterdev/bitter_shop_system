@@ -12,6 +12,7 @@
 
 namespace Bitter\BitterShopSystem\Product\Search\ColumnSet\Column;
 
+use Bitter\BitterShopSystem\Product\Search\ColumnSet\Available;
 use Bitter\BitterShopSystem\Product\Search\Field\Manager;
 use Concrete\Core\Entity\File\File;
 use Concrete\Core\Search\Column\Column;
@@ -34,7 +35,7 @@ class ImageColumn extends Column implements PagerColumnInterface
 
     public function getColumnCallback()
     {
-        return [Manager::class, 'getImage'];
+        return [Available::class, 'getImage'];
     }
 
     /**

@@ -39,7 +39,7 @@ class RateField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByRate($this->data['rate']);
+        $list->filterByRate(@$this->data['rate']);
     }
     
     public function renderSearchField()
@@ -47,6 +47,6 @@ class RateField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->number('rate', $this->data['rate']);
+        return $form->number('rate', @$this->data['rate']);
     }
 }

@@ -49,7 +49,7 @@ class CustomerList extends AttributedItemList implements PagerProviderInterface,
      */
     public function filterByKeywords($keywords)
     {
-        $this->query->andWhere('(t3.`id` LIKE :keywords OR t3.`user` LIKE :keywords)');
+        $this->query->andWhere('(t3.`id` LIKE :keywords)');
         $this->query->setParameter('keywords', '%' . $keywords . '%');
     }
 

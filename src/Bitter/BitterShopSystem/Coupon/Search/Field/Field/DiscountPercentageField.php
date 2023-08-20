@@ -38,7 +38,7 @@ class DiscountPercentageField extends AbstractField
      */
     public function filterList(ItemList $list)
     {
-        $list->filterByDiscountPercentage($this->data['discountPercentage']);
+        $list->filterByDiscountPercentage(@$this->data['discountPercentage']);
     }
 
     public function renderSearchField()
@@ -46,6 +46,6 @@ class DiscountPercentageField extends AbstractField
         $app = Application::getFacadeApplication();
         /** @var Form $form */
         $form = $app->make(Form::class);
-        return $form->text('discountPercentage', $this->data['discountPercentage']);
+        return $form->text('discountPercentage', @$this->data['discountPercentage']);
     }
 }
