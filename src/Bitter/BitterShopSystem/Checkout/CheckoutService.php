@@ -379,7 +379,7 @@ class CheckoutService implements ObjectInterface
 
     public function getSelectedCheckoutMethod(): string
     {
-        return $this->session->get("selectedCheckoutMethod", "login");
+        return $this->session->get("selectedCheckoutMethod", "guest");
     }
 
     public function setSelectedCheckoutMethod(string $selectedCheckoutMethod)
