@@ -11,6 +11,7 @@
 namespace Bitter\BitterShopSystem\Product;
 
 use Bitter\BitterShopSystem\Entity\Product;
+use Concrete\Core\Localization\Localization;
 use Concrete\Core\Multilingual\Page\Section\Section;
 use Doctrine\ORM\EntityManagerInterface;
 use Concrete\Core\Entity\Package;
@@ -45,7 +46,14 @@ class ProductService
         string $handle
     ): ?Product
     {
-        return $this->getByHandleWithLocale($handle, Section::getCurrentSection()->getLocale());
+        $section = Section::getCurrentSection();
+        if ($section instanceof Section) {
+            $locale = $section->getLocale();
+        } else {
+            $locale = Localization::getInstance()->getLocale();
+        }
+
+        return $this->getByHandleWithLocale($handle, $locale);
     }
 
     /**

@@ -24,4 +24,9 @@ class ProductKey extends Facade
     {
         return static::getFacadeRoot()->getAttributeKeyByHandle($handle);
     }
+
+    public static function getByID($akID)
+    {
+        return static::getFacadeRoot()->getAttributeKeyByID($akID);
+    }
 }
