@@ -17,7 +17,9 @@ use Bitter\BitterShopSystem\TaxRate\TaxRateService as TaxRateService;
 use Bitter\BitterShopSystem\ShippingCost\ShippingCostService as ShippingCostService;
 use Concrete\Core\Backup\ContentImporter\Importer\Routine\AbstractRoutine;
 use Concrete\Core\Backup\ContentImporter\ValueInspector\ValueInspector;
+use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\File\File;
+use Concrete\Core\Site\Service;
 use Concrete\Core\Support\Facade\Application;
 use Doctrine\ORM\EntityManagerInterface;
 use SimpleXMLElement;
@@ -42,6 +44,9 @@ class ImportProductsRoutine extends AbstractRoutine
         $categoryService = $app->make(\Bitter\BitterShopSystem\Category\CategoryService::class);
         /** @var EntityManagerInterface $entityManager */
         $entityManager = $app->make(EntityManagerInterface::class);
+        /** @var Service $siteService */
+        $siteService = $app->make(Service::class);
+        $defaultSite = $siteService->getSite();
         /** @var ValueInspector $valueInspector */
         $valueInspector = $app->make('import/value_inspector');
         /** @var \Concrete\Core\Entity\Site\Site $site */
@@ -60,6 +65,16 @@ class ImportProductsRoutine extends AbstractRoutine
 
                 $locale = (string)$item["locale"];
 
+                $site = $defaultSite;
+
+                if (isset($item["site"])) {
+                    $siteObject = $siteService->getByHandle($item["site"]);
+
+                    if ($siteObject instanceof Site) {
+                        $site = $siteObject;
+                    }
+                }
+
                 if (strlen($locale) === 0) {
                     $locale = $defaultLocale;
                 }
@@ -72,6 +87,7 @@ class ImportProductsRoutine extends AbstractRoutine
                     $productEntry->setPackage($pkg);
                 }
 
+                $productEntry->setSite($site);
                 $productEntry->setName((string)$item["name"]);
                 $productEntry->setPriceRegular((float)$item["price-regular"]);
                 $productEntry->setPriceDiscounted((float)$item["price-discounted"]);

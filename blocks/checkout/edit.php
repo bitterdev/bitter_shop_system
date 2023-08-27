@@ -25,6 +25,7 @@ $form = $app->make(Form::class);
 /** @var PageSelector $pageSelector */
 $pageSelector = $app->make(PageSelector::class);
 
+\Concrete\Core\View\View::element("dashboard/help_blocktypes", [], "bitter_shop_system");
 
 ?>
 

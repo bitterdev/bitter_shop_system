@@ -28,6 +28,11 @@ $form = $app->make(Form::class);
 
 ?>
 
+    <div class="ccm-dashboard-header-buttons">
+        <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
+    </div>
+
+
 <?php if (count($locales) === 1) { ?>
     <p>
         <?php echo t("You must have more than one locale to use this tool.") ?>

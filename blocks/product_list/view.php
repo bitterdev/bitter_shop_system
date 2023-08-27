@@ -33,7 +33,7 @@ $pkgEntity = $packageService->getByHandle("bitter_shop_system");
 /** @var Controller $pkg */
 $pkg = $pkgEntity->getController();
 
-$detailsPage = Page::getByID($detailsPageId);
+$detailsPage = Page::getByID($detailsPageId ?? null);
 ?>
 
 <div class="product-list">

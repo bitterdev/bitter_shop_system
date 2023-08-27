@@ -18,6 +18,7 @@ use Concrete\Core\Support\Facade\Url;
 use Concrete\Core\Validation\CSRF\Token;
 use Concrete\Core\View\View;
 
+/** @var array $sites */
 /** @var $entry Category */
 /** @var $form Form */
 /** @var $token Token */
@@ -26,6 +27,10 @@ use Concrete\Core\View\View;
 
 $isEdit = is_numeric($entry->getId());
 ?>
+
+    <div class="ccm-dashboard-header-buttons">
+        <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
+    </div>
 
     <form action="#" method="post">
         <?php echo $token->output("save_category_entity"); ?>
@@ -76,6 +81,11 @@ $isEdit = is_numeric($entry->getId());
                     "max-length" => "255",
                 ]
             ); ?>
+        </div>
+
+        <div class="form-group">
+            <?php echo $form->label("siteId", t("Site")); ?>
+            <?php echo $form->select("siteId", $sites, $entry->getSite() instanceof \Concrete\Core\Entity\Site\Site ? $entry->getSite()->getSiteID() : null); ?>
         </div>
 
         <div class="ccm-dashboard-form-actions-wrapper">

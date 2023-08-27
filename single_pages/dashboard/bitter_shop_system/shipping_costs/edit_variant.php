@@ -34,6 +34,9 @@ $config = $app->make(Repository::class);
 
 
 ?>
+    <div class="ccm-dashboard-header-buttons">
+        <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
+    </div>
 
     <form action="#" method="post">
         <?php echo $token->output("save_shipping_cost_variant"); ?>

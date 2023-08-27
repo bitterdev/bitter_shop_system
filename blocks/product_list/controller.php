@@ -70,13 +70,19 @@ class Controller extends BlockController
         $productList = new ProductList();
         $productList->setItemsPerPage((int)$this->get("itemsPerPage"));
         $productList->filterByCurrentLocale();
-        /** @noinspection PhpDeprecationInspection */
-        $pagination = $productList->getPagination();
+        $productList->filterByCurrentSite();
+        try {
+            /** @noinspection PhpDeprecationInspection */
+            $pagination = $productList->getPagination();
+            if ($pagination->haveToPaginate()) {
+                $pagination = $pagination->renderView();
+                $this->set('pagination', $pagination);
+            }
+        } catch (\Exception) {
+            $this->set('pagination', null);
+        }
+
         $this->set('products', $productList->getResults());
 
-        if ($pagination->haveToPaginate()) {
-            $pagination = $pagination->renderView();
-            $this->set('pagination', $pagination);
-        }
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 /**
- * @project:   Bitter Shop System
+ * @project:   App Icon
  *
- * @author     Fabian Bitter (fabian@bitter.de)
- * @copyright  (C) 2021 Fabian Bitter (www.bitter.de)
- * @version    X.X.X
+ * @author     Fabian Bitter
+ * @copyright  (C) 2016 Fabian Bitter (www.bitter.de)
+ * @version    1.2.1
  */
 
 namespace Concrete\Package\BitterShopSystem\Controller\Dialog\Support;
@@ -45,10 +45,9 @@ class CreateTicket extends UserInterface
 
                 $rawData = $response->getBody()->getContents();
 
-                /** @noinspection PhpComposerExtensionStubsInspection */
                 $json = json_decode($rawData, true);
 
-                if ($json["error"]) {
+                if (isset($json["error"])) {
                     foreach ($json["errors"] as $errorMessage) {
                         $errorList->add($errorMessage);
                     }

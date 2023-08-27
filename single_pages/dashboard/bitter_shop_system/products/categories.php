@@ -25,6 +25,7 @@ use Bitter\BitterShopSystem\Category\Menu;
 /** @var DropdownMenu $resultsBulkMenu */
 
 ?>
+
 <div id="ccm-search-results-table">
     <table class="ccm-search-results-table" data-search-results="categories">
         <thead>

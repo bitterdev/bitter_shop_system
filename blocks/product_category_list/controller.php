@@ -35,6 +35,7 @@ class Controller extends BlockController
     public function view()
     {
         $categoryList = new CategoryList();
+        $categoryList->filterByCurrentSite();
         $this->set('productCategories', $categoryList->getResults());
     }
 

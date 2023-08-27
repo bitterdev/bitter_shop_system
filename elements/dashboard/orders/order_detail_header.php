@@ -19,8 +19,14 @@ use Concrete\Core\Support\Facade\Url;
 /** @var Order $entry */
 ?>
 
-<?php if (!$entry->isPaymentReceived()) { ?>
-    <a href="<?php echo Url::to(Page::getCurrentPage(), "mark_as_paid", $entry->getId()); ?>" class="btn btn-success">
-        <?php echo t("Mark as paid"); ?>
-    </a>
-<?php } ?>
+<div class="btn-group">
+
+    <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
+
+    <?php if (!$entry->isPaymentReceived()) { ?>
+        <a href="<?php echo Url::to(Page::getCurrentPage(), "mark_as_paid", $entry->getId()); ?>" class="btn btn-success">
+            <?php echo t("Mark as paid"); ?>
+        </a>
+    <?php } ?>
+
+</div>

@@ -30,6 +30,9 @@ $token = $app->make(Token::class);
 
 
 ?>
+    <div class="ccm-dashboard-header-buttons">
+        <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
+    </div>
 
 <form action="#" method="post">
     <?php echo $token->output("save_tax_rate_variant"); ?>

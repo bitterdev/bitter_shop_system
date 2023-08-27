@@ -15,10 +15,12 @@ namespace Bitter\BitterShopSystem\Category;
 
 use Bitter\BitterShopSystem\Entity\Category;
 use Bitter\BitterShopSystem\Search\ItemList\Pager\Manager\CategoryListPagerManager;
+use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Search\ItemList\Database\ItemList;
 use Concrete\Core\Search\ItemList\Pager\PagerProviderInterface;
 use Concrete\Core\Search\ItemList\Pager\QueryString\VariableFactory;
 use Concrete\Core\Search\Pagination\PaginationProviderInterface;
+use Concrete\Core\Site\Service;
 use Concrete\Core\Support\Facade\Application;
 use Concrete\Core\Permission\Key\Key;
 use Concrete\Core\User\User;
@@ -69,6 +71,25 @@ class CategoryList extends ItemList implements PagerProviderInterface, Paginatio
     {
         $this->query->andWhere('t6.`handle` = :handle');
         $this->query->setParameter('handle', $handle);
+    }
+
+
+    public function filterByCurrentSite()
+    {
+        $app = Application::getFacadeApplication();
+        /** @var Service $siteService */
+        $siteService = $app->make(Service::class);
+        $site = $siteService->getSite();
+        $this->filterBySite($site);
+    }
+
+    /**
+     * @param Site $site
+     */
+    public function filterBySite($site)
+    {
+        $this->query->andWhere('t6.`SiteID` = :site');
+        $this->query->setParameter('site', $site->getSiteID());
     }
 
     /**

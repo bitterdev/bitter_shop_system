@@ -11,6 +11,7 @@
 
 namespace Bitter\BitterShopSystem\Export\Item;
 
+use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Export\Item\ItemInterface;
 use Bitter\BitterShopSystem\Entity\Category as CategoryEntity;
 use SimpleXMLElement;
@@ -28,6 +29,7 @@ class Category implements ItemInterface
 
         $element->addAttribute('name', $mixed->getName());
         $element->addAttribute('handle', $mixed->getHandle());
+        $element->addAttribute('site', $mixed->getSite() instanceof Site ? $mixed->getSite()->getSiteHandle() : null);
         $element->addAttribute('package', $mixed->getPackageHandle());
 
         return $element;

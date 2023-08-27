@@ -127,6 +127,14 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     protected $attributes;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Concrete\Core\Entity\Site\Site")
+     * @ORM\JoinColumn(name="siteID", referencedColumnName="siteID", onDelete="CASCADE")
+     *
+     * @var \Concrete\Core\Entity\Site\Site|null
+     */
+    protected $site = null;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -417,6 +425,24 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
         return [
             "handle" => $this->getHandle()
         ];
+    }
+
+    /**
+     * @return \Concrete\Core\Entity\Site\Site|null
+     */
+    public function getSite(): ?\Concrete\Core\Entity\Site\Site
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param \Concrete\Core\Entity\Site\Site|null $site
+     * @return Product
+     */
+    public function setSite(?\Concrete\Core\Entity\Site\Site $site): Product
+    {
+        $this->site = $site;
+        return $this;
     }
 
     public function getExporter()

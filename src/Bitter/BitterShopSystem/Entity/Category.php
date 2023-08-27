@@ -55,6 +55,14 @@ class Category implements ExportableInterface
     protected $products;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Concrete\Core\Entity\Site\Site")
+     * @ORM\JoinColumn(name="siteID", referencedColumnName="siteID", onDelete="CASCADE")
+     *
+     * @var \Concrete\Core\Entity\Site\Site|null
+     */
+    protected $site = null;
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -105,6 +113,24 @@ class Category implements ExportableInterface
     public function setHandle(string $handle): Category
     {
         $this->handle = $handle;
+        return $this;
+    }
+
+    /**
+     * @return \Concrete\Core\Entity\Site\Site|null
+     */
+    public function getSite(): ?\Concrete\Core\Entity\Site\Site
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param \Concrete\Core\Entity\Site\Site|null $site
+     * @return Category
+     */
+    public function setSite(?\Concrete\Core\Entity\Site\Site $site): Category
+    {
+        $this->site = $site;
         return $this;
     }
 

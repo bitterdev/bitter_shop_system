@@ -37,8 +37,12 @@ $userSelector = $app->make(UserSelector::class);
 
 
 ?>
+    <div class="ccm-dashboard-header-buttons">
+        <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
+    </div>
 
-<form action="#" method="post">
+
+    <form action="#" method="post">
     <?php echo $token->output("save_customer_entity"); ?>
 
     <div class="form-group">

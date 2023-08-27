@@ -49,4 +49,26 @@ use Concrete\Core\Utility\Service\Url;
             </div>
         </div>
     <?php endif; ?>
+
+    <ul class="ccm-dashboard-header-icons">
+        <li>
+            <a  class="ccm-hover-icon launch-tooltip" title="<?php echo h(t('Get Help')) ?>" href="javascript:void(0);" id="ccm-bitter-support">
+                <i class="fas fa-question" aria-hidden="true"></i>
+            </a>
+        </li>
+
+        <script>
+            (function ($) {
+                $("#ccm-bitter-support").click(function () {
+                    jQuery.fn.dialog.open({
+                        href: "<?php echo (string)\Concrete\Core\Support\Facade\Url::to("/ccm/system/dialogs/bitter_shop_system/create_ticket"); ?>",
+                        modal: true,
+                        width: 500,
+                        title: "<?php echo h(t("Support"));?>",
+                        height: '80%'
+                    });
+                });
+            })(jQuery);
+        </script>
+    </ul>
 </div>

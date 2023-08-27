@@ -23,6 +23,7 @@ use Concrete\Core\File\File;
 use Concrete\Core\Page\Controller\DashboardPageController;
 use Concrete\Core\Http\ResponseFactory;
 use Concrete\Core\Http\Request;
+use Concrete\Core\Site\Service;
 use Concrete\Core\Support\Facade\Url;
 use Symfony\Component\HttpFoundation\Response;
 use Bitter\BitterShopSystem\Entity\TaxRate;
@@ -230,6 +231,10 @@ class Products extends DashboardPageController
             $entry->setLocale($data["locale"]);
             $entry->setPriceRegular((float)$data["priceRegular"]);
             $entry->setPriceDiscounted((float)$data["priceDiscounted"]);
+            /** @var Service $siteService */
+            $siteService = $this->app->make(Service::class);
+            $site = $siteService->getByID($data["siteId"]);
+            $entry->setSite($site);
 
             if (isset($data["taxRate"])) {
                 $entry->setTaxRate($this->entityManager->getRepository(TaxRate::class)->findOneBy(["id" => $data["taxRate"]]));
@@ -272,6 +277,20 @@ class Products extends DashboardPageController
         }
 
         $this->setDefaults($entry);
+    }
+
+    private function getSites(): array
+    {
+        $sites = [];
+
+        /** @var Service $siteService */
+        $siteService = $this->app->make(Service::class);
+
+        foreach($siteService->getList() as $site) {
+            $sites[$site->getSiteID()] = $site->getSiteName();
+        }
+
+        return $sites;
     }
 
     private function setDefaults($entry = null)
@@ -327,6 +346,7 @@ class Products extends DashboardPageController
             $locales[$localeEntity->getLocale()] = sprintf('%s (%s)', $localeEntity->getLanguageText(), $localeEntity->getLocale());
         }
 
+        $this->set("sites", $this->getSites());
         $this->set("locales", $locales);
         $this->set("shippingCostValues", $shippingCostValues);
         $this->set("entry", $entry);

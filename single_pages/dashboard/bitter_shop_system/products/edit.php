@@ -28,6 +28,7 @@ use Bitter\BitterShopSystem\Entity\ShippingCost;
 use Concrete\Core\Attribute\Form\Renderer;
 use Concrete\Core\View\View;
 
+/** @var array $sites */
 /** @var array $locales */
 /** @var Renderer $renderer */
 /** @var ProductKey[] $attributes */
@@ -51,6 +52,12 @@ $config = $app->make(Repository::class);
 
 
 ?>
+
+    <div class="ccm-dashboard-header-buttons">
+        <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
+    </div>
+
+
     <form action="#" method="post">
         <?php echo $token->output("save_product_entity"); ?>
 
@@ -340,6 +347,12 @@ $config = $app->make(Repository::class);
                 $entry->getImage() instanceof File ? $entry->getImage()->getFileID() : null
             ); ?>
         </div>
+
+        <div class="form-group">
+            <?php echo $form->label("siteId", t("Site")); ?>
+            <?php echo $form->select("siteId", $sites, $entry->getSite() instanceof \Concrete\Core\Entity\Site\Site ? $entry->getSite()->getSiteID() : null); ?>
+        </div>
+
 
         <?php if (!empty($attributes)) {
             foreach ($attributes as $ak) {

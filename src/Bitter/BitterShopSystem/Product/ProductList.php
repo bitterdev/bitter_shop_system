@@ -19,11 +19,13 @@ use Bitter\BitterShopSystem\Entity\ShippingCost;
 use Bitter\BitterShopSystem\Entity\TaxRate;
 use Bitter\BitterShopSystem\Search\ItemList\Pager\Manager\ProductListPagerManager;
 use Concrete\Core\Entity\File\File;
+use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Multilingual\Page\Section\Section;
 use Concrete\Core\Search\ItemList\Database\AttributedItemList;
 use Concrete\Core\Search\ItemList\Pager\PagerProviderInterface;
 use Concrete\Core\Search\ItemList\Pager\QueryString\VariableFactory;
 use Concrete\Core\Search\Pagination\PaginationProviderInterface;
+use Concrete\Core\Site\Service;
 use Concrete\Core\Support\Facade\Application;
 use Concrete\Core\User\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -117,6 +119,24 @@ class ProductList extends AttributedItemList implements PagerProviderInterface, 
         if (is_object(Section::getCurrentSection())) {
             $this->filterByLocale(Section::getCurrentSection()->getLocale());
         }
+    }
+
+    public function filterByCurrentSite()
+    {
+        $app = Application::getFacadeApplication();
+        /** @var Service $siteService */
+        $siteService = $app->make(Service::class);
+        $site = $siteService->getSite();
+        $this->filterBySite($site);
+    }
+
+    /**
+     * @param Site $site
+     */
+    public function filterBySite($site)
+    {
+        $this->query->andWhere('t2.`SiteID` = :site');
+        $this->query->setParameter('site', $site->getSiteID());
     }
 
     /**

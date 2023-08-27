@@ -16,6 +16,7 @@ use Bitter\BitterShopSystem\Attribute\Category\ProductCategory;
 use Concrete\Core\Attribute\Category\CategoryService;
 use Concrete\Core\Backup\ContentExporter;
 use Concrete\Core\Entity\File\File;
+use Concrete\Core\Entity\Site\Site;
 use Concrete\Core\Export\Item\ItemInterface;
 use Bitter\BitterShopSystem\Entity\Product as ProductEntity;
 use Bitter\BitterShopSystem\Entity\TaxRate as TaxRateEntity;
@@ -42,6 +43,7 @@ class Product implements ItemInterface
         $element = $element->addChild('product');
 
         $element->addAttribute('name', $mixed->getName());
+        $element->addAttribute('site', $mixed->getSite() instanceof Site ? $mixed->getSite()->getSiteHandle() : null);
         $element->addAttribute('handle', $mixed->getHandle());
         $element->addAttribute('tax-rate', $mixed->getTaxRate() instanceof TaxRateEntity ? $mixed->getTaxRate()->getHandle() : null);
         $element->addAttribute('shipping-cost', $mixed->getShippingCost() instanceof ShippingCostEntity ? $mixed->getShippingCost()->getHandle() : null);
