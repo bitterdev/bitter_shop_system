@@ -68,12 +68,14 @@ module.exports = function (grunt) {
                     {src: ['single_pages/**'], dest: "dist/"},
                     {src: ['src/**'], dest: "dist/"},
                     {src: ['views/**'], dest: "dist/"},
+                    {src: ['vendor/**'], dest: "dist/"},
                     {src: ['controller.php'], dest: "dist/", filter: 'isFile'},
                     {src: ['icon.png'], dest: "dist/", filter: 'isFile'},
                     {src: ['INSTALL.TXT'], dest: "dist/", filter: 'isFile'},
                     {src: ['LICENSE.TXT'], dest: "dist/", filter: 'isFile'},
                     {src: ['CHANGELOG'], dest: "dist/", filter: 'isFile'},
-                    {src: ['install.xml'], dest: "dist/", filter: 'isFile'}
+                    {src: ['install.xml'], dest: "dist/", filter: 'isFile'},
+                    {src: ['data.xml'], dest: "dist/", filter: 'isFile'}
                 ]
             }
         },
