@@ -76,6 +76,15 @@ class Product implements ItemInterface
             $cnt->exportValue($akx);
         }
 
+        $variants = $element->addChild("variants");
+
+        foreach ($mixed->getVariants() as $variantEntry) {
+            $variant = $variants->addChild("variant");
+            $variant->addAttribute('name', $variantEntry->getName());
+            $variant->addAttribute('price', $variantEntry->getPrice());
+            $variant->addAttribute('quantity', $variantEntry->getQuantity());
+        }
+
         return $element;
     }
 }

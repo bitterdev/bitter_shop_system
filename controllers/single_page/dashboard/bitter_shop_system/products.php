@@ -16,6 +16,7 @@ use Bitter\BitterShopSystem\Attribute\Category\ProductCategory;
 use Bitter\BitterShopSystem\Attribute\Key\ProductKey;
 use Bitter\BitterShopSystem\Entity\Category;
 use Bitter\BitterShopSystem\Entity\Product;
+use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Concrete\Core\Attribute\Category\CategoryService;
 use Concrete\Core\Attribute\Context\FrontendFormContext;
 use Concrete\Core\Attribute\Form\Renderer;
@@ -253,7 +254,7 @@ class Products extends DashboardPageController
             } else {
                 $entry->setCategory(null);
             }
-            
+
             $entry->setImage(File::getByID($data["image"]));
             $entry->setQuantity((int)$data["quantity"]);
 
@@ -286,12 +287,120 @@ class Products extends DashboardPageController
         /** @var Service $siteService */
         $siteService = $this->app->make(Service::class);
 
-        foreach($siteService->getList() as $site) {
+        foreach ($siteService->getList() as $site) {
             $sites[$site->getSiteID()] = $site->getSiteName();
         }
 
         return $sites;
     }
+
+    private function setVariantDefaults($entry)
+    {
+
+        $this->set("variant", $entry);
+        $this->render("/dashboard/bitter_shop_system/products/edit_variant");
+    }
+
+    public function validateVariant($data = null, $entry = null)
+    {
+        if (!isset($data["name"]) || empty($data["name"])) {
+            $this->error->add(t("The field \"Name\" is required."));
+        }
+
+        if (!isset($data["price"]) || empty($data["price"])) {
+            $this->error->add(t("The field \"Price\" is required."));
+        }
+
+        if (!isset($data["quantity"]) || empty($data["quantity"])) {
+            $this->error->add(t("The field \"Quantity\" is required."));
+        }
+
+        return !$this->error->has();
+    }
+
+    /**
+     * @param ProductVariant $entry
+     * @return \Concrete\Core\Routing\RedirectResponse|Response
+     */
+    private function saveVariant($entry)
+    {
+        $data = $this->request->request->all();
+
+        if ($this->validateVariant($data, $entry)) {
+            $entry->setName((string)$data["name"]);
+            $entry->setPrice((float)$data["price"]);
+            $entry->setQuantity((int)$data["quantity"]);
+
+            $this->entityManager->persist($entry);
+            $this->entityManager->flush();
+
+            return $this->responseFactory->redirect(Url::to("/dashboard/bitter_shop_system/products/edit", $entry->getProduct()->getId(), "variant_updated"), Response::HTTP_TEMPORARY_REDIRECT);
+        }
+
+        $this->setVariantDefaults($entry);
+    }
+
+    public function remove_variant($variantId = null)
+    {
+        /** @var ProductVariant $entry */
+        $entry = $this->entityManager->getRepository(ProductVariant::class)->findOneBy([
+            "id" => $variantId
+        ]);
+
+        if ($entry instanceof ProductVariant) {
+            $productId = $entry->getProduct()->getId();
+
+            $this->entityManager->remove($entry);
+            $this->entityManager->flush();
+
+            return $this->responseFactory->redirect(Url::to("/dashboard/bitter_shop_system/products/edit", $productId, "variant_removed"), Response::HTTP_TEMPORARY_REDIRECT);
+        } else {
+            $this->responseFactory->notFound(null)->send();
+            $this->app->shutdown();
+        }
+    }
+
+    public function edit_variant($variantId = null)
+    {
+        /** @var ProductVariant $entry */
+        $entry = $this->entityManager->getRepository(ProductVariant::class)->findOneBy([
+            "id" => $variantId
+        ]);
+
+        if ($entry instanceof ProductVariant) {
+            if ($this->token->validate("save_product_variant")) {
+                return $this->saveVariant($entry);
+            }
+
+            $this->setVariantDefaults($entry);
+        } else {
+            $this->responseFactory->notFound(null)->send();
+            $this->app->shutdown();
+        }
+    }
+
+    public function add_variant($id = null)
+    {
+        /** @var ProductEntity $entry */
+        $entry = $this->entityManager->getRepository(ProductEntity::class)->findOneBy([
+            "id" => $id
+        ]);
+
+        if ($entry instanceof ProductEntity) {
+            $variantEntry = new ProductVariant();
+            $variantEntry->setProduct($entry);
+
+            if ($this->token->validate("save_product_variant")) {
+                return $this->saveVariant($variantEntry);
+            }
+
+            $this->setVariantDefaults($variantEntry);
+        } else {
+            $this->responseFactory->notFound(null)->send();
+            $this->app->shutdown();
+        }
+    }
+
 
     private function setDefaults($entry = null)
     {
@@ -418,12 +527,29 @@ class Products extends DashboardPageController
     /**
      * @noinspection PhpInconsistentReturnPointsInspection
      */
-    public function update($id = null)
+    public function edit($id = null, $state = null)
+    {
+        return $this->update($id, $state);
+    }
+
+    /**
+     * @noinspection PhpInconsistentReturnPointsInspection
+     */
+    public function update($id = null, $state = null)
     {
         /** @var ProductEntity $entry */
         $entry = $this->entityManager->getRepository(ProductEntity::class)->findOneBy([
             "id" => $id
         ]);
+
+        switch ($state) {
+            case "variant_removed":
+                $this->set("success", t("The variant has been successfully removed."));
+                break;
+            case "variant_updated":
+                $this->set("success", t("The variant has been successfully updated."));
+                break;
+        }
 
         if ($entry instanceof ProductEntity) {
             if ($this->token->validate("save_product_entity")) {

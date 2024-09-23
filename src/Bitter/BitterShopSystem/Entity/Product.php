@@ -24,6 +24,8 @@ use Concrete\Core\Entity\PackageTrait;
 use Concrete\Core\Export\ExportableInterface;
 use Concrete\Core\Export\Item\ItemInterface;
 use Concrete\Core\Support\Facade\Application;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 
@@ -135,6 +137,17 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     protected $site = null;
 
     /**
+     * @var Collection|ProductVariant[]
+     * @ORM\OneToMany(targetEntity="Bitter\BitterShopSystem\Entity\ProductVariant", mappedBy="product", cascade={"persist", "remove"})
+     */
+    protected $variants;
+
+    public function __construct()
+    {
+        $this->variants = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -158,6 +171,24 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    /**
+     * @return ProductVariant[]|Collection
+     */
+    public function getVariants(): Collection|array
+    {
+        return $this->variants;
+    }
+
+    /**
+     * @param ProductVariant[]|Collection $variants
+     * @return Product
+     */
+    public function setVariants(Collection|array $variants): Product
+    {
+        $this->variants = $variants;
+        return $this;
     }
 
     /**

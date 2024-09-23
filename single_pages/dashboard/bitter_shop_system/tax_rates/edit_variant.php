@@ -56,7 +56,13 @@ $token = $app->make(Token::class);
         <?php echo $form->label("variantRate", t("Rate"), ["class" => "control-label"]); ?>
 
         <div class="input-group">
-            <?php echo $form->number("variantRate", $variant->getRate(), ["class" => "form-control", "required" => "required"]); ?>
+            <?php echo $form->number("variantRate", $variant->getRate(), [
+                "class" => "form-control",
+                "required" => "required",
+                "min" => "0",
+                "max" => 100,
+                "step" => "any"
+            ]); ?>
 
             <div class="input-group-text">
                 <?php echo t('%'); ?>

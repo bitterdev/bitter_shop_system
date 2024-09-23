@@ -48,13 +48,15 @@ $editor = $app->make(EditorInterface::class);
 /** @var Repository $config */
 $config = $app->make(Repository::class);
 
-
-
-
+$isEdit = is_numeric($entry->getId());
 ?>
 
     <div class="ccm-dashboard-header-buttons">
         <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
+
+        <a href="<?php echo Url::to(\Concrete\Core\Page\Page::getCurrentPage(), "add_variant", $entry->getId()); ?>" class="btn btn-success">
+            <?php echo t("Add Variant"); ?>
+        </a>
     </div>
 
 
@@ -359,6 +361,69 @@ $config = $app->make(Repository::class);
                 $renderer->buildView($ak)->render();
             }
         } ?>
+
+        <?php if ($isEdit) { ?>
+            <fieldset>
+                <legend>
+                    <?php echo t("Variants"); ?>
+                </legend>
+
+                <?php if (count($entry->getVariants()) > 0) { ?>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>
+                                <?php echo t("Name"); ?>
+                            </th>
+
+                            <th>
+                                <?php echo t("Price"); ?>
+                            </th>
+
+                            <th>
+                                <?php echo t("Quantity"); ?>
+                            </th>
+
+                            <th>
+                                &nbsp;
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($entry->getVariants() as $variant) { ?>
+                            <tr>
+                                <td>
+                                    <?php echo $variant->getName(); ?>
+                                </td>
+
+                                <td>
+                                    <?php echo $variant->getPrice(); ?>
+                                </td>
+
+                                <td>
+                                    <?php echo $variant->getQuantity(); ?>
+                                </td>
+
+                                <td>
+                                    <div class="float-end">
+                                        <a href="<?php echo Url::to("/dashboard/bitter_shop_system/products/remove_variant", $variant->getId()); ?>" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i> <?php echo t('Remove'); ?>
+                                        </a>
+
+                                        <a href="<?php echo Url::to("/dashboard/bitter_shop_system/products/edit_variant", $variant->getId()); ?>" class="btn btn-secondary btn-sm">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i> <?php echo t('Edit'); ?>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                <?php } else { ?>
+                    <?php echo t("If you want to have price options you can do so by creating variants."); ?>
+                <?php } ?>
+            </fieldset>
+        <?php } ?>
 
         <div class="ccm-dashboard-form-actions-wrapper">
             <div class="ccm-dashboard-form-actions">

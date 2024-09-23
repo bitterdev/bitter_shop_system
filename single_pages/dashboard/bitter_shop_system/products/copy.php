@@ -23,9 +23,6 @@ $token = $app->make(Token::class);
 /** @var Form $form */
 $form = $app->make(Form::class);
 
-
-
-
 ?>
 
     <div class="ccm-dashboard-header-buttons">

@@ -12,6 +12,8 @@ namespace Bitter\BitterShopSystem\Backup\ContentImporter\Importer\Routine;
 
 use Bitter\BitterShopSystem\Attribute\Key\ProductKey;
 use Bitter\BitterShopSystem\Entity\Product;
+use Bitter\BitterShopSystem\Entity\ProductVariant;
+use Bitter\BitterShopSystem\Entity\TaxRateVariant;
 use Bitter\BitterShopSystem\Product\ProductService;
 use Bitter\BitterShopSystem\TaxRate\TaxRateService as TaxRateService;
 use Bitter\BitterShopSystem\ShippingCost\ShippingCostService as ShippingCostService;
@@ -101,6 +103,18 @@ class ImportProductsRoutine extends AbstractRoutine
                 $productEntry->setImage(File::getByID($valueInspector->inspect((string)$item->image)->getReplacedValue()));
 
                 $entityManager->persist($productEntry);
+
+                if (isset($item->variants)) {
+                    foreach ($item->variants->children() as $variant) {
+                        $variantEntry = new ProductVariant();
+                        $variantEntry->setProduct($productEntry);
+                        $variantEntry->setName((string)$variant["name"]);
+                        $variantEntry->setPrice((float)$variant["price"]);
+                        $variantEntry->setQuantity((float)$variant["quantity"]);
+                        $entityManager->persist($variantEntry);
+                    }
+                }
+
                 $entityManager->flush();
 
                 if (isset($item->attributes)) {
