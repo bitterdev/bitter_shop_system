@@ -137,7 +137,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     protected $site = null;
 
     /**
-     * @var Collection|ProductVariant[]
+     * @var Collection|ProductVariant[]|null
      * @ORM\OneToMany(targetEntity="Bitter\BitterShopSystem\Entity\ProductVariant", mappedBy="product", cascade={"persist", "remove"})
      */
     protected $variants;
@@ -174,18 +174,18 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     }
 
     /**
-     * @return ProductVariant[]|Collection
+     * @return ProductVariant[]|Collection|null
      */
-    public function getVariants(): Collection|array
+    public function getVariants(): ArrayCollection|Collection|array|null
     {
         return $this->variants;
     }
 
     /**
-     * @param ProductVariant[]|Collection $variants
+     * @param ProductVariant[]|Collection|null $variants
      * @return Product
      */
-    public function setVariants(Collection|array $variants): Product
+    public function setVariants(ArrayCollection|Collection|array|null $variants): Product
     {
         $this->variants = $variants;
         return $this;
