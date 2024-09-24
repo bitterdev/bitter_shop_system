@@ -22,7 +22,7 @@ class Manager extends FieldManager
 {
     public function getRate(TaxRate $rate)
     {
-        return number_format($rate->getRate()) . "%";
+        return number_format($rate->getRate(), 2) . "%";
     }
 
     public function __construct()
