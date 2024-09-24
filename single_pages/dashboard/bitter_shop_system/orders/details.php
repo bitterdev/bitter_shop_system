@@ -160,11 +160,11 @@ $setManager = $category->getSetManager();
                 <?php echo t("Product"); ?>
             </th>
 
-            <th class="text-right">
+            <th class="text-right text-end">
                 <?php echo t("Quantity"); ?>
             </th>
 
-            <th class="text-right">
+            <th class="text-right text-end">
                 <?php echo t("Price"); ?>
             </th>
         </tr>
@@ -176,11 +176,11 @@ $setManager = $category->getSetManager();
                     <?php echo $orderPosition->getDescription(); ?>
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     <?php echo $orderPosition->getQuantity(); ?>
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     <?php echo $moneyTransformer->transform($orderPosition->getPrice()); ?>
                 </td>
             </tr>
@@ -193,7 +193,7 @@ $setManager = $category->getSetManager();
                 </div>
             </th>
 
-            <th class="text-right">
+            <th class="text-right text-end">
                 <?php echo $moneyTransformer->transform($entry->getSubtotal()); ?>
             </th>
         </tr>
@@ -206,7 +206,7 @@ $setManager = $category->getSetManager();
                     </div>
                 </th>
 
-                <th class="text-right">
+                <th class="text-right text-end">
                     <?php echo $moneyTransformer->transform($entry->getTax()); ?>
                 </th>
             </tr>
@@ -219,7 +219,7 @@ $setManager = $category->getSetManager();
                 </div>
             </th>
 
-            <th class="text-right">
+            <th class="text-right text-end">
                 <?php echo $moneyTransformer->transform($entry->getTotal()); ?>
             </th>
         </tr>

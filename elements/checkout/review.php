@@ -69,15 +69,15 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
                 <?php echo t("Product"); ?>
             </th>
 
-            <th class="text-right">
+            <th class="text-right text-end">
                 <?php echo t("Quantity"); ?>
             </th>
 
-            <th class="text-right">
+            <th class="text-right text-end">
                 <?php echo t("Unit Price"); ?>
             </th>
 
-            <th class="text-right">
+            <th class="text-right text-end">
                 <?php echo t("Total Price"); ?>
             </th>
         </tr>
@@ -90,15 +90,15 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
                     <?php echo $cartItem->getDisplayName(); ?>
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     <?php echo $cartItem->getQuantity(); ?>
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     <?php echo $moneyTransformer->transform($cartItem->getProduct()->getPrice($includeTax)); ?>
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     <?php echo $moneyTransformer->transform($cartItem->getSubtotal($includeTax)); ?>
                 </td>
             </tr>
@@ -110,15 +110,15 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
                     <?php echo t("Shipping"); ?>
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     1
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     <?php echo $moneyTransformer->transform($cartService->getHighestShippingCost($includeTax)); ?>
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     <?php echo $moneyTransformer->transform($cartService->getHighestShippingCost($includeTax)); ?>
                 </td>
             </tr>
@@ -130,15 +130,15 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
                     <?php echo t("Discount Code: %s", $cartService->getCoupon()->getCode()); ?>
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     1
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     <?php echo $moneyTransformer->transform($cartService->getDiscount($includeTax) * -1); ?>
                 </td>
 
-                <td class="text-right">
+                <td class="text-right text-end">
                     <?php echo $moneyTransformer->transform($cartService->getDiscount($includeTax) * -1); ?>
                 </td>
             </tr>
@@ -151,7 +151,7 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
                 </div>
             </th>
 
-            <th class="text-right">
+            <th class="text-right text-end">
                 <?php echo $moneyTransformer->transform($includeTax ? $cartService->getTotal() : $cartService->getSubtotal()); ?>
             </th>
         </tr>
@@ -164,7 +164,7 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
                     </div>
                 </th>
 
-                <th class="text-right">
+                <th class="text-right text-end">
                     <?php echo $moneyTransformer->transform($cartService->getTax()); ?>
                 </th>
             </tr>
@@ -177,7 +177,7 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
                 </div>
             </th>
 
-            <th class="text-right">
+            <th class="text-right text-end">
                 <?php echo $moneyTransformer->transform($cartService->getTotal()); ?>
             </th>
         </tr>
