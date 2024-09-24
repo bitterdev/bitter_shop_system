@@ -13,6 +13,7 @@
 namespace Concrete\Package\BitterShopSystem\Block\Cart;
 
 use Bitter\BitterShopSystem\Entity\Product;
+use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Bitter\BitterShopSystem\Product\ProductService;
 use Bitter\BitterShopSystem\Checkout\CheckoutService;
 use Concrete\Core\Block\BlockController;
@@ -78,47 +79,97 @@ class Controller extends BlockController
         $this->set("error", $this->error);
     }
 
-    public function action_remove($productHandle = '')
+    public function action_remove($productHandle = '', $productVariantId = null)
     {
         $product = $this->productService->getByHandleWithCurrentLocale($productHandle);
         if ($product instanceof Product) {
-            try {
-                $this->cartService->removeItem($product);
-                return $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'removed'), Response::HTTP_TEMPORARY_REDIRECT);
-            } catch (Exception $e) {
-                $this->error->add($e);
+            if ($product->hasVariants()) {
+                $productVariant = $product->getVariantById($productVariantId);
+
+                if ($productVariant instanceof ProductVariant) {
+                    try {
+                        $this->cartService->removeItem($product, $productVariant);
+                        return $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'removed'), Response::HTTP_TEMPORARY_REDIRECT);
+                    } catch (Exception $e) {
+                        $this->error->add($e);
+                    }
+                } else {
+                    return $this->responseFactory->notFound(t("Product variation not found."));
+                }
+            } else {
+                try {
+                    $this->cartService->removeItem($product);
+                    return $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'removed'), Response::HTTP_TEMPORARY_REDIRECT);
+                } catch (Exception $e) {
+                    $this->error->add($e);
+                }
             }
         } else {
             return $this->responseFactory->notFound(t("Product not found."));
         }
     }
 
-    public function action_update($productHandle = '')
+    public function action_update($productHandle = '', $productVariantId = null)
     {
         $product = $this->productService->getByHandleWithCurrentLocale($productHandle);
+
         $quantity = (int)$this->request->query->get("quantity", 1);
+
         if ($product instanceof Product) {
-            try {
-                $this->cartService->updateItem($product, $quantity);
-                return $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'updated'), Response::HTTP_TEMPORARY_REDIRECT);
-            } catch (Exception $e) {
-                $this->error->add($e);
+
+            if ($product->hasVariants()) {
+                $productVariant = $product->getVariantById($productVariantId);
+
+                if ($productVariant instanceof ProductVariant) {
+                    try {
+                        $this->cartService->updateItem($product, $quantity, $productVariant);
+                        return $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'updated'), Response::HTTP_TEMPORARY_REDIRECT);
+                    } catch (Exception $e) {
+                        $this->error->add($e);
+                    }
+                } else {
+                    return $this->responseFactory->notFound(t("Product variation not found."));
+                }
+            } else {
+                try {
+                    $this->cartService->updateItem($product, $quantity);
+                    return $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'updated'), Response::HTTP_TEMPORARY_REDIRECT);
+                } catch (Exception $e) {
+                    $this->error->add($e);
+                }
             }
         } else {
             return $this->responseFactory->notFound(t("Product not found."));
         }
     }
 
-    public function action_add($productHandle = '')
+    public function action_add($productHandle = '', $productVariantId = null)
     {
         $product = $this->productService->getByHandleWithCurrentLocale($productHandle);
+
         $quantity = (int)$this->request->query->get("quantity", 1);
+
         if ($product instanceof Product) {
-            try {
-                $this->cartService->addItem($product, $quantity);
-                return $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'added'), Response::HTTP_TEMPORARY_REDIRECT);
-            } catch (Exception $e) {
-                $this->error->add($e);
+            if ($product->hasVariants()) {
+                $productVariant = $product->getVariantById($productVariantId);
+
+                if ($productVariant instanceof ProductVariant) {
+                    try {
+                        $this->cartService->addItem($product, $quantity, $productVariant);
+                        return $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'added'), Response::HTTP_TEMPORARY_REDIRECT);
+                    } catch (Exception $e) {
+                        $this->error->add($e);
+                    }
+                } else {
+                    return $this->responseFactory->notFound(t("Product variation not found."));
+                }
+            } else {
+                try {
+                    $this->cartService->addItem($product, $quantity);
+                    return $this->responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'added'), Response::HTTP_TEMPORARY_REDIRECT);
+                } catch (Exception $e) {
+                    $this->error->add($e);
+                }
             }
         } else {
             return $this->responseFactory->notFound(t("Product not found."));

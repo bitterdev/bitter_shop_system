@@ -283,6 +283,46 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
         return $includeTax ? $this->addTax($this->priceDiscounted) : $this->priceDiscounted;
     }
 
+    public function hasVariants(): bool
+    {
+        return $this->getVariants()->count() > 0;
+    }
+
+    public function getVariantById(int $id): ?ProductVariant
+    {
+        foreach ($this->getVariants() as $variant) {
+            if ($id === $variant->getId()) {
+                return $variant;
+            }
+        }
+
+        return null;
+    }
+
+    public function getVariantList(): array
+    {
+        $list = [];
+
+        foreach ($this->getVariants() as $variant) {
+            $list[$variant->getId()] = $variant->getName();
+        }
+
+        return $list;
+    }
+
+    public function getLowestVariantPrice(bool $includeTax = false): ?float
+    {
+        $lowestPrice = null;
+
+        foreach ($this->getVariants() as $variant) {
+            if ($lowestPrice > $variant->getPrice() || $lowestPrice === null) {
+                $lowestPrice = $variant->getPrice();
+            }
+        }
+
+        return $includeTax ? $this->addTax($lowestPrice) : $lowestPrice;
+    }
+
     /**
      * @param float $priceDiscounted
      * @return Product

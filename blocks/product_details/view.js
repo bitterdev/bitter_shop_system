@@ -11,5 +11,14 @@
         $(".ccm-page .detail-image").click(function () {
             $("#ccm-large-image").attr("src", $(this).data("largeImageUrl"));
         });
+
+        $("#variant").change(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.location.href = $(this).data("baseUrl") + "/" + $(this).find(":selected").val();
+
+            return false;
+        });
     });
 })(jQuery);

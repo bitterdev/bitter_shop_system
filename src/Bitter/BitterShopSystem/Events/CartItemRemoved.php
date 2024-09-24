@@ -13,12 +13,15 @@
 namespace Bitter\BitterShopSystem\Events;
 
 use Bitter\BitterShopSystem\Entity\Product;
+use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 class CartItemRemoved extends GenericEvent
 {
     /** @var Product */
     protected $product;
+    /** @var ProductVariant|null */
+    protected $productVariant;
 
     /**
      * @return Product
@@ -37,4 +40,23 @@ class CartItemRemoved extends GenericEvent
         $this->product = $product;
         return $this;
     }
+
+    /**
+     * @return ProductVariant|null
+     */
+    public function getProductVariant(): ?ProductVariant
+    {
+        return $this->productVariant;
+    }
+
+    /**
+     * @param ProductVariant|null $productVariant
+     * @return CartItemRemoved
+     */
+    public function setProductVariant(?ProductVariant $productVariant): CartItemRemoved
+    {
+        $this->productVariant = $productVariant;
+        return $this;
+    }
+
 }

@@ -12,6 +12,7 @@
 namespace Concrete\Package\BitterShopSystem\Block\ProductDetails;
 
 use Bitter\BitterShopSystem\Entity\Product;
+use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Bitter\BitterShopSystem\Product\ProductService;
 use Concrete\Core\Block\BlockController;
 use Concrete\Core\Html\Service\Seo;
@@ -39,7 +40,7 @@ class Controller extends BlockController
         $this->requireAsset("core/app");
     }
 
-    public function action_display_product($handle = '')
+    public function action_display_product($handle = '', $variant = null)
     {
         /** @var Seo $seoService */
         $seoService = $this->app->make('helper/seo');
@@ -51,6 +52,20 @@ class Controller extends BlockController
         if ($product instanceof Product) {
             $seoService->setCustomTitle($product->getName());
             $this->set('product', $product);
+
+            if ($product->hasVariants()) {
+                if (isset($variant) && is_numeric($variant)) {
+                    $productVariant = $product->getVariantById((int)$variant);
+
+                    if ($productVariant instanceof ProductVariant) {
+                        $this->set('productVariant', $productVariant);
+                    } else {
+                        return $responseFactory->notFound(t("Product variation not found."));
+                    }
+                } else {
+                    $this->set('productVariant', $product->getVariants()->first());
+                }
+            }
         } else {
             return $responseFactory->notFound(t("Product not found."));
         }

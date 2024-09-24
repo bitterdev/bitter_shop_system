@@ -9,3 +9,11 @@
 .ccm-page .cart {
     margin-top: 15px;
 }
+
+@media (max-width: 399px) {
+    .ccm-page .table {
+        overflow-x: auto;
+        width: 100%;
+        display: block;
+    }
+}

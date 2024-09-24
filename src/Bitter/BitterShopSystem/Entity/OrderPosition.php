@@ -59,6 +59,13 @@ class OrderPosition
     protected $product;
 
     /**
+     * @var ProductVariant|null
+     * @ORM\ManyToOne(targetEntity="\Bitter\BitterShopSystem\Entity\ProductVariant")
+     * @ORM\JoinColumn(name="productVariantId", referencedColumnName="id")
+     */
+    protected $productVariant;
+
+    /**
      * @var Order
      * @ORM\ManyToOne(targetEntity="\Bitter\BitterShopSystem\Entity\Order", inversedBy="orderPositions")
      * @ORM\JoinColumn(name="orderId", referencedColumnName="id", onDelete="SET NULL")
@@ -188,6 +195,24 @@ class OrderPosition
     public function setTax(float $tax): OrderPosition
     {
         $this->tax = $tax;
+        return $this;
+    }
+
+    /**
+     * @return ProductVariant|null
+     */
+    public function getProductVariant(): ?ProductVariant
+    {
+        return $this->productVariant;
+    }
+
+    /**
+     * @param ProductVariant|null $productVariant
+     * @return OrderPosition
+     */
+    public function setProductVariant(?ProductVariant $productVariant): OrderPosition
+    {
+        $this->productVariant = $productVariant;
         return $this;
     }
 

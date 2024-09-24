@@ -11,6 +11,7 @@
 namespace Bitter\BitterShopSystem\Transformer;
 
 use Bitter\BitterShopSystem\Entity\Product;
+use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Bitter\BitterShopSystem\Entity\ShippingCost;
 use Bitter\BitterShopSystem\Entity\TaxRate;
 use Concrete\Core\Config\Repository\Repository;
@@ -30,14 +31,36 @@ class PriceTransformer
         $this->moneyTransformer = $moneyTransformer;
     }
 
-    public function transform(Product $product): string
+    public function transform(Product $product, ProductVariant $productVariant = null): string
     {
         $price = new Element("div", "");
         $taxes = null;
         $shipping = null;
         $includeTax = $this->config->get("bitter_shop_system.display_prices_including_tax", false);
 
-        if ($product->getPriceDiscounted() > 0) {
+        if ($product->hasVariants()) {
+            if ($productVariant instanceof ProductVariant) {
+                $price->appendChild(
+                    new Element(
+                        "div",
+                        $this->moneyTransformer->transform($productVariant->getPrice($includeTax)),
+                        [
+                            "class" => "regular"
+                        ]
+                    )
+                );
+            } else {
+                $price->appendChild(
+                    new Element(
+                        "div",
+                        t("from %s", $this->moneyTransformer->transform($product->getLowestVariantPrice($includeTax))),
+                        [
+                            "class" => "regular"
+                        ]
+                    )
+                );
+            }
+        } else if ($product->getPriceDiscounted() > 0) {
             $price->appendChild(
                 new Element(
                     "div",

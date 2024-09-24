@@ -13,3 +13,11 @@
 .ccm-page .checkout img.ccm-captcha-image {
     margin-left: 0;
 }
+
+@media (max-width: 399px) {
+    .ccm-page .table {
+        overflow-x: auto;
+        width: 100%;
+        display: block;
+    }
+}

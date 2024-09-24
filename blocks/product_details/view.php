@@ -14,6 +14,7 @@ use Bitter\BitterShopSystem\Attribute\Category\ProductCategory;
 use Bitter\BitterShopSystem\Entity\Attribute\Key\ProductKey;
 use Bitter\BitterShopSystem\Entity\Attribute\Value\Value\MultipleFilesValue;
 use Bitter\BitterShopSystem\Entity\Product;
+use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Bitter\BitterShopSystem\Transformer\PriceTransformer;
 use Concrete\Core\Application\Service\UserInterface;
 use Concrete\Core\Attribute\Category\CategoryService;
@@ -28,6 +29,7 @@ use Concrete\Core\Support\Facade\Url;
 use Concrete\Package\BitterShopSystem\Controller;
 
 /** @var Product|null $product */
+/** @var ProductVariant|null $productVariant */
 /** @var int $cartPageId */
 
 $c = Page::getCurrentPage();
@@ -52,6 +54,8 @@ $packageService = $app->make(PackageService::class);
 $pkgEntity = $packageService->getByHandle("bitter_shop_system");
 /** @var Controller $pkg */
 $pkg = $pkgEntity->getController();
+
+$productVariant = $productVariant ?? null;
 ?>
 
 <?php
@@ -59,12 +63,15 @@ $detailImages = $product->getAttribute("detail_images");
 
 $quantityValues = [];
 $maxQuantity = (int)$config->get("bitter_shop_system.max_quantity", $product->getQuantity());
+if ($productVariant instanceof ProductVariant) {
+    $maxQuantity = (int)$config->get("bitter_shop_system.max_quantity", $productVariant->getQuantity());
+}
 for ($i = 1; $i <= $maxQuantity; $i++) {
     $quantityValues[$i] = $i;
 }
 ?>
 <div class="product-details">
-    <div class="row">
+    <div class="row">"
         <div class="product-header row">
             <div class="col-md-6">
                 <?php
@@ -114,11 +121,24 @@ for ($i = 1; $i <= $maxQuantity; $i++) {
                     <?php echo strlen($product->getShortDescription()) > 0 ? $product->getShortDescription() : t("No short description available."); ?>
                 </p>
 
-                <?php echo $priceTransformer->transform($product); ?>
+                <?php echo $priceTransformer->transform($product, $productVariant); ?>
 
                 <?php if (!$cartPage->isError() && $product->getQuantity() > 0) { ?>
-                    <form action="<?php echo Url::to($cartPage, "add", $product->getHandle()); ?>"
+                    <form action="<?php echo $productVariant instanceof ProductVariant ? Url::to($cartPage, "add", $product->getHandle(), $productVariant->getId()) : Url::to($cartPage, "add", $product->getHandle()); ?>"
                           method="get">
+
+                        <?php if ($product->hasVariants()) { ?>
+                            <div class="form-group">
+                                <?php echo $form->label("variant", t("Variant")); ?>
+                                <?php echo $form->select(
+                                    "variant",
+                                    $product->getVariantList(), $productVariant instanceof ProductVariant ? $productVariant->getId() : null,
+                                    [
+                                        "data-base-url" => Url::to(Page::getCurrentPage(), "display_product", $product->getHandle())
+                                    ]
+                                ); ?>
+                            </div>
+                        <?php } ?>
 
                         <div class="form-group">
                             <?php echo $form->label("quantity", t("Quantity")); ?>

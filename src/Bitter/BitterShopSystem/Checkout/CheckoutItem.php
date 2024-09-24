@@ -11,6 +11,7 @@
 namespace Bitter\BitterShopSystem\Checkout;
 
 use Bitter\BitterShopSystem\Entity\Product;
+use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Bitter\BitterShopSystem\Entity\TaxRate;
 use JsonSerializable;
 
@@ -18,14 +19,44 @@ class CheckoutItem implements JsonSerializable
 {
     /** @var Product */
     protected $product;
+    /** @var ProductVariant|null */
+    protected $productVariant;
 
     /** @var float */
     protected $quantity = 1;
 
-    public function __construct(Product $product = null, int $quantity = 1)
+    public function __construct(Product $product = null, int $quantity = 1, ?ProductVariant $productVariant = null)
     {
         $this->product = $product;
         $this->quantity = $quantity;
+        $this->productVariant = $productVariant;
+    }
+
+    /**
+     * @return ProductVariant|null
+     */
+    public function getProductVariant(): ?ProductVariant
+    {
+        return $this->productVariant;
+    }
+
+    /**
+     * @param ProductVariant|null $productVariant
+     * @return CheckoutItem
+     */
+    public function setProductVariant(?ProductVariant $productVariant): CheckoutItem
+    {
+        $this->productVariant = $productVariant;
+        return $this;
+    }
+
+    public function getDisplayName(): string
+    {
+        if ($this->getProductVariant() instanceof ProductVariant) {
+            return sprintf("%s - %s", $this->getProduct()->getName(), $this->getProductVariant()->getName());
+        } else {
+            return $this->getProduct()->getName();
+        }
     }
 
     /**
@@ -69,7 +100,11 @@ class CheckoutItem implements JsonSerializable
         $product = $this->getProduct();
 
         if ($product instanceof Product) {
-            return $product->getPrice($includeTax) * $this->getQuantity();
+            if ($product->hasVariants() && $this->getProductVariant() instanceof ProductVariant) {
+                return $this->getProductVariant()->getPrice($includeTax) * $this->getQuantity();
+            } else {
+                return $product->getPrice($includeTax) * $this->getQuantity();
+            }
         }
 
         return 0;
@@ -88,7 +123,13 @@ class CheckoutItem implements JsonSerializable
             $taxRate = $product->getTaxRate();
 
             if ($taxRate instanceof TaxRate) {
-                return $product->getPrice() * $this->getQuantity() / 100 * $taxRate->getRate(true);
+                if ($product->hasVariants() && $this->getProductVariant() instanceof ProductVariant) {
+                    $price = $this->getProductVariant()->getPrice();
+                } else {
+                    $price = $product->getPrice();
+                }
+
+                return $price * $this->getQuantity() / 100 * $taxRate->getRate(true);
             }
         }
 
@@ -99,6 +140,7 @@ class CheckoutItem implements JsonSerializable
     {
         return [
             "product" => $this->getProduct(),
+            "productVariant" => $this->getProductVariant(),
             "quantity" => $this->getQuantity()
         ];
     }

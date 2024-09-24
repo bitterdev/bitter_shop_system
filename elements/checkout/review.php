@@ -87,7 +87,7 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
         <?php foreach ($cartService->getAllItems() as $cartItem) { ?>
             <tr>
                 <td>
-                    <?php echo $cartItem->getProduct()->getName(); ?>
+                    <?php echo $cartItem->getDisplayName(); ?>
                 </td>
 
                 <td class="text-right">

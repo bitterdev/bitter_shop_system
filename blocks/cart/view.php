@@ -10,6 +10,7 @@
 
 defined('C5_EXECUTE') or die('Access denied');
 
+use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Bitter\BitterShopSystem\Entity\ShippingCost;
 use Bitter\BitterShopSystem\Error\ErrorList\Formatter\BootstrapFormatter;
 use Bitter\BitterShopSystem\Checkout\CheckoutService;
@@ -79,21 +80,22 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
             <?php foreach ($cartService->getAllItems() as $cartItem) { ?>
                 <tr>
                     <td>
-                        <?php echo $cartItem->getProduct()->getName(); ?>
+                        <?php
+                        echo $cartItem->getDisplayName();
+                        ?>
 
                         <div>
-                            <a href="<?php echo Url::to(Page::getCurrentPage(), "remove", $cartItem->getProduct()->getHandle()); ?>">
+                            <a href="<?php echo $cartItem->getProductVariant() instanceof ProductVariant ? Url::to(Page::getCurrentPage(), "remove", $cartItem->getProduct()->getHandle(), $cartItem->getProductVariant()->getId()) : Url::to(Page::getCurrentPage(), "remove", $cartItem->getProduct()->getHandle()); ?>">
                                 <?php echo t("Remove"); ?>
                             </a>
                         </div>
                     </td>
 
                     <td class="text-right">
-                        <form action="<?php echo Url::to(Page::getCurrentPage(), "update", $cartItem->getProduct()->getHandle()); ?>"
+                        <form action="<?php echo $cartItem->getProductVariant() instanceof ProductVariant ? Url::to(Page::getCurrentPage(), "update", $cartItem->getProduct()->getHandle(), $cartItem->getProductVariant()->getId()) : Url::to(Page::getCurrentPage(), "update", $cartItem->getProduct()->getHandle()); ?>"
                               method="get">
 
                             <?php
-                            $quantityValues = [];
                             $quantityValues = [];
                             $maxQuantity = (int)$config->get("bitter_shop_system.max_quantity", $cartItem->getProduct()->getQuantity());
                             for ($i = 1; $i <= $maxQuantity; $i++) {
@@ -106,7 +108,7 @@ $includeTax = $config->get("bitter_shop_system.display_prices_including_tax", fa
                     </td>
 
                     <td class="text-right">
-                        <?php echo $moneyTransformer->transform($cartItem->getProduct()->getPrice($includeTax)); ?>
+                        <?php echo $moneyTransformer->transform($cartItem->getProductVariant() instanceof ProductVariant ? $cartItem->getProductVariant()->getPrice($includeTax) : $cartItem->getProduct()->getPrice($includeTax)); ?>
                     </td>
 
                     <td class="text-right">

@@ -13,11 +13,12 @@
 namespace Bitter\BitterShopSystem\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Internal\TentativeType;
 
 /**
  * @ORM\Entity
  */
-class ProductVariant
+class ProductVariant implements \JsonSerializable
 {
     /**
      * @var int
@@ -85,14 +86,6 @@ class ProductVariant
     }
 
     /**
-     * @return float|null
-     */
-    public function getPrice(): float|int|null
-    {
-        return $this->price;
-    }
-
-    /**
      * @param float|null $price
      */
     public function setPrice(float|int|null $price): void
@@ -125,6 +118,30 @@ class ProductVariant
     }
 
     /**
+     * @param float|null $amount
+     * @return float|null
+     */
+    private function addTax(?float $amount): ?float
+    {
+        if ($amount === null) {
+            return 0;
+        } else if ($this->getProduct()->getTaxRate() instanceof TaxRate) {
+            return $amount / 100 * (100 + $this->getProduct()->getTaxRate()->getRate());
+        } else {
+            return $amount;
+        }
+    }
+
+    /**
+     * @param bool $includeTax
+     * @return float
+     */
+    public function getPrice(bool $includeTax = false): ?float
+    {
+        return $includeTax ? $this->addTax($this->price) : $this->price;
+    }
+
+    /**
      * @param int|null $quantity
      */
     public function setQuantity(?int $quantity): void
@@ -132,4 +149,10 @@ class ProductVariant
         $this->quantity = $quantity;
     }
 
+    public function jsonSerialize(): mixed
+    {
+        return [
+            "id" => $this->getId()
+        ];
+    }
 }

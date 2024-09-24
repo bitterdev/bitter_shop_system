@@ -20,6 +20,7 @@ use Bitter\BitterShopSystem\Entity\Customer;
 use Bitter\BitterShopSystem\Entity\Order;
 use Bitter\BitterShopSystem\Entity\OrderPosition;
 use Bitter\BitterShopSystem\Entity\Product;
+use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Bitter\BitterShopSystem\Entity\ShippingCost;
 use Bitter\BitterShopSystem\Entity\TaxRate;
 use Bitter\BitterShopSystem\Events\CartItemAdded;
@@ -69,12 +70,12 @@ class CheckoutService implements ObjectInterface
     protected $couponService;
 
     public function __construct(
-        Application $app,
-        ProductService $productService,
-        PaymentProviderService $paymentProviderService,
+        Application              $app,
+        ProductService           $productService,
+        PaymentProviderService   $paymentProviderService,
         EventDispatcherInterface $eventDispatcher,
-        Text $textService,
-        CouponService $couponService
+        Text                     $textService,
+        CouponService            $couponService
     )
     {
         $this->app = $app;
@@ -91,9 +92,9 @@ class CheckoutService implements ObjectInterface
      * @param int $quantity
      * @throws Exception
      */
-    public function addItem(Product $product, int $quantity = 1)
+    public function addItem(Product $product, int $quantity = 1, ?ProductVariant $productVariant = null)
     {
-        if ($quantity > $product->getQuantity()) {
+        if (($productVariant instanceof ProductVariant && $quantity > $productVariant->getQuantity()) || $quantity > $product->getQuantity()) {
             throw new Exception(t("You can't add more pieces of this product then available."));
         }
 
@@ -104,16 +105,22 @@ class CheckoutService implements ObjectInterface
         foreach ($cartItems as $index => $cartItemRaw) {
             $cartItem = json_decode($cartItemRaw, true);
 
-            if ($cartItem["product"]["handle"] === $product->getHandle()) {
+            if (
+                (!$product->hasVariants() && $cartItem["product"]["handle"] === $product->getHandle()) ||
+                ($product->hasVariants() && $productVariant instanceof ProductVariant && is_array($cartItem)  && isset($cartItem["productVariant"]) && isset($cartItem["productVariant"]["id"]) && $cartItem["productVariant"]["id"] === $productVariant->getId() && $cartItem["product"]["handle"] === $product->getHandle())
+            ) {
+
                 if (!isset($cartItem["product"]["quantity"])) {
                     $cartItem["product"]["quantity"] = 0;
                 }
+
 
                 $cartItem["product"]["quantity"] += $quantity;
                 $cartItems[$index] = json_encode($cartItem);
                 $itemUpdated = true;
                 $event = new CartItemUpdated();
                 $event->setProduct($product);
+                $event->setProductVariant($productVariant);
                 $event->setQuantity((int)$cartItem["product"]["quantity"]);
                 $this->eventDispatcher->dispatch($event, "cart_item_updated");
                 break;
@@ -121,9 +128,10 @@ class CheckoutService implements ObjectInterface
         }
 
         if (!$itemUpdated) {
-            $cartItems[] = json_encode(new CheckoutItem($product, $quantity));
+            $cartItems[] = json_encode(new CheckoutItem($product, $quantity, $productVariant));
             $event = new CartItemAdded();
             $event->setProduct($product);
+            $event->setProductVariant($productVariant);
             $event->setQuantity($quantity);
             $this->eventDispatcher->dispatch($event, "cart_item_added");
 
@@ -133,18 +141,23 @@ class CheckoutService implements ObjectInterface
         $this->session->save();
     }
 
-    public function removeItem(Product $product): bool
+    public function removeItem(Product $product, ?ProductVariant $productVariant = null): bool
     {
         $cartItems = $this->session->get("cartItems", []);
 
         foreach ($cartItems as $index => $cartItemRaw) {
             $cartItem = json_decode($cartItemRaw, true);
 
-            if ($cartItem["product"]["handle"] === $product->getHandle()) {
+            if (
+                (!$product->hasVariants() && $cartItem["product"]["handle"] === $product->getHandle()) ||
+                ($product->hasVariants() && $productVariant instanceof ProductVariant && is_array($cartItem)  && isset($cartItem["productVariant"]) && isset($cartItem["productVariant"]["id"])  && $cartItem["productVariant"]["id"] === $productVariant->getId() && $cartItem["product"]["handle"] === $product->getHandle())
+            ) {
+
                 unset($cartItems[$index]);
                 $this->session->set("cartItems", $cartItems);
                 $this->session->save();
                 $event = new CartItemRemoved();
+                $event->setProductVariant($productVariant);
                 $event->setProduct($product);
                 $this->eventDispatcher->dispatch($event, "cart_item_removed");
                 return true;
@@ -160,9 +173,9 @@ class CheckoutService implements ObjectInterface
      * @return bool
      * @throws Exception
      */
-    public function updateItem(Product $product, int $newQuantity = 1): bool
+    public function updateItem(Product $product, int $newQuantity = 1, ?ProductVariant $productVariant = null): bool
     {
-        if ($newQuantity > $product->getQuantity()) {
+        if (($productVariant instanceof ProductVariant && $newQuantity > $productVariant->getQuantity()) || $newQuantity > $product->getQuantity()) {
             throw new Exception(t("You can't add more pieces of this product then available."));
         }
 
@@ -171,13 +184,19 @@ class CheckoutService implements ObjectInterface
         foreach ($cartItems as $index => $cartItemRaw) {
             $cartItem = json_decode($cartItemRaw, true);
 
-            if ($cartItem["product"]["handle"] === $product->getHandle()) {
+            if (
+                (!$product->hasVariants() && $cartItem["product"]["handle"] === $product->getHandle()) ||
+                ($product->hasVariants() && $productVariant instanceof ProductVariant && is_array($cartItem)  && isset($cartItem["productVariant"]) && isset($cartItem["productVariant"]["id"])  && $cartItem["productVariant"]["id"] === $productVariant->getId() && $cartItem["product"]["handle"] === $product->getHandle())
+            ) {
+
+
                 $cartItem["quantity"] = $newQuantity;
                 $cartItems[$index] = json_encode($cartItem);
                 $this->session->set("cartItems", $cartItems);
                 $this->session->save();
                 $event = new CartItemUpdated();
                 $event->setProduct($product);
+                $event->setProductVariant($productVariant);
                 $event->setQuantity($newQuantity);
                 $this->eventDispatcher->dispatch($event, "cart_item_updated");
                 return true;
@@ -197,6 +216,8 @@ class CheckoutService implements ObjectInterface
         foreach ($this->session->get("cartItems", []) as $cartItemRaw) {
             $cartItem = json_decode($cartItemRaw, true);
 
+            $productVariant = null;
+
             if ($this->getCheckoutPage() instanceof Page && !$this->getCheckoutPage()->isError()) {
                 // if a checkout page is stored in the session use this page to prevent issues with epayment providers.
                 $product = $this->productService->getByHandleWithLocale($cartItem["product"]["handle"], Section::getBySectionOfSite($this->getCheckoutPage())->getLocale());
@@ -207,7 +228,14 @@ class CheckoutService implements ObjectInterface
             $quantity = (int)$cartItem["quantity"];
 
             if ($product instanceof Product) {
-                $allItems[] = new CheckoutItem($product, $quantity);
+                if ($product->hasVariants() &&
+                    isset($cartItem["productVariant"]) &&
+                    isset($cartItem["productVariant"]["id"])) {
+
+                    $productVariant = $product->getVariantById($cartItem["productVariant"]["id"]);
+                }
+
+                $allItems[] = new CheckoutItem($product, $quantity, $productVariant);
             }
         }
 
@@ -619,10 +647,15 @@ class CheckoutService implements ObjectInterface
 
         foreach ($this->getAllItems() as $cartItem) {
             $orderPosition = new OrderPosition();
-            $orderPosition->setDescription($cartItem->getProduct()->getName());
+            if ($cartItem->getProductVariant() instanceof ProductVariant) {
+                $orderPosition->setDescription(sprintf("%s - %s", $cartItem->getProduct()->getName(), $cartItem->getProductVariant()->getName()));
+            } else {
+                $orderPosition->setDescription($cartItem->getProduct()->getName());
+            }
             $orderPosition->setPrice($cartItem->getSubtotal());
             $orderPosition->setTax($cartItem->getTax());
             $orderPosition->setProduct($cartItem->getProduct());
+            $orderPosition->setProductVariant($cartItem->getProductVariant());
             $orderPosition->setOrder($order);
             $orderPosition->setQuantity((int)$cartItem->getQuantity());
             $entityManager->persist($orderPosition);
@@ -676,7 +709,11 @@ class CheckoutService implements ObjectInterface
 
         if ($config->get("bitter_shop_system.update_quantity", true)) {
             foreach ($this->getAllItems() as $cartItem) {
-                if ($cartItem->getProduct() instanceof Product) {
+                if ($cartItem->getProductVariant() instanceof ProductVariant) {
+                    $productVariant = $cartItem->getProductVariant();
+                    $productVariant->setQuantity($productVariant->getQuantity() - $cartItem->getQuantity());
+                    $entityManager->persist($productVariant);
+                } else if ($cartItem->getProduct() instanceof Product) {
                     $product = $cartItem->getProduct();
                     $product->setQuantity($product->getQuantity() - $cartItem->getQuantity());
                     $entityManager->persist($product);
