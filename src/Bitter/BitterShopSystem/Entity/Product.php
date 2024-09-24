@@ -178,7 +178,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
      */
     public function getVariants(): ArrayCollection|Collection|array|null
     {
-        return $this->variants;
+        return $this->variants ?? null;
     }
 
     /**
@@ -285,7 +285,8 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
 
     public function hasVariants(): bool
     {
-        return $this->getVariants()->count() > 0;
+        return (is_array($this->getVariants()) && count($this->getVariants())> 0) ||
+            ($this->getVariants() instanceof Collection && $this->getVariants()->count() > 0);
     }
 
     public function getVariantById(int $id): ?ProductVariant

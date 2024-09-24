@@ -170,7 +170,7 @@ class TaxRate implements ExportableInterface
      */
     public function getVariants()
     {
-        return $this->variants;
+        return $this->variants ?? [];
     }
 
     /**
