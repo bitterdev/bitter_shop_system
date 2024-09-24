@@ -71,7 +71,7 @@ for ($i = 1; $i <= $maxQuantity; $i++) {
 }
 ?>
 <div class="product-details">
-    <div class="row">"
+    <div class="row">
         <div class="product-header row">
             <div class="col-md-6">
                 <?php
