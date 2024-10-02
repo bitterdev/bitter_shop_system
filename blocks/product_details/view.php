@@ -172,7 +172,6 @@ for ($i = 1; $i <= $maxQuantity; $i++) {
         ]); ?>
 
         <div class="tab-content">
-
             <div class="tab-pane active" id="general" role="tabpanel">
                 <?php echo strlen($product->getDescription()) > 0 ? $product->getDescription() : t("No description available."); ?>
             </div>
