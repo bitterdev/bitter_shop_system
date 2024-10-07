@@ -104,7 +104,12 @@ class Controller extends BlockController
         $product = $productService->getByHandleWithCurrentLocale($handle);
 
         if ($this->request->query->has("added")) {
-            $this->set('success', t("The product has been successfully added."));
+            /** @noinspection PhpUndefinedFieldInspection */
+            $this->set('success', t("The product has been successfully added. Click %s to proceed checkout.", sprintf(
+                "<a href='%s'>%s</a>",
+                h(Url::to(Page::getByID($this->cartPageId))),
+                t("here")
+            )));
         }
 
         if ($product instanceof Product) {
