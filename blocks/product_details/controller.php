@@ -73,7 +73,7 @@ class Controller extends BlockController
                 if ($productVariant instanceof ProductVariant) {
                     try {
                         $cartService->addItem($product, $quantity, $productVariant);
-                        return $responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'added'), Response::HTTP_TEMPORARY_REDIRECT);
+                        return $responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'display_product', $productHandle, $productVariantId)->setQuery(["added" => true]), Response::HTTP_TEMPORARY_REDIRECT);
                     } catch (Exception $e) {
                         $this->error->add($e);
                     }
