@@ -104,6 +104,7 @@ class ServiceProvider extends Provider
         $metaData = $entityManager->getMetadataFactory()->getMetadataFor(Key::class);
 
         $metaData->addDiscriminatorMapClass("productkey", \Bitter\BitterShopSystem\Entity\Attribute\Key\ProductKey::class);
+        $metaData->addDiscriminatorMapClass("customerkey", \Bitter\BitterShopSystem\Entity\Attribute\Key\CustomerKey::class);
 
         $entityManager->getMetadataFactory()->setMetadataFor(Key::class, $metaData);
     }
