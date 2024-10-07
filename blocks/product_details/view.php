@@ -15,12 +15,14 @@ use Bitter\BitterShopSystem\Entity\Attribute\Key\ProductKey;
 use Bitter\BitterShopSystem\Entity\Attribute\Value\Value\MultipleFilesValue;
 use Bitter\BitterShopSystem\Entity\Product;
 use Bitter\BitterShopSystem\Entity\ProductVariant;
+use Bitter\BitterShopSystem\Error\ErrorList\Formatter\BootstrapFormatter;
 use Bitter\BitterShopSystem\Transformer\PriceTransformer;
 use Concrete\Core\Application\Service\UserInterface;
 use Concrete\Core\Attribute\Category\CategoryService;
 use Concrete\Core\Config\Repository\Repository;
 use Concrete\Core\Entity\File\File;
 use Concrete\Core\Entity\File\Version;
+use Concrete\Core\Error\ErrorList\ErrorList;
 use Concrete\Core\Form\Service\Form;
 use Concrete\Core\Package\PackageService;
 use Concrete\Core\Page\Page;
@@ -71,6 +73,17 @@ for ($i = 1; $i <= $maxQuantity; $i++) {
 }
 ?>
 <div class="product-details">
+    <?php if (isset($success)) { ?>
+        <div class="alert alert-success">
+            <?php echo $success; ?>
+        </div>
+    <?php } ?>
+
+    <?php if (isset($error) && $error instanceof ErrorList && $error->has()) {
+        $formatter = new BootstrapFormatter($error);
+        echo $formatter->render();
+    } ?>
+
     <div class="row">
         <div class="product-header row">
             <div class="col-md-6">
