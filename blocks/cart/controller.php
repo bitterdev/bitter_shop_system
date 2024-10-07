@@ -69,7 +69,7 @@ class Controller extends BlockController
         $this->responseFactory = $this->app->make(ResponseFactory::class);
         $this->cartService = $this->app->make(CheckoutService::class);
 
-        // reset the cached checkout page the prevent issues
+        // reset the cached checkout page to prevent issues
         $this->cartService->setCheckoutPageId(0);
     }
 

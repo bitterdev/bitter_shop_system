@@ -11,18 +11,25 @@
 
 namespace Concrete\Package\BitterShopSystem\Block\ProductDetails;
 
+use Bitter\BitterShopSystem\Checkout\CheckoutService;
 use Bitter\BitterShopSystem\Entity\Product;
 use Bitter\BitterShopSystem\Entity\ProductVariant;
 use Bitter\BitterShopSystem\Product\ProductService;
 use Concrete\Core\Block\BlockController;
+use Concrete\Core\Error\ErrorList\ErrorList;
 use Concrete\Core\Html\Service\Seo;
+use Concrete\Core\Http\Response;
 use Concrete\Core\Http\ResponseFactory;
+use Concrete\Core\Page\Page;
+use Concrete\Core\Support\Facade\Url;
 use Concrete\Core\User\User;
+use Exception;
 
 class Controller extends BlockController
 {
     protected $btTable = "btProductDetails";
     protected $btExportPageColumns = ['cartPageId'];
+    protected $error;
 
     public function getBlockTypeDescription(): string
     {
@@ -41,6 +48,51 @@ class Controller extends BlockController
         $this->requireAsset("core/app");
     }
 
+    public function on_start()
+    {
+        parent::on_start();
+        $this->error = new ErrorList();
+    }
+
+    public function action_add($productHandle = '', $productVariantId = null)
+    {
+        /** @var ProductService $productService */
+        $productService = $this->app->make(ProductService::class);
+        /** @var CheckoutService $cartService */
+        $cartService = $this->app->make(CheckoutService::class);
+        /** @var ResponseFactory $responseFactory */
+        $responseFactory = $this->app->make(ResponseFactory::class);
+        $product = $productService->getByHandleWithCurrentLocale($productHandle);
+
+        $quantity = (int)$this->request->query->get("quantity", 1);
+
+        if ($product instanceof Product) {
+            if ($product->hasVariants()) {
+                $productVariant = $product->getVariantById($productVariantId);
+
+                if ($productVariant instanceof ProductVariant) {
+                    try {
+                        $cartService->addItem($product, $quantity, $productVariant);
+                        return $responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'added'), Response::HTTP_TEMPORARY_REDIRECT);
+                    } catch (Exception $e) {
+                        $this->error->add($e);
+                    }
+                } else {
+                    return $responseFactory->notFound(t("Product variation not found."));
+                }
+            } else {
+                try {
+                    $cartService->addItem($product, $quantity);
+                    return $responseFactory->redirect((string)Url::to(Page::getCurrentPage(), 'display_product', $productHandle, $productVariantId)->setQuery(["added" => true]), Response::HTTP_TEMPORARY_REDIRECT);
+                } catch (Exception $e) {
+                    $this->error->add($e);
+                }
+            }
+        } else {
+            return $responseFactory->notFound(t("Product not found."));
+        }
+    }
+
     public function action_display_product($handle = '', $variant = null)
     {
         /** @var Seo $seoService */
@@ -50,6 +102,11 @@ class Controller extends BlockController
         /** @var ResponseFactory $responseFactory */
         $responseFactory = $this->app->make(ResponseFactory::class);
         $product = $productService->getByHandleWithCurrentLocale($handle);
+
+        if ($this->request->query->has("added")) {
+            $this->set('success', t("The product has been successfully added."));
+        }
+
         if ($product instanceof Product) {
             $seoService->setCustomTitle($product->getName());
             $this->set('product', $product);
