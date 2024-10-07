@@ -49,7 +49,7 @@ class Content extends BlockType implements BlockTypeInterface
         $document->MultiCell($block->getWidth(), 6, utf8_decode(preg_replace_callback("/\{{([a-z0-9_.]+?)\}}/i", function ($result) use ($order) {
             if (isset($result[1])) {
                 $accessor = PropertyAccess::createPropertyAccessor();
-                return $accessor->getValue($order, $result[1]);
+                return str_replace("\n\n", "\n", $accessor->getValue($order, $result[1]));
             }
         }, $block->getContent())));
 
