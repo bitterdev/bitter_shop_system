@@ -60,7 +60,7 @@ $config = $app->make(Repository::class);
             <?php echo $form->label("variantPrice", t("Price"), ["class" => "control-label"]); ?>
 
             <div class="input-group">
-                <?php echo $form->number("variantPrice", $variant->getPrice(), ["class" => "form-control", "required" => "required"]); ?>
+                <?php echo $form->number("variantPrice", $variant->getPrice(), ["class" => "form-control", "required" => "required", "step" => "any"]); ?>
 
                 <div class="input-group-text">
                     <?php echo $config->get("bitter_shop_system.money_formatting.currency_symbol", "$"); ?>

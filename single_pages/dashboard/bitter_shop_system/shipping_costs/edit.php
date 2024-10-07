@@ -113,6 +113,7 @@ $isEdit = is_numeric($entry->getId());
                             "class" => "form-control",
                             "required" => "required",
                             "max-length" => "255",
+                            "step" => "any"
                         ]
                     ); ?>
 

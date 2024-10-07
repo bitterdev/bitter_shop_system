@@ -31,6 +31,7 @@ use Concrete\Core\Application\Application;
 use Concrete\Core\Asset\AssetList;
 use Concrete\Core\Attribute\Category\CategoryService;
 use Concrete\Core\Backup\ContentImporter\Importer\Manager as ImporterManager;
+use Concrete\Core\Entity\Attribute\Key\Key;
 use Concrete\Core\Entity\Package as PackageEntity;
 use Concrete\Core\Entity\User\User;
 use Concrete\Core\Foundation\Service\Provider;
@@ -41,6 +42,9 @@ use Concrete\Core\Routing\RouterInterface;
 use Concrete\Core\Package\ItemCategory\Manager as CorePackageItemCategoryManager;
 use Bitter\BitterShopSystem\Package\ItemCategory\Manager as PackageItemCategoryManager;
 use Concrete\Package\BitterShopSystem\Controller;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\MappingException;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class ServiceProvider extends Provider
@@ -82,6 +86,26 @@ class ServiceProvider extends Provider
         $this->overrideNotificationManager();
         $this->registerAssets();
         $this->applyCoreFixes();
+        $this->overrideDiscriminatorMap();
+    }
+
+    /**
+     * @throws MappingException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
+     * @throws ReflectionException
+     * @throws BindingResolutionException
+     */
+    private function overrideDiscriminatorMap(): void
+    {
+        /** @var EntityManagerInterface $entityManager */
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $entityManager = $this->app->make(EntityManagerInterface::class);
+
+        $metaData = $entityManager->getMetadataFactory()->getMetadataFor(Key::class);
+
+        $metaData->addDiscriminatorMapClass("productkey", \Bitter\BitterShopSystem\Entity\Attribute\Key\ProductKey::class);
+
+        $entityManager->getMetadataFactory()->setMetadataFor(Key::class, $metaData);
     }
 
     private function applyCoreFixes()

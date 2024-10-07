@@ -74,6 +74,7 @@ $config = $app->make(Repository::class);
                 [
                     "class" => "form-control",
                     "max-length" => "255",
+                    "step" => "any"
                 ]
             ); ?>
 

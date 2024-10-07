@@ -54,9 +54,11 @@ $isEdit = is_numeric($entry->getId());
     <div class="ccm-dashboard-header-buttons">
         <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
 
-        <a href="<?php echo Url::to(\Concrete\Core\Page\Page::getCurrentPage(), "add_variant", $entry->getId()); ?>" class="btn btn-success">
-            <?php echo t("Add Variant"); ?>
-        </a>
+        <?php if ($isEdit) { ?>
+            <a href="<?php echo Url::to(\Concrete\Core\Page\Page::getCurrentPage(), "add_variant", $entry->getId()); ?>" class="btn btn-success">
+                <?php echo t("Add Variant"); ?>
+            </a>
+        <?php } ?>
     </div>
 
 
@@ -199,6 +201,7 @@ $isEdit = is_numeric($entry->getId());
                         "class" => "form-control",
                         "required" => "required",
                         "max-length" => "255",
+                        "step" => "any"
                     ]
                 ); ?>
 
@@ -224,6 +227,7 @@ $isEdit = is_numeric($entry->getId());
                     [
                         "class" => "form-control",
                         "max-length" => "255",
+                        "step" => "any"
                     ]
                 ); ?>
 

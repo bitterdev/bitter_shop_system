@@ -39,7 +39,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     use ObjectTrait;
 
     /**
-     * @var int
+     * @var int|null
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -148,18 +148,18 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return Product
      */
-    public function setId(int $id): Product
+    public function setId(?int $id): Product
     {
         $this->id = $id;
         return $this;
