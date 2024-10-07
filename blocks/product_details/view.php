@@ -124,7 +124,7 @@ for ($i = 1; $i <= $maxQuantity; $i++) {
                 <?php echo $priceTransformer->transform($product, $productVariant); ?>
 
                 <?php if ($product->getQuantity() > 0) { ?>
-                    <form action="<?php echo $productVariant instanceof ProductVariant ? Url::to(Page::getCurrentPage(), "add", $product->getHandle(), $productVariant->getId()) : Url::to($cartPage, "add", $product->getHandle()); ?>"
+                    <form action="<?php echo $productVariant instanceof ProductVariant ? Url::to(Page::getCurrentPage(), "add", $product->getHandle(), $productVariant->getId()) : Url::to(Page::getCurrentPage(), "add", $product->getHandle()); ?>"
                           method="get">
 
                         <?php if ($product->hasVariants()) { ?>
