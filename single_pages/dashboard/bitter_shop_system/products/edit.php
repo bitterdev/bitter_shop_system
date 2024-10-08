@@ -255,7 +255,7 @@ $isEdit = is_numeric($entry->getId());
                 <?php echo $form->select(
                     "taxRate",
                     $taxRateValues,
-                    $entry->getTaxRate() instanceof TaxRate && $entry->getTaxRate()->getId(),
+                    $entry->getTaxRate() instanceof TaxRate ? $entry->getTaxRate()->getId() :null,
                     [
                         "class" => "form-control",
                         "max-length" => "255",
@@ -283,7 +283,7 @@ $isEdit = is_numeric($entry->getId());
                 <?php echo $form->select(
                     "shippingCost",
                     $shippingCostValues,
-                    $entry->getShippingCost() instanceof ShippingCost && $entry->getShippingCost()->getId(),
+                    $entry->getShippingCost() instanceof ShippingCost ? $entry->getShippingCost()->getId() : null,
                     [
                         "class" => "form-control",
                         "max-length" => "255",
