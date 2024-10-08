@@ -17,6 +17,7 @@ use Bitter\BitterShopSystem\Product\Search\Field\Field\CategoryField;
 use Bitter\BitterShopSystem\Product\Search\Field\Field\ImageField;
 use Bitter\BitterShopSystem\Product\Search\Field\Field\LocaleField;
 use Bitter\BitterShopSystem\Product\Search\Field\Field\QuantityField;
+use Bitter\BitterShopSystem\Product\Search\Field\Field\SortOrderField;
 use Concrete\Core\Search\Field\AttributeKeyField;
 use Concrete\Core\Search\Field\Manager as FieldManager;
 use Bitter\BitterShopSystem\Product\Search\Field\Field\NameField;
@@ -45,6 +46,7 @@ class Manager extends FieldManager
             new PriceRegularField(),
             new PriceDiscountedField(),
             new QuantityField(),
+            new SortOrderField(),
             new ImageField(),
             new LocaleField(),
             new CategoryField()

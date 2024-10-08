@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: bitter_shop_system 3.1.2\n"
+"Project-Id-Version: bitter_shop_system 3.1.3\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-07T13:40:08+00:00\n"
-"PO-Revision-Date: 2024-10-07T13:40:09+00:00\n"
+"POT-Creation-Date: 2024-10-08T09:43:57+00:00\n"
+"PO-Revision-Date: 2024-10-08T09:43:58+00:00\n"
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
@@ -35,7 +35,7 @@ msgid "Main"
 msgstr ""
 
 #: packages/bitter_shop_system/content.xml:311
-#: packages/bitter_shop_system/blocks/product_details/view.php:184
+#: packages/bitter_shop_system/blocks/product_details/view.php:222
 #: packages/bitter_shop_system/elements/checkout/contact_information.php:52
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Order/Menu.php:29
 msgid "Details"
@@ -329,7 +329,7 @@ msgstr ""
 #: packages/bitter_shop_system/blocks/cart/controller.php:131
 #: packages/bitter_shop_system/blocks/cart/controller.php:164
 #: packages/bitter_shop_system/blocks/product_details/controller.php:81
-#: packages/bitter_shop_system/blocks/product_details/controller.php:126
+#: packages/bitter_shop_system/blocks/product_details/controller.php:122
 msgid "Product variation not found."
 msgstr ""
 
@@ -337,8 +337,8 @@ msgstr ""
 #: packages/bitter_shop_system/blocks/cart/controller.php:142
 #: packages/bitter_shop_system/blocks/cart/controller.php:175
 #: packages/bitter_shop_system/blocks/product_details/controller.php:92
-#: packages/bitter_shop_system/blocks/product_details/controller.php:133
-#: packages/bitter_shop_system/blocks/product_details/controller.php:147
+#: packages/bitter_shop_system/blocks/product_details/controller.php:129
+#: packages/bitter_shop_system/blocks/product_details/controller.php:143
 msgid "Product not found."
 msgstr ""
 
@@ -358,10 +358,10 @@ msgid "Product"
 msgstr ""
 
 #: packages/bitter_shop_system/blocks/cart/view.php:66
-#: packages/bitter_shop_system/blocks/product_details/view.php:157
-#: packages/bitter_shop_system/blocks/product_details/view.php:168
+#: packages/bitter_shop_system/blocks/product_details/view.php:195
+#: packages/bitter_shop_system/blocks/product_details/view.php:206
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:324
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:388
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:407
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit_variant.php:91
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/coupons/edit.php:232
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/orders/details.php:164
@@ -385,7 +385,7 @@ msgid "Total Price"
 msgstr ""
 
 #: packages/bitter_shop_system/blocks/cart/view.php:89
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:414
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:433
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/shipping_costs/edit.php:201
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/tax_rates/edit.php:164
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Order/Menu.php:36
@@ -444,16 +444,7 @@ msgstr ""
 msgid "Product Details"
 msgstr ""
 
-#: packages/bitter_shop_system/blocks/product_details/controller.php:111
-msgid "here"
-msgstr ""
-
-#: packages/bitter_shop_system/blocks/product_details/controller.php:108
-#, php-format
-msgid "The product has been successfully added. Click %s to proceed checkout."
-msgstr ""
-
-#: packages/bitter_shop_system/blocks/product_details/controller.php:142
+#: packages/bitter_shop_system/blocks/product_details/controller.php:138
 msgid "Sample Product"
 msgstr ""
 
@@ -461,28 +452,44 @@ msgstr ""
 msgid "Shopping Cart Page"
 msgstr ""
 
-#: packages/bitter_shop_system/blocks/product_details/view.php:116
+#: packages/bitter_shop_system/blocks/product_details/view.php:94
+msgid "Item added to your cart!"
+msgstr ""
+
+#: packages/bitter_shop_system/blocks/product_details/view.php:101
+msgid "Would you like to continue shopping or proceed to checkout?"
+msgstr ""
+
+#: packages/bitter_shop_system/blocks/product_details/view.php:106
+msgid "Go to Checkout"
+msgstr ""
+
+#: packages/bitter_shop_system/blocks/product_details/view.php:110
+msgid "Continue Shopping"
+msgstr ""
+
+#: packages/bitter_shop_system/blocks/product_details/view.php:154
 msgid "Click to enlarge"
 msgstr ""
 
-#: packages/bitter_shop_system/blocks/product_details/view.php:134
+#: packages/bitter_shop_system/blocks/product_details/view.php:172
 msgid "No short description available."
 msgstr ""
 
-#: packages/bitter_shop_system/blocks/product_details/view.php:145
+#: packages/bitter_shop_system/blocks/product_details/view.php:183
 msgid "Variant"
 msgstr ""
 
-#: packages/bitter_shop_system/blocks/product_details/view.php:163
-#: packages/bitter_shop_system/blocks/product_details/view.php:173
+#: packages/bitter_shop_system/blocks/product_details/view.php:201
+#: packages/bitter_shop_system/blocks/product_details/view.php:211
 msgid "Add to Cart"
 msgstr ""
 
-#: packages/bitter_shop_system/blocks/product_details/view.php:169
+#: packages/bitter_shop_system/blocks/product_details/view.php:207
 msgid "Out of stock"
 msgstr ""
 
-#: packages/bitter_shop_system/blocks/product_details/view.php:183
+#: packages/bitter_shop_system/blocks/product_details/view.php:221
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/shipping_costs/edit.php:45
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/tax_rates/edit.php:35
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/settings.php:45
@@ -492,11 +499,11 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: packages/bitter_shop_system/blocks/product_details/view.php:189
+#: packages/bitter_shop_system/blocks/product_details/view.php:227
 msgid "No description available."
 msgstr ""
 
-#: packages/bitter_shop_system/blocks/product_details/view.php:207
+#: packages/bitter_shop_system/blocks/product_details/view.php:245
 msgid "No details available."
 msgstr ""
 
@@ -553,7 +560,7 @@ msgstr ""
 
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/customers/edit.php:95
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/categories/edit.php:94
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:435
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:454
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit_variant.php:110
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/coupons/edit.php:299
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/orders/details.php:232
@@ -570,7 +577,7 @@ msgstr ""
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/customers/edit.php:100
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/categories/edit.php:99
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/copy.php:59
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:440
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:459
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit_variant.php:115
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/coupons/edit.php:304
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/shipping_costs/edit.php:228
@@ -584,14 +591,13 @@ msgstr ""
 
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/categories/edit.php:41
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:71
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:380
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:399
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit_variant.php:45
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/shipping_costs/edit.php:50
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/tax_rates/edit.php:41
 #: packages/bitter_shop_system/views/dialogs/customers/bulk/delete.php:45
 #: packages/bitter_shop_system/views/dialogs/products/bulk/delete.php:45
 #: packages/bitter_shop_system/views/dialogs/coupons/bulk/delete.php:45
-#: packages/bitter_shop_system/views/dialogs/orders/bulk/delete.php:45
 #: packages/bitter_shop_system/views/dialogs/categories/bulk/delete.php:45
 #: packages/bitter_shop_system/views/dialogs/shipping_costs/bulk/delete.php:45
 #: packages/bitter_shop_system/views/dialogs/tax_rates/bulk/delete.php:45
@@ -622,7 +628,7 @@ msgid "Handle"
 msgstr ""
 
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/categories/edit.php:87
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:358
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:377
 msgid "Site"
 msgstr ""
 
@@ -806,24 +812,30 @@ msgid "Category"
 msgstr ""
 
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:343
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/ColumnSet/Column/SortOrderColumn.php:30
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/Field/Field/SortOrderField.php:34
+msgid "Sort Order"
+msgstr ""
+
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:362
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/ColumnSet/Column/ImageColumn.php:33
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/Field/Field/ImageField.php:35
 msgid "Image"
 msgstr ""
 
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:352
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:371
 #: packages/bitter_shop_system/views/panels/pdf_editor/document/letterhead.php:40
 #: packages/bitter_shop_system/views/panels/pdf_editor/document/letterhead.php:45
 msgid "Please select file"
 msgstr ""
 
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:372
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:391
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/shipping_costs/edit.php:159
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/tax_rates/edit.php:122
 msgid "Variants"
 msgstr ""
 
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:384
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:403
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit_variant.php:64
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/orders/details.php:168
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/shipping_costs/edit.php:98
@@ -835,7 +847,7 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:418
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:437
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/shipping_costs/edit.php:205
 #: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/tax_rates/edit.php:168
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Category/Menu.php:29
@@ -847,7 +859,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:427
+#: packages/bitter_shop_system/single_pages/dashboard/bitter_shop_system/products/edit.php:446
 msgid "If you want to have price options you can do so by creating variants."
 msgstr ""
 
@@ -1402,7 +1414,7 @@ msgstr ""
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/coupons.php:264
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/customers.php:279
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/orders.php:210
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:467
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:475
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/shipping_costs.php:260
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/tax_rates.php:245
 msgid "The item has been successfully removed."
@@ -1411,29 +1423,29 @@ msgstr ""
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products/categories.php:262
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/coupons.php:270
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/customers.php:285
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:473
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:481
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/shipping_costs.php:266
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/tax_rates.php:251
 msgid "The item has been successfully updated."
 msgstr ""
 
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products/categories.php:275
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:307
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:485
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:309
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:493
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/shipping_costs.php:280
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/tax_rates.php:264
 msgid "The field \"Name\" is required."
 msgstr ""
 
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products/categories.php:279
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:489
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:497
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/shipping_costs.php:285
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/tax_rates.php:268
 msgid "The field \"Handle\" is required."
 msgstr ""
 
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products/categories.php:285
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:507
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:515
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/shipping_costs.php:296
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/tax_rates.php:274
 msgid "The given handle is already in use."
@@ -1471,7 +1483,7 @@ msgid "The field \"Discount Price\" is required."
 msgstr ""
 
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/coupons.php:298
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:315
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:317
 msgid "The field \"Quantity\" is required."
 msgstr ""
 
@@ -1501,31 +1513,31 @@ msgstr ""
 msgid "The order has been successfully marked as paid."
 msgstr ""
 
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:311
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:313
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/shipping_costs.php:290
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/shipping_costs.php:329
 msgid "The field \"Price\" is required."
 msgstr ""
 
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:493
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:501
 msgid "The field \"Short Description\" is required."
 msgstr ""
 
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:497
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:505
 msgid "The field \"Description\" is required."
 msgstr ""
 
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:501
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:509
 msgid "The field \"Price Regular\" is required."
 msgstr ""
 
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:547
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:555
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/shipping_costs.php:430
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/tax_rates.php:405
 msgid "The variant has been successfully removed."
 msgstr ""
 
-#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:550
+#: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/products.php:558
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/shipping_costs.php:433
 #: packages/bitter_shop_system/controllers/single_page/dashboard/bitter_shop_system/tax_rates.php:408
 msgid "The variant has been successfully updated."
@@ -2011,6 +2023,17 @@ msgstr ""
 msgid "Are you sure you would like to delete the following orders?"
 msgstr ""
 
+#: packages/bitter_shop_system/views/dialogs/orders/bulk/delete.php:45
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Order/Search/ColumnSet/Column/IdColumn.php:30
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Category/Search/ColumnSet/Column/IdColumn.php:30
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/ShippingCost/Search/ColumnSet/Column/IdColumn.php:30
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Coupon/Search/ColumnSet/Column/IdColumn.php:30
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/ColumnSet/Column/IdColumn.php:30
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/TaxRate/Search/ColumnSet/Column/IdColumn.php:30
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Customer/Search/ColumnSet/Column/IdColumn.php:30
+msgid "Id"
+msgstr ""
+
 #: packages/bitter_shop_system/views/dialogs/categories/bulk/delete.php:28
 msgid "No categories are eligible for this operation"
 msgstr ""
@@ -2041,16 +2064,6 @@ msgstr ""
 msgid "Customer"
 msgstr ""
 
-#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Order/Search/ColumnSet/Column/IdColumn.php:30
-#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Category/Search/ColumnSet/Column/IdColumn.php:30
-#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/ShippingCost/Search/ColumnSet/Column/IdColumn.php:30
-#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Coupon/Search/ColumnSet/Column/IdColumn.php:30
-#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/ColumnSet/Column/IdColumn.php:30
-#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/TaxRate/Search/ColumnSet/Column/IdColumn.php:30
-#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Customer/Search/ColumnSet/Column/IdColumn.php:30
-msgid "Id"
-msgstr ""
-
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Order/Search/ColumnSet/Column/TaxColumn.php:31
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Order/Search/Field/Field/TaxField.php:35
 msgid "Tax"
@@ -2074,7 +2087,7 @@ msgstr ""
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Category/Search/Field/Manager.php:33
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/ShippingCost/Search/Field/Manager.php:52
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Coupon/Search/Field/Manager.php:143
-#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/Field/Manager.php:52
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/Field/Manager.php:54
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/TaxRate/Search/Field/Manager.php:35
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Customer/Search/Field/Manager.php:36
 msgid "Core Properties"
@@ -2170,7 +2183,7 @@ msgstr ""
 msgid "Please select"
 msgstr ""
 
-#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/Field/Manager.php:58
+#: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Product/Search/Field/Manager.php:60
 #: packages/bitter_shop_system/src/Bitter/BitterShopSystem/Customer/Search/Field/Manager.php:42
 msgid "Custom Attributes"
 msgstr ""

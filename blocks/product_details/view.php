@@ -30,6 +30,7 @@ use Concrete\Core\Support\Facade\Application;
 use Concrete\Core\Support\Facade\Url;
 use Concrete\Package\BitterShopSystem\Controller;
 
+/** @var bool|null $isAdded */
 /** @var Product|null $product */
 /** @var ProductVariant|null $productVariant */
 /** @var int $cartPageId */
@@ -83,6 +84,43 @@ for ($i = 1; $i <= $maxQuantity; $i++) {
         $formatter = new BootstrapFormatter($error);
         echo $formatter->render();
     } ?>
+
+    <?php if (isset($isAdded)) { ?>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            <?php echo t("Item added to your cart!"); ?>
+                        </h5>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <?php echo t("Would you like to continue shopping or proceed to checkout?"); ?>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="<?php echo h(Url::to($cartPage)) ?>" class="btn btn-secondary">
+                            <?php echo t("Go to Checkout"); ?>
+                        </a>
+
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                            <?php echo t("Continue Shopping"); ?>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $( document ).ready(function() {
+                var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+                myModal.show();
+            });
+        </script>
+    <?php } ?>
 
     <div class="row">
         <div class="product-header row">

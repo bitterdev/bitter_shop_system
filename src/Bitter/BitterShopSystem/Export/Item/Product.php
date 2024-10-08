@@ -51,6 +51,8 @@ class Product implements ItemInterface
         $element->addAttribute('price-regular', $mixed->getPriceRegular());
         $element->addAttribute('price-discounted', $mixed->getPriceDiscounted());
         $element->addAttribute('locale', $mixed->getLocale());
+        $element->addAttribute('sort-order', $mixed->getSortOrder());
+        $element->addAttribute('quantity', $mixed->getQuantity());
         $element->addAttribute('package', $mixed->getPackageHandle());
 
         $element->addChild('image', $mixed->getImage() instanceof File ? ContentExporter::replaceFileWithPlaceHolder($mixed->getImage()->getFileID()) : null);

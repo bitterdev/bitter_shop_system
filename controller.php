@@ -27,7 +27,7 @@ class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'bitter_shop_system';
     protected $appVersionRequired = '9.2.0';
-    protected $pkgVersion = '3.1.2';
+    protected $pkgVersion = '3.1.3';
     protected $pkgAutoloaderRegistries = [
         'src/Bitter/BitterShopSystem' => 'Bitter\BitterShopSystem',
         'src/Bitter/BitterShopSystem/Attribute/Key' => 'Concrete\Package\BitterShopSystem\Attribute\Key'

@@ -1,3 +1,10 @@
+Version 3.1.3
+==================================================
+- Add sort order
+- Fix bug when bulk deleting orders
+- Fix bug when deleting variants
+- Add popup when adding item to shopping cart
+
 Version 3.1.2
 ==================================================
 - Add product variants

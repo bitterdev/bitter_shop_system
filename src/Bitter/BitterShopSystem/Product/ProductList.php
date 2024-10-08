@@ -79,6 +79,15 @@ class ProductList extends AttributedItemList implements PagerProviderInterface, 
     }
 
     /**
+     * @param int $sortOrder
+     */
+    public function filterBySortOrder($sortOrder)
+    {
+        $this->query->andWhere('t2.`sortOrder` = :sortOrder');
+        $this->query->setParameter('sortOrder', $sortOrder);
+    }
+
+    /**
      * @param File $fileEntity
      */
     public function filterByImage(File $fileEntity)

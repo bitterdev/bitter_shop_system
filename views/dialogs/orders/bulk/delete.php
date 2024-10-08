@@ -42,7 +42,7 @@ $nh = $app->make(Number::class);
                 <thead>
                 <tr>
                     <th>
-                        <?php echo t('Name') ?>
+                        <?php echo t('Id') ?>
                     </th>
                 </tr>
                 </thead>
@@ -50,7 +50,7 @@ $nh = $app->make(Number::class);
                 <?php foreach ($orders as $order) { ?>
                     <tr>
                         <td>
-                            <?php echo $order->getName(); ?>
+                            <?php echo $order->getId(); ?>
                         </td>
                     </tr>
                 <?php } ?>

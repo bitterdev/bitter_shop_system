@@ -105,11 +105,7 @@ class Controller extends BlockController
 
         if ($this->request->query->has("added")) {
             /** @noinspection PhpUndefinedFieldInspection */
-            $this->set('success', t("The product has been successfully added. Click %s to proceed checkout.", sprintf(
-                "<a href='%s'>%s</a>",
-                h(Url::to(Page::getByID($this->cartPageId))),
-                t("here")
-            )));
+            $this->set('isAdded', true);
         }
 
         if ($product instanceof Product) {

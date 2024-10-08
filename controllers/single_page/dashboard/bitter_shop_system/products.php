@@ -26,6 +26,7 @@ use Concrete\Core\Http\ResponseFactory;
 use Concrete\Core\Http\Request;
 use Concrete\Core\Site\Service;
 use Concrete\Core\Support\Facade\Url;
+use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Bitter\BitterShopSystem\Entity\TaxRate;
 use Bitter\BitterShopSystem\Entity\ShippingCost;
@@ -230,6 +231,7 @@ class Products extends DashboardPageController
             $entry->setShortDescription($data["shortDescription"]);
             $entry->setDescription($data["description"]);
             $entry->setLocale($data["locale"]);
+            $entry->setSortOrder($data["sortOrder"]);
             $entry->setPriceRegular((float)$data["priceRegular"]);
             $entry->setPriceDiscounted((float)$data["priceDiscounted"]);
             /** @var Service $siteService */
@@ -349,6 +351,12 @@ class Products extends DashboardPageController
 
         if ($entry instanceof ProductVariant) {
             $productId = $entry->getProduct()->getId();
+
+            try {
+                $this->entityManager->getConnection()->executeQuery("SET FOREIGN_KEY_CHECKS = 0;");
+                $this->entityManager->getConnection()->executeQuery("UPDATE OrderPosition SET productVariantId = NULL WHERE productVariantId = ?", [$variantId]);
+            } catch (Exception) {
+            }
 
             $this->entityManager->remove($entry);
             $this->entityManager->flush();

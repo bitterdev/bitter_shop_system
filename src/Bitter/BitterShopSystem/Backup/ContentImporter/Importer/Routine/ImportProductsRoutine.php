@@ -94,6 +94,7 @@ class ImportProductsRoutine extends AbstractRoutine
                 $productEntry->setPriceRegular((float)$item["price-regular"]);
                 $productEntry->setPriceDiscounted((float)$item["price-discounted"]);
                 $productEntry->setQuantity((int)$item["quantity"]);
+                $productEntry->setSortOrder((int)$item["sortOrder"]);
                 $productEntry->setLocale($locale);
                 $productEntry->setShippingCost($shippingCostService->getByHandle((string)$item["shipping-cost"]));
                 $productEntry->setTaxRate($taxRateService->getByHandle((string)$item["tax-rate"]));

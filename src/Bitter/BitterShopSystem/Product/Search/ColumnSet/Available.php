@@ -24,6 +24,7 @@ use Bitter\BitterShopSystem\Product\Search\ColumnSet\Column\ImageColumn;
 use Bitter\BitterShopSystem\Product\Search\ColumnSet\Column\QuantityColumn;
 use Bitter\BitterShopSystem\Product\Search\ColumnSet\Column\ShortDescriptionColumn;
 use Bitter\BitterShopSystem\Product\Search\ColumnSet\Column\HandleColumn;
+use Bitter\BitterShopSystem\Product\Search\ColumnSet\Column\SortOrderColumn;
 use Bitter\BitterShopSystem\Transformer\MoneyTransformer;
 use Concrete\Core\Entity\File\File;
 use Concrete\Core\Entity\File\Version;
@@ -120,6 +121,7 @@ class Available extends DefaultSet
         $this->addColumn(new ShortDescriptionColumn());
         $this->addColumn(new DescriptionColumn());
         $this->addColumn(new QuantityColumn());
+        $this->addColumn(new SortOrderColumn());
         $this->addColumn(new ImageColumn());
         $this->addColumn(new CategoryColumn());
     }

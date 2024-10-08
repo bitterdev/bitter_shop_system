@@ -339,6 +339,25 @@ $isEdit = is_numeric($entry->getId());
 
         <div class="form-group">
             <?php echo $form->label(
+                "sortOrder",
+                t("Sort Order"),
+                [
+                    "class" => "control-label"
+                ]
+            ); ?>
+
+            <?php echo $form->number(
+                "sortOrder",
+                $entry->getSortOrder(),
+                [
+                    "min" => 0,
+                    "class" => "form-control"
+                ]
+            ); ?>
+        </div>
+
+        <div class="form-group">
+            <?php echo $form->label(
                 "image",
                 t("Image"),
                 [

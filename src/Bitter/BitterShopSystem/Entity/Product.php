@@ -77,6 +77,12 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     protected $quantity = 1;
 
     /**
+     * @var int|null
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $sortOrder = 1;
+
+    /**
      * @var File|null
      * @ORM\ManyToOne(targetEntity="\Concrete\Core\Entity\File\File")
      * @ORM\JoinColumn(name="fID", referencedColumnName="fID", onDelete="SET NULL")
@@ -521,5 +527,23 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
     {
         $app = Application::getFacadeApplication();
         return $app->make(\Bitter\BitterShopSystem\Export\Item\Product::class);;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSortOrder(): ?int
+    {
+        return $this->sortOrder;
+    }
+
+    /**
+     * @param int|null $sortOrder
+     * @return Product
+     */
+    public function setSortOrder(?int $sortOrder): Product
+    {
+        $this->sortOrder = $sortOrder;
+        return $this;
     }
 }

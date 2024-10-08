@@ -82,6 +82,8 @@ class Controller extends BlockController
             $this->set('pagination', null);
         }
 
+        $productList->getQueryObject()->addOrderBy("t2.sortOrder");
+
         $this->set('products', $productList->getResults());
 
     }
