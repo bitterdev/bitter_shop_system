@@ -39,8 +39,7 @@ $categoryEntity = $service->getByHandle('customer');
 $category = $categoryEntity->getController();
 $setManager = $category->getSetManager();
 
-
-
+$customer = $entry->getCustomer();
 
 ?>
     <h2>
@@ -116,7 +115,7 @@ $setManager = $category->getSetManager();
 
         </tbody>
     </table>
-<?php if ($entry->getCustomer() instanceof Customer) { ?>
+<?php if ($customer instanceof Customer) { ?>
 
     <h2>
         <?php echo t("Customer Details"); ?>
@@ -130,7 +129,10 @@ $setManager = $category->getSetManager();
             </td>
 
             <td>
-                <?php echo $entry->getCustomer()->getEmail(); ?>
+                <?php try {
+                    echo $customer->getEmail();
+                } catch (Exception) {}
+                ?>
             </td>
         </tr>
         <?php foreach ($setManager->getUnassignedAttributeKeys() as $attributeKey) { ?>
@@ -141,7 +143,10 @@ $setManager = $category->getSetManager();
                 </td>
 
                 <td>
-                    <?php echo $entry->getCustomer()->getAttributeValue($attributeKey); ?>
+                    <?php try {
+                        echo $customer->getAttributeValue($attributeKey);
+                    } catch (Exception) {}
+                    ?>
                 </td>
             </tr>
         <?php } ?>
