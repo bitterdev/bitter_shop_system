@@ -310,7 +310,7 @@ class Products extends DashboardPageController
         }
 
         if (!isset($data["price"]) || empty($data["price"])) {
-            $this->error->add(t("The field \"Price\" is required."));
+            //$this->error->add(t("The field \"Price\" is required."));
         }
 
         if (!isset($data["quantity"]) || empty($data["quantity"])) {
@@ -506,7 +506,7 @@ class Products extends DashboardPageController
         }
 
         if (!isset($data["priceRegular"]) || empty($data["priceRegular"])) {
-            $this->error->add(t("The field \"Price Regular\" is required."));
+            //$this->error->add(t("The field \"Price Regular\" is required."));
         }
 
         $existingProduct = $this->entityManager->getRepository(Product::class)->findOneBy(["handle" => $data["handle"], "locale" => $data["locale"]]);

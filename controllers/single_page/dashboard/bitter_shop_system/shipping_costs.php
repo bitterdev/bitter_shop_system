@@ -287,7 +287,7 @@ class ShippingCosts extends DashboardPageController
         
         if (!isset($data["price"]) || empty($data["price"]))
         {
-            $this->error->add(t("The field \"Price\" is required."));
+            //$this->error->add(t("The field \"Price\" is required."));
         }
 
         $existingEntry = $this->entityManager->getRepository(ShippingCostEntity::class)->findOneBy(["handle" => $data["handle"]]);
