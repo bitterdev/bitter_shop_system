@@ -135,6 +135,8 @@ class Review extends ElementController
 
                     if ($cartService->getTotal() > 0.00001) {
                         $cartService->getSelectedPaymentProvider()->processPayment();
+                    } else {
+                        $cartService->transformToRealOrder();
                     }
 
                     $responseFactory->redirect((string)Url::to(Page::getCurrentPage(), "complete"), Response::HTTP_TEMPORARY_REDIRECT)->send();
