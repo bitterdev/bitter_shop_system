@@ -111,7 +111,7 @@ class Order implements ExportableInterface, SubjectInterface
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
