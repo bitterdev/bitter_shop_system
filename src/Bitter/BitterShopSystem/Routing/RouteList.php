@@ -13,6 +13,7 @@ namespace Bitter\BitterShopSystem\Routing;
 use Bitter\BitterShopSystem\API\V1\Middleware\FractalNegotiatorMiddleware;
 use Bitter\BitterShopSystem\API\V1\Payments;
 use Bitter\BitterShopSystem\API\V1\PdfEditor;
+use Bitter\BitterShopSystem\API\V1\Products;
 use Concrete\Core\Routing\RouteListInterface;
 use Concrete\Core\Routing\Router;
 
@@ -32,6 +33,8 @@ class RouteList implements RouteListInterface
                 /** @var $groupRouter Router */
                 /** @noinspection PhpParamsInspection */
                 $groupRouter->all('/payments/process_payment/{paymentProviderHandle}', [Payments::class, 'processPayment']);
+                /** @noinspection PhpParamsInspection */
+                $groupRouter->all('/payments/products/get_products', [Products::class, 'getProducts']);
             });
 
         /*
