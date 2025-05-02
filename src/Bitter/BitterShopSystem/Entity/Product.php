@@ -20,6 +20,7 @@ use Concrete\Core\Attribute\ObjectInterface;
 use Concrete\Core\Attribute\ObjectTrait;
 use Concrete\Core\Entity\Attribute\Value\Value as AttributeValue;
 use Concrete\Core\Entity\File\File;
+use Concrete\Core\Entity\File\Version;
 use Concrete\Core\Entity\PackageTrait;
 use Concrete\Core\Export\ExportableInterface;
 use Concrete\Core\Export\Item\ItemInterface;
@@ -515,8 +516,8 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
             "name" => $this->getName(),
             "locale" => $this->getLocale(),
             "description" => $this->getDescription(),
-            "category" => $this->getCategory(),
-            "image" => $this->getImage(),
+            "category" => $this->getCategory() instanceof Category ? $this->getCategory()->getHandle() : null,
+            "image" => $this->getImage() instanceof File ? ($this->getImage()->getApprovedVersion() instanceof Version ? $this->getImage()->getApprovedVersion()->getURL() : null) : null,
             "variants" => $this->getVariantList(),
             "attributes" => $attributes
         ];
