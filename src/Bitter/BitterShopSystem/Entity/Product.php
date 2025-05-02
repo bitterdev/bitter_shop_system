@@ -291,7 +291,7 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
 
     public function hasVariants(): bool
     {
-        return (is_array($this->getVariants()) && count($this->getVariants())> 0) ||
+        return (is_array($this->getVariants()) && count($this->getVariants()) > 0) ||
             ($this->getVariants() instanceof Collection && $this->getVariants()->count() > 0);
     }
 
@@ -500,8 +500,25 @@ class Product implements ObjectInterface, JsonSerializable, ExportableInterface
 
     public function jsonSerialize()
     {
+        $attributes = [];
+
+        foreach ($this->getObjectAttributeCategory()->getList() as $ak) {
+            $handle = $ak->getAttributeKeyHandle();
+            $value = $this->getAttribute($handle);
+            $attributes[$handle] = $value;
+        }
+
         return [
-            "handle" => $this->getHandle()
+            "handle" => $this->getHandle(),
+            "shortDescription" => $this->getShortDescription(),
+            "price" => $this->getPrice(),
+            "name" => $this->getName(),
+            "locale" => $this->getLocale(),
+            "description" => $this->getDescription(),
+            "category" => $this->getCategory(),
+            "image" => $this->getImage(),
+            "variants" => $this->getVariantList(),
+            "attributes" => $attributes
         ];
     }
 
