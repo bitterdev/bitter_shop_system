@@ -25,10 +25,11 @@ $form = $app->make(Form::class);
 
 ?>
 
-    <div class="ccm-dashboard-header-buttons">
-        <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
-    </div>
+<div class="ccm-dashboard-header-buttons">
+    <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
+</div>
 
+<?php \Concrete\Core\View\View::element("dashboard/did_you_know", [], "bitter_shop_system"); ?>
 
 <?php if (count($locales) === 1) { ?>
     <p>

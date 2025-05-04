@@ -24,6 +24,9 @@ $form = $app->make(Form::class);
 $pageSelector = $app->make(PageSelector::class);
 
 \Concrete\Core\View\View::element("dashboard/help_blocktypes", [], "bitter_shop_system");
+
+/** @noinspection PhpUnhandledExceptionInspection */
+\Concrete\Core\View\View::element("dashboard/did_you_know", [], "bitter_shop_system");
 ?>
 
 <div class="form-group">

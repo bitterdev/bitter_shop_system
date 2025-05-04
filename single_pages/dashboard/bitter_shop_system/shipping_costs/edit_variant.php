@@ -38,6 +38,8 @@ $config = $app->make(Repository::class);
         <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
     </div>
 
+    <?php \Concrete\Core\View\View::element("dashboard/did_you_know", [], "bitter_shop_system"); ?>
+
     <form action="#" method="post">
         <?php echo $token->output("save_shipping_cost_variant"); ?>
 

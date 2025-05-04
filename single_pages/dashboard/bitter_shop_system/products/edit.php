@@ -61,6 +61,7 @@ $isEdit = is_numeric($entry->getId());
         <?php } ?>
     </div>
 
+    <?php \Concrete\Core\View\View::element("dashboard/did_you_know", [], "bitter_shop_system"); ?>
 
     <form action="#" method="post">
         <?php echo $token->output("save_product_entity"); ?>

@@ -20,8 +20,9 @@ use Concrete\Core\View\View;
         <?php \Concrete\Core\View\View::element("dashboard/help", [], "bitter_shop_system"); ?>
     </div>
 
+    <?php \Concrete\Core\View\View::element("dashboard/did_you_know", [], "bitter_shop_system"); ?>
+    
 <?php
 
 /** @var KeyList $attributeView */
 $attributeView->render();
-
